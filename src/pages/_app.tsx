@@ -1,6 +1,6 @@
 import '../assets/scss/style.scss';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps } : any) {
   return <Component {...pageProps} />
 }
 
