@@ -1,29 +1,17 @@
 @charset "UTF-8";
 
-@font-face {
-    font-family: "Showcard Gothic";
-    src: url("../fonts/d66fa62dabed66f2226a1b2d17da0579.eot");
-    src: url("../fonts/d66fa62dabed66f2226a1b2d17da0579.eot?#iefix") format("embedded-opentype"), url("../fonts/d66fa62dabed66f2226a1b2d17da0579.woff2") format("woff2"), url("../fonts/d66fa62dabed66f2226a1b2d17da0579.woff") format("woff"), url("../fonts/d66fa62dabed66f2226a1b2d17da0579.ttf") format("truetype"), url("../fonts/d66fa62dabed66f2226a1b2d17da0579.svg#Showcard Gothic") format("svg");
-}
 
-// Variables
-$cream: #F8F1E3;
-$text: "Segoe UI", Helvetica, Arial, sans-serif;
-$title: "Showcard Gothic", Helvetica, Arial, sans-serif;
-$green: #73C8BB;
-$orange: #FF8A64;
-$black: #333333;
-$grey: #444444;
 
 // General
 body {
     font-family: $text;
     margin: 0;
     font-size: 16px;
-    background-image: url('../../img/background.png');
+    background-image: url('../../img/background.png'), linear-gradient(0.5turn, darken($cream, 7%), darken($cream, 2%), darken($cream, 7%));
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: 100% 100%;
-    background-color: red;
+    overflow-x: hidden;
     height: 100vh;
     width: 100vw;
 }
@@ -31,14 +19,19 @@ body {
 a {
     text-decoration: none;
     color: $orange;
+    text-transform: uppercase;
+    display: block;
+    font-weight: bold;
+    padding-top: 1em;
+    font-size: .85em;
 }
 
 h1 {
+    font-family: $text;
+    text-transform: uppercase;
     color: $green;
-    font-family: Showcard Gothic;
-    color: white;
-    line-height: 10px;
-    font-size: 2.8em;
+    font-size: 1.65em;
+    font-weight: bolder;
 }
 
 h2{
@@ -64,7 +57,13 @@ button {
     border-radius: 200px;
     outline: inherit;
     font-weight: bold;
-    transition: all 0.5s;
+    transition: all .5s;
+    font-family: $title;
+    @include moveTop;
+    &:hover{
+       @include funnyText;
+    }    
+      
 }
 
 .disabled{
@@ -75,11 +74,20 @@ button {
 }
 
 input {
-    padding: 1em;
-    border-radius: 3px;
-    border: 1px solid #ddd;
+    padding: .85em 1em;
+    border-radius: 10px;
+    margin: .5em 0;
+    border: 2px solid #fff;
     outline: inherit;
-    margin: 0 0.15em;
+    width: 70%;
+    background-color: rgba(255, 255, 255, 0.469);
+    font-size: 1.15em;
+    color: darken($lightGrey, 10%);
+    font-weight: bold;
+    text-transform: uppercase;
+    &::-webkit-input-placeholder{
+        color: $lightGrey;
+    }
 }
 
 textarea {
@@ -105,9 +113,14 @@ select {
 }
 
 .big-button {
-    padding: 1.6em 2em;
-    font-size: 1em;
+    padding: .5em 1.5em .8em 1.5em;
+    font-size: 1.5em;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    .maj{
+        font-size: 1.5em;
+    }
 }
 .mid-button {
     padding: 0.8em 1.2em;
@@ -119,28 +132,37 @@ select {
 }
 
 .orange-button {
-    border: 1px solid $orange;
+    border: 5px solid #FCFFFE;
     color: white;
-    background: $orange;
-    box-shadow: darken(rgba($orange, 0.4), 2%) 0 10px 20px;
-    i {
-        color: #fff;
-    }
-    &:hover {
-        border: 1px solid lighten($orange, 2%);
-        background: darken($orange, 2%);
+    background: radial-gradient(at 50%  150%, rgba($bright, .8), $orange);
+    filter: brightness(1.1);
+    @include thinShadow;
+    //animation: colorSpin 2s linear infinite;
+    &:active{
+        background-color: darken($orange, 10%);
     }
 }  
 
 .conteneur{
     display: flex;
-    align-items: center;
+    align-items: center;  
     justify-content: center;
-    margin: auto;
-    max-width: 25em;
-    background-color: red;
-    div{
-        flex: auto;
+    width: 100vw;
+    height: 100vh;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    .content{
+        max-width: 340px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        padding: 2em 1em 3.5em 1em;
+        border-radius: 40px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: all 1s;
+        transition-timing-function: $funnyBezier;
+        @include thinShadow;
     }
 }
   

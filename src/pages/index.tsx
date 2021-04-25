@@ -1,22 +1,25 @@
 import React from "react";
-import { Conteneur } from "./components/Conteneur";
-
 export default function Home() {
   return (
-    <>
-      <Conteneur>
-          <img src="" alt=""/>
-          <h1>Hello</h1>
-          <h2>Bonsoir</h2>
-          <p>Lorem ipsum</p>
-          <input type="text" placeholder="Test"/>
-          <select name="" id="">
-            <option value=""></option>
-            <option value=""></option>
-          </select>
-          <span className="cta">Couleur</span>
-          <button className="big-button"><span>J</span>ouer</button>
-      </Conteneur>
+    <>      
+        <span>
+          <b><h1>Nouveau joueur</h1></b>
+          <div className="inputs">
+            <input type="email" placeholder="Pseudo ou email"/>
+            <input type="password" placeholder="Mot de passe"/>
+          </div>
+          <button className="big-button orange-button">
+            <span className="maj">D</span>
+            <span>é</span>
+            <span>m</span>
+            <span>a</span>
+            <span>r</span>
+            <span>r</span>
+            <span>e</span>
+            <span>r</span>
+          </button>
+          <a href="">Se connecter</a>
+        </span>
     </>
   )
 }

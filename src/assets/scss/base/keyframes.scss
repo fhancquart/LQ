@@ -1,0 +1,25 @@
+@keyframes funny {
+  0% { transform: rotate(0deg); } 
+  33% { transform: rotate(-15deg); }
+  66% { transform: rotate(15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@-webkit-keyframes funny {
+  0% { transform: rotate(0deg); } 
+  33% { transform: rotate(-15deg); }
+  66% { transform: rotate(15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes colorSpin {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.15);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
