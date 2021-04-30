@@ -1,0 +1,14 @@
+.home{
+    button{
+        margin: .35em 0;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        &:hover{
+            .card1{
+                animation: spring 900ms ease-in-out forwards;
+            }
+        }
+    }
+    
+}

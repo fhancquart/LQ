@@ -14,6 +14,7 @@ body {
     overflow-x: hidden;
     height: 100vh;
     width: 100vw;
+    cursor: url("../../../../public/pointer.png") 0 0, auto;
 }
 
 a {
@@ -59,12 +60,52 @@ button {
     font-weight: bold;
     transition: all .5s;
     font-family: $title;
+    cursor: url("../../../../public/cursor.png") 0 0, auto;
     @include moveTop;
     &:hover{
        @include funnyText;
-    }    
-      
+    }          
 }
+
+.big-button {
+    padding: .5em 1.5em .8em 1.5em;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    .maj{
+        font-size: 1.5em;
+    }
+}
+
+.mid-button {
+    padding: 0.8em 1.2em;
+    font-size: 0.9em;
+}
+.small-button {
+    padding: 0.7em 1.5em;
+    font-size: 0.9em;
+}
+
+.orange-button {
+    border: 5px solid #FCFFFE;
+    color: white;
+    background: radial-gradient(at 50%  150%, rgba($bright, .8), $orange);
+
+    filter: brightness(1);
+    @include thinShadow;
+    //animation: colorSpin 2s linear infinite;
+    &:hover{
+        filter: brightness(1.1);
+    }
+    &:active{
+        background-color: darken($orange, 10%);
+        // background: radial-gradient(at 0%  150%, rgba(darken($bright, 10%), .8), darken($orange, 10%));
+    }
+    img{
+        padding-right:.5em !important;
+    }
+}  
 
 .disabled{
     cursor: not-allowed;
@@ -112,36 +153,7 @@ select {
     border-color: #ccc;
 }
 
-.big-button {
-    padding: .5em 1.5em .8em 1.5em;
-    font-size: 1.5em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    .maj{
-        font-size: 1.5em;
-    }
-}
-.mid-button {
-    padding: 0.8em 1.2em;
-    font-size: 0.9em;
-}
-.small-button {
-    padding: 0.7em 1.5em;
-    font-size: 0.9em;
-}
 
-.orange-button {
-    border: 5px solid #FCFFFE;
-    color: white;
-    background: radial-gradient(at 50%  150%, rgba($bright, .8), $orange);
-    filter: brightness(1.1);
-    @include thinShadow;
-    //animation: colorSpin 2s linear infinite;
-    &:active{
-        background-color: darken($orange, 10%);
-    }
-}  
 
 .conteneur{
     display: flex;
@@ -149,10 +161,11 @@ select {
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     .content{
         max-width: 340px;
+        min-width: 340px;
         background-color: rgba(255, 255, 255, 0.3);
         border: 3px solid rgba(255, 255, 255, 0.4);
         padding: 2em 1em 3.5em 1em;
@@ -163,6 +176,23 @@ select {
         transition: all 1s;
         transition-timing-function: $funnyBezier;
         @include thinShadow;
+        .header{
+            display: inline-flex;
+            .logo, .user, .back{
+                display: inline-flex;
+                align-items: center;
+                align-content: center;
+                cursor: url("../../../../public/cursor.png") 0 0, auto;
+            }
+            .user{
+                float: right;
+                padding: 1em;
+            }
+            .back{
+                float: left;
+                padding: 1em;
+            }
+        }
     }
 }
   
@@ -250,4 +280,12 @@ select {
         line-height: 10px;
     }
 
+}
+
+@media screen and (max-width: 425px) {
+    .conteneur{
+        .content{
+            min-width: auto !important;
+        }
+    }
 }
