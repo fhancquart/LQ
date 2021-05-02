@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from 'next/image'
 import Link from "next/link";
 
@@ -15,11 +15,11 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = (props) => {
 
-    const [letters, setLetters] = useState<Array<{
-        value: string
-    }>>([])
+    const [letters, setLetters] = useState<Array<string>>([])
 
-    props.text.split("").forEach(character => letters.push({value: character}));
+    useEffect(() => {
+        setLetters(props.text.split(""))
+    }, [])
 
     return(
         <>
@@ -35,10 +35,10 @@ export const Button: React.FC<ButtonProps> = (props) => {
                     />
                 : ""}
                 </div>
-                <span className="maj">{letters[0].value}</span>
+                <span className="maj">{letters[0]}</span>
                 {letters.slice(1).map((letter, key) => {
                     return(
-                        <span key={key}>{letter.value}</span>
+                        <span key={key}>{letter}</span>
                     )
                 })}
             </button>
