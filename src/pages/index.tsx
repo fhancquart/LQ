@@ -1,5 +1,5 @@
 import React from "react";
-import Link from 'next/link'
+import { Button } from "../components/Button";
 
 export default function Home() {
   return (
@@ -10,18 +10,17 @@ export default function Home() {
             <input type="email" placeholder="Pseudo ou email"/>
             <input type="password" placeholder="Mot de passe"/>
           </div>
-          <Link href="/accueil">
-            <button className="big-button orange-button">
-              <span className="maj">D</span>
-              <span>é</span>
-              <span>m</span>
-              <span>a</span>
-              <span>r</span>
-              <span>r</span>
-              <span>e</span>
-              <span>r</span>
-            </button>
-          </Link>
+            
+          <Button
+            text="Démarrer"
+            wButton="big"
+            cButton="orange"
+            isImage={false}
+            image={null}
+            wImage={null}
+            hImage={null}
+            link="/accueil"
+          />
             <a>Se connecter</a>
         </span>
     </>

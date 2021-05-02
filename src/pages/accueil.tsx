@@ -1,46 +1,34 @@
 import React from "react";
-import Link from 'next/link'
-import Image from 'next/image'
+import { Button } from "../components/Button";
 
 export default function Accueil() {
   return (
     <>      
         <span className="home">
-          <h1>Bonjour, prenom</h1>
+          <b><h1>Bonjour, prenom</h1></b>
 
-          <button className="big-button orange-button">
-            <div className="card1">
-              <Image 
-                  src="/SVG/users.svg" 
-                  alt="card"
-                  width="40"
-                  height="39"
-              />
-            </div>
-            <span className="maj">P</span>
-            <span>a</span>
-            <span>r</span>
-            <span>t</span>
-            <span>i</span>
-            <span>e</span>
-          </button>
+          <Button
+            text="Partie"
+            wButton="big"
+            cButton="orange"
+            isImage={true}
+            image="users.svg"
+            wImage={40}
+            hImage={39}
+            link="/accueil"
+          />
 
-          <button className="big-button orange-button">
-            <div className="card1">
-              <Image 
-                  src="/SVG/cards.svg" 
-                  alt="card"
-                  width="40"
-                  height="39"
-              />
-            </div>
-            <span className="maj">C</span>
-            <span>a</span>
-            <span>r</span>
-            <span>t</span>
-            <span>e</span>
-            <span>s</span>
-          </button>
+          <Button
+            text="Cartes"
+            wButton="big"
+            cButton="orange"
+            isImage={true}
+            image="cards.svg"
+            wImage={40}
+            hImage={39}
+            link="/accueil"
+          />
+
         </span>
     </>
   )
