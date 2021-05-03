@@ -3,9 +3,11 @@ import '../assets/scss/style.scss';
 import { Conteneur } from '../components/Conteneur';
 
 function MyApp({ Component, pageProps } : any) {
+
+
   return (
     <Conteneur>
-      <Component {...pageProps} />
+        <Component {...pageProps} />
     </Conteneur>
   )
 }

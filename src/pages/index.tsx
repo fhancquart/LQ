@@ -16,9 +16,6 @@ export default function Home() {
             wButton="big"
             cButton="orange"
             isImage={false}
-            image={null}
-            wImage={null}
-            hImage={null}
             link="/accueil"
           />
             <a>Se connecter</a>

@@ -7,10 +7,12 @@ interface ButtonProps {
     wButton: string;
     cButton: string;
     isImage: boolean;
-    image?: string | null;
-    wImage?: number | null;
-    hImage?: number | null;
+    image?: string;
+    wImage?: number;
+    hImage?: number;
     link: string;
+    isClick?: boolean;
+    click?: any;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
@@ -24,7 +26,10 @@ export const Button: React.FC<ButtonProps> = (props) => {
     return(
         <>
           <Link href={props.link}>
-            <button className={`${props.wButton}-button ${props.cButton}-button`}>
+            <button 
+                className={`${props.wButton}-button ${props.cButton}-button`}
+                onClick={props.isClick ? props.click : undefined}
+                >
                 <div className="card1">
                 {props.isImage ? 
                     <Image 

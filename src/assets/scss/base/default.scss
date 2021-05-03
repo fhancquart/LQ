@@ -53,7 +53,7 @@ h3 {
 }
 
 p {
-    color: $grey;
+    color: $textP;
 }
 
 button {
@@ -135,13 +135,7 @@ input {
 }
 
 textarea {
-    padding: 1em;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    outline: inherit;
-    width: 95%;
-    position: relative;
-    margin-top: 0.55em;
+    @extend input;
 }
 
 img {
@@ -167,8 +161,8 @@ select {
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     .content{
-        max-width: 340px;
-        min-width: 340px;
+        max-width: 300px;
+        min-width: 300px;
         background-color: rgba(255, 255, 255, 0.3);
         border: 3px solid rgba(255, 255, 255, 0.4);
         padding: 2em 1em 3.5em 1em;

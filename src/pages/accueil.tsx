@@ -26,7 +26,7 @@ export default function Accueil() {
             image="cards.svg"
             wImage={40}
             hImage={39}
-            link="/accueil"
+            link="/cartes"
           />
 
         </span>
