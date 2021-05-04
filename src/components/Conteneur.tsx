@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Header } from "./Header";
-import {backGlobalContext} from '../utils/CustomHooks/useGlobalContext'
+import {PrevNextContext, initialState, reducer} from '../utils/CustomHooks/usePrevNextContext'
 
 
 interface ConteneurProps {}
 
 export const Conteneur: React.FC<ConteneurProps> = ({children}) => {
+    
+    const [step, setStep] = useReducer(reducer, initialState)
 
-    const [backComponent, setBackComponent] = useState<Object>({step: 0, boolean: false});
 
     return(
         <>
             <span className="conteneur">
                 <div className="content">
-                    <backGlobalContext.Provider value={{backComponent, setBackComponent}}>
+                    <PrevNextContext.Provider value={{
+                        step: step.step,
+                        Next: () => setStep({type: "increment"}),
+                        Prev: () => setStep({type: "decrement"}),
+                    }}>
                         <Header />
                         {children}
-                    </backGlobalContext.Provider>
+                    </PrevNextContext.Provider>
                 </div>
             </span>
         </>

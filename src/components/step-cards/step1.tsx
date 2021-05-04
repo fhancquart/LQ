@@ -1,31 +1,20 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext } from "react";
 import { Button } from "../Button";
 import { Step2 } from "./step2";
-import {useBackContext, useStepContext} from '../../utils/CustomHooks/useGlobalContext'
+import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
 
-interface Step1Props {
-    nextStep: number;
-}
+interface Step1Props {}
 
 export const Step1: React.FC<Step1Props> = () => {
-    
-    const initialState = {step: 0};
 
-    function reducer(state: any, action: any) {
-        switch (action.type) {
-        case 'increment':
-            return {step: state.step + 1};
-        case 'decrement':
-            return {step: state.step - 1};
-        default:
-            throw new Error();
-        }
-    }
-    const [step, setStep] = useReducer(reducer, initialState);
+    const context = useContext(PrevNextContext);
+    const {step, Next} = context;
 
     return(
         <>  
-            {step.step == 0 ? 
+             {step == 1 || step != 0 ? 
+                <Step2 />
+            : 
                 <span>
                     <b><h1>Bienvenue dans l'assistant de création de jeu de carte en ligne</h1></b>
                     <p>Vous ne disposez actuellement d'aucun jeu de carte</p>
@@ -36,17 +25,10 @@ export const Step1: React.FC<Step1Props> = () => {
                         isImage={false}
                         link=""
                         isClick={true}
-                        click={() => {
-                            setStep({type: 'increment'})
-                        }}
+                        click={Next}
                     />
                 </span>
-            : 
-                <Step2 
-                    nextStep={step.step}
-                    setNextStep={setStep}
-                />
-            }
+            } 
         </>
     )
 }

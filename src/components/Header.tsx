@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import useOnClick from '../utils/CustomHooks/useOnClick'
-import {useBackContext, useStepContext} from '../utils/CustomHooks/useGlobalContext'
+import {PrevNextContext} from '../utils/CustomHooks/usePrevNextContext'
 
 
 interface HeaderProps {}
@@ -19,23 +19,15 @@ export const Header: React.FC<HeaderProps> = () => {
     const ref = useRef<HTMLDivElement>(null); // .profilMenu
     useOnClick(ref, () => setShowMenu(false));
 
-    const { backComponent, setBackComponent } = useBackContext();
-    const { nextStep, setNextStep } = useStepContext();
-    // console.log(backComponent)
-
-
-    const backStep = async (vStep: number) => {
-
-    }
-
-
+    const context = useContext(PrevNextContext);
+    const {Prev} = context;
 
     return(
         <div className="header">
             {!isLogOrReg ? 
                     <div className="back" onClick={
-                        () => {
-                            isCardProcess ? "" : router.back(); 
+                        isCardProcess ? Prev : () => {
+                            router.back(); 
                         }
                     }>
                         <Image 

@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Button } from "../Button";
 import { Step3 } from "./step3";
-import {useBackContext, useStepContext} from '../../utils/CustomHooks/useGlobalContext'
-import { Step1 } from "./step1";
+import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
 
 
-interface Step2Props {
-    nextStep: number;
-    setNextStep: (c: object) => void
-}
 
-export const Step2: React.FC<Step2Props> = (props) => {
+interface Step2Props {}
+
+export const Step2: React.FC<Step2Props> = () => {
+
+    const context = useContext(PrevNextContext);
+    const {step, Next} = context;
+    
     return(
         <>  
-                {props.nextStep == 1 ? 
+                {step == 2 || step != 1 ? 
+                    <Step3 />
+                :                 
                     <span>
                         <b><h1>Dites-nous en plus</h1></b>
 
@@ -30,16 +33,10 @@ export const Step2: React.FC<Step2Props> = (props) => {
                             isImage={false}
                             link=""
                             isClick={true}
-                            click={() => {
-                                props.setNextStep({type: 'increment'})
-                            }}
+                            click={Next}
                         />
                         
                     </span>
-                :                 
-                    <Step3 
-                        nextStep={3}
-                    />
                 }
         </>
     )
