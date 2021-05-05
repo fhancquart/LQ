@@ -1,7 +1,63 @@
 .cartes{
-    p{
-        max-width: 80%;
-        margin: auto;
-        padding: 2em 0 4em 0;
+    .step1{
+        p{
+            max-width: 80%;
+            margin: auto;
+            padding: 2em 0 3em 0;
+        }
+    }
+    .step3{
+        p{
+            padding: .35em 0;
+            margin: 0;
+        }
+        .top{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+            .ssButton{
+                margin: 2em auto;
+                text-align: center;
+            }
+            .arrow{
+                opacity: .75;
+                cursor: $cursor;
+                &:hover{
+                    opacity: 1;   
+                }
+            }
+            .prevSsButton{
+                .arrow{
+                    transform: rotate(-90deg);
+                }
+            }
+            .nextSsButton{
+                .arrow{
+                    transform: rotate(90deg);
+                }
+            }
+        }
+        .bottomBloc{
+            margin-bottom: 1.5em;
+            .bloc{
+                display: block;        
+                .bottom{
+                    display: inline-flex;
+                    .buttonGroups{
+                        margin-right: .5em;
+                    }
+                    input{
+                        padding: 0.5em .75em;
+                        width: 100%;
+                        margin: 0.25em 0;
+                        font-size: 1em;
+                        color: $textP;
+                        text-transform: inherit;
+                    }
+                }
+            }
+        }
     }
 }

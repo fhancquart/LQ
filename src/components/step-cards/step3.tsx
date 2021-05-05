@@ -1,25 +1,89 @@
-import React, { useContext} from "react";
+import React, { Dispatch, SetStateAction, useContext, useEffect, useReducer, useState} from "react";
 import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
+import { shadeColor } from "../../utils/shadeColor";
 import { Button } from "../Button";
+import Image from 'next/image';
+import { StepProps } from "../../utils/Types/interface";
+import { EditFields } from "./EditFields";
 
-interface Step3Props {}
-
-export const Step3: React.FC<Step3Props> = () => {
+export const Step3: React.FC<StepProps> = (props) => {
     
     const context = useContext(PrevNextContext);
     const {step, Next} = context;
-    
+
+    const [color, setColor] = useState("");   
+
+    const colorPicker = {
+        backgroundColor: color,
+        borderColor: shadeColor(color,-10)
+    };
+
+    const handleClick = async (v: string) => {
+        props.setClick(v)
+    }    
+
+    const handleInput = async (v: string) => {
+        props.setInputName(v)
+    }    
+
+    const numberFmily = 8;
+    var indents = [];
+    for (var i = 1; i < numberFmily; i++) {
+        indents.push(
+            <EditFields 
+                click={props.click}
+                inputName={props.inputName}
+                handleClick={handleClick}
+                handleInput={handleInput}
+                index={i}
+                key={i}
+            />
+        );
+    }
 
     return(
         <>  
             {step == 3 || step != 2 ? 
                 "YO"
             :                 
-                <span>
-                    <b><h1>sdf</h1></b>
+                <span className="step3">                    
+                    <b><h1>Passons à l'édition</h1></b>
+                    <p>Nom du jeu : <b>Nom</b></p>
+
+                    <p>Pour chaque familles, renseignez un titre et une couleur. Puis renseignez vos 6 Types <b>(T)</b>, Questions <b>(Q)</b>, et Réponses <b>(R)</b></p>
+
+                    <div className="edition">
+                        <div className="top">
+                            <span className="prevSsButton">
+                                <Image 
+                                    src="/SVG/arrow.svg" 
+                                    alt="Arrow"
+                                    width="25"
+                                    height="25"
+                                    className="arrow"
+                                />
+                            </span>
+                            <div className="ssButton" style={colorPicker}>
+                                <span style={color ? { color: 'white' } : {color: "#777777"}}>Code de la route</span>
+                                <input type="color" value={color} onChange={e => setColor(e.target.value)} ></input>
+                            </div>
+                            <span className="nextSsButton">
+                                <Image 
+                                    src="/SVG/arrow.svg" 
+                                    alt="Arrow"
+                                    width="25"
+                                    height="25"
+                                    className="arrow"
+                                />
+                            </span>
+                        </div>    
+                        <div className="bottomBloc">
+                            {indents}
+                        </div>                    
+                    </div>
 
                     <Button
-                        text="Go"
+                        text="J'ai terminé"
                         wButton="big"
                         cButton="orange"
                         isImage={false}

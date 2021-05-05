@@ -16,7 +16,7 @@ body {
     width: 100vw;
     cursor: $pointer;
     ::selection{
-        background-color: white;
+        background-color: $green;
     }
 }
 
@@ -110,6 +110,59 @@ button {
     }
 }  
 
+.ssButton{
+    padding: .65em 1em .85em 1em;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    background-color: #fff;
+    width: fit-content;
+    margin:auto;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: .8em;
+    span{
+        position: relative;
+        top: -.25em;
+        padding: 0 .5em;
+    }
+    input[type="color"]{
+        position: relative;
+        top: .05em;
+    }
+}
+
+.buttonGroups{
+    display: inline-flex;
+    .default{
+        padding: 0.35em 0.75em 0.5em 0.75em !important;
+        @include inputStyle;
+        &:hover, &:active{
+            background-color: $green;
+            color: #fff;
+        }
+    }
+    .left, .center, .right{
+        @extend .default;
+        margin: 0.25em 0;
+        cursor: $cursor;
+    }
+    .left{
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .center{
+        border-radius: 0px;
+    }
+    .right{
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+    .active{
+        background-color: $green !important;
+        color: #fff !important;
+    }
+}
+
 .disabled{
     cursor: not-allowed;
     background-color: #ccc !important;
@@ -117,25 +170,47 @@ button {
     box-shadow: none !important;
 }
 
-input {
-    padding: .85em 1em;
-    border-radius: 10px;
-    margin: .5em 0;
-    border: 2px solid #fff;
-    outline: inherit;
-    width: 70%;
-    background-color: rgba(255, 255, 255, 0.469);
-    font-size: 1.15em;
-    color: darken($lightGrey, 10%);
-    font-weight: bold;
-    text-transform: uppercase;
-    &::-webkit-input-placeholder{
-        color: $lightGrey;
+.inputs{
+    width: 80%;
+    margin: auto;
+    label:first-child{
+        padding-top: inherit;
+    }
+    textarea{
+        margin-bottom: 1.5em;
     }
 }
 
-textarea {
-    @extend input;
+input[type="text"], input[type="email"], input[type="password"], textarea {
+    @include inputStyle;
+}
+
+input[type="color"]{
+    border: 1px solid #fff;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    cursor: $cursor;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+    border-radius: 5px;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+    border-radius: 5px;
+}
+
+label{
+    color: $textP;
+    // text-transform: uppercase;
+    font-size: .85em;
+    text-align: left;
+    float: left;
+    padding-left: .5em;
+    padding-top: .85em;
 }
 
 img {
@@ -161,8 +236,8 @@ select {
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     .content{
-        max-width: 300px;
-        min-width: 300px;
+        max-width: 335px;
+        min-width: 335px;
         background-color: rgba(255, 255, 255, 0.3);
         border: 3px solid rgba(255, 255, 255, 0.4);
         padding: 2em 1em 3.5em 1em;

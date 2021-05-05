@@ -9,7 +9,6 @@ export const Conteneur: React.FC<ConteneurProps> = ({children}) => {
     
     const [step, setStep] = useReducer(reducer, initialState)
 
-
     return(
         <>
             <span className="conteneur">
@@ -18,6 +17,7 @@ export const Conteneur: React.FC<ConteneurProps> = ({children}) => {
                         step: step.step,
                         Next: () => setStep({type: "increment"}),
                         Prev: () => setStep({type: "decrement"}),
+                        Reinit: () => setStep({type: "reinit"}),
                     }}>
                         <Header />
                         {children}
