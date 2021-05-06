@@ -26,16 +26,10 @@ export interface EditFieldsProps {
 
 export interface InputsProps {
     click: string
-    inputName: string
     index: number
-    setInputs: Dispatch<SetStateAction<string>>
-    inputs: string
-    setInputs2: Dispatch<SetStateAction<string>>
-    inputs2: string
-    setInputs3: Dispatch<SetStateAction<string>>
-    inputs3: string
     handleChange: any
     settings: any
+    active: any
 }
 
 // export interface ExtendStepProps extends StepProps {}

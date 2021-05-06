@@ -4,10 +4,6 @@ import { Inputs } from "./Inputs";
 
 export const EditFields: React.FC<EditFieldsProps> = (props) => {
 
-    const [inputs,setInputs] = useState("");
-    const [inputs2,setInputs2] = useState("");
-    const [inputs3,setInputs3] = useState("");
-
     const [active,setActive] = useState({
         button: "", active: false,
         button2: "", active2: false,
@@ -21,7 +17,7 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                     <div className="buttonGroups">
 
                         <div className={
-                                active.active && active.button == "type" + props.index ? `active left` : (
+                                active.active && active.button == "type" + props.index || active.button == "" ? `active left` : (
                                 props.click == "T" + props.index ? 
                                 `active left` : `left`)
                             } 
@@ -78,16 +74,10 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
 
                     <Inputs
                         click={props.click}
-                        inputName={props.inputName}
                         index={props.index}
-                        setInputs={setInputs}
-                        inputs={inputs}
-                        setInputs2={setInputs2}
-                        inputs2={inputs2}
-                        setInputs3={setInputs3}
-                        inputs3={inputs3}
                         handleChange={props.handleChange}
                         settings={props.settings}
+                        active={active}
                     />
 
                 </div>
