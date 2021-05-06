@@ -14,9 +14,13 @@ export const Step1: React.FC<StepProps> = (props) => {
              {step == 1 || step != 0 ? 
                 <Step2 
                     click={props.click}
-                    setClick={props.setClick}
+                    handleClick={props.handleClick}
                     inputName={props.inputName}
-                    setInputName={props.setInputName}
+                    handleInput={props.handleInput}
+                    active={props.active}
+                    setActive={props.setActive}
+                    handleChange={props.handleChange}
+                    settings={props.settings}
                 />
             : 
                 <span className="step1">

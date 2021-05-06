@@ -1,30 +1,18 @@
-import React, { createContext, Dispatch, SetStateAction, useCallback, useState } from "react";
+import React, { useState } from "react";
 import { EditFieldsProps } from "../../utils/Types/interface";
+import { Inputs } from "./Inputs";
 
 export const EditFields: React.FC<EditFieldsProps> = (props) => {
 
-    // const context = createContext({});
-    // const { Provider, Consumer } = context;
-
-    // const tab = ({id, clickProps, clickHandle, children}) => {
-    //     <Consumer>
-    //         {({changeTab}) => 
-    //             <div className={
-    //                 clickProps == "T" + id ? 
-    //                 `active left` : `left`
-    //             }
-    //             onClick={
-    //                 () => clickHandle("T" + id)
-    //             }>{children}</div>
-    //         }
-    //     </Consumer>
-    // }
-    const initialValues = {}
     const [inputs,setInputs] = useState("");
     const [inputs2,setInputs2] = useState("");
     const [inputs3,setInputs3] = useState("");
 
-    console.log(inputs)
+    const [active,setActive] = useState({
+        button: "", active: false,
+        button2: "", active2: false,
+        button3: "", active3: false,
+      });
     
     return(
         <>
@@ -33,58 +21,74 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                     <div className="buttonGroups">
 
                         <div className={
+                                active.active && active.button == "type" + props.index ? `active left` : (
                                 props.click == "T" + props.index ? 
-                                `active left` : `left`
+                                `active left` : `left`)
                             } 
                             onClick={
                                 () => {
                                     props.handleClick("T" + props.index)
                                     props.handleInput("type" + props.index)
+                                    setActive({
+                                        button: "type" + props.index, active: true,
+                                        button2: "question" + props.index, active2: false,
+                                        button3: "reponse" + props.index, active3: false,
+                                    })
                                 }
                             }
                         >T</div>
 
                         <div className={
-                                props.click == "Q" + props.index ? 
-                                `active center` : `center`
+                                active.active2 && active.button2 == "question" + props.index ? `active center` :
+                                (props.click == "Q" + props.index ? 
+                                `active center` : `center`)
                             } 
                             onClick={
                                 () => {
                                     props.handleClick("Q" + props.index)
                                     props.handleInput("question" + props.index)
+                                    setActive({
+                                        button: "type" + props.index, active: false,
+                                        button2: "question" + props.index, active2: true,
+                                        button3: "reponse" + props.index, active3: false,
+                                    })
                                 }
                             }
                         >Q</div>
 
                         <div className={
-                                props.click == "R" + props.index ? 
-                                `active right` : `right`
+                                active.active3 && active.button3 == "reponse" + props.index ? `active right` :
+                                (props.click == "R" + props.index ? 
+                                `active right` : `right`)
                             } 
                             onClick={
                                 () => {
                                     props.handleClick("R" + props.index)
                                     props.handleInput("reponse" + props.index)
+                                    setActive({
+                                        button: "type" + props.index, active: false,
+                                        button2: "question" + props.index, active2: false,
+                                        button3: "reponse" + props.index, active3: true,
+                                    })
                                 }
                             }
                         >R</div>
 
                     </div>
 
-                    {props.click == "T" + props.index ? 
-                        <input type="text" name={`type${props.index}`} placeholder="Type" 
-                            onChange={(e) => setInputs(e.target.value)} value={inputs}
-                        /> 
-                    : (props.click == "Q" + props.index ? 
-                        <input type="text" name={`question${props.index}`} placeholder="Question"
-                            onChange={(e) => setInputs2(e.target.value)} value={inputs2}
-                        /> 
-                    :  (props.click == "R" + props.index ?  
-                        <input type="text" name={`reponse${props.index}`} placeholder="Réponse"
-                            onChange={(e) => setInputs3(e.target.value)} value={inputs3}
-                        />
-                    :   
-                        <input type="text" name={`reponse${props.index}`} placeholder="..."/>
-                    ))}
+                    <Inputs
+                        click={props.click}
+                        inputName={props.inputName}
+                        index={props.index}
+                        setInputs={setInputs}
+                        inputs={inputs}
+                        setInputs2={setInputs2}
+                        inputs2={inputs2}
+                        setInputs3={setInputs3}
+                        inputs3={inputs3}
+                        handleChange={props.handleChange}
+                        settings={props.settings}
+                    />
 
                 </div>
             </div>

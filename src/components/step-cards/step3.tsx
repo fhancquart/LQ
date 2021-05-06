@@ -16,15 +16,7 @@ export const Step3: React.FC<StepProps> = (props) => {
     const colorPicker = {
         backgroundColor: color,
         borderColor: shadeColor(color,-10)
-    };
-
-    const handleClick = async (v: string) => {
-        props.setClick(v)
-    }    
-
-    const handleInput = async (v: string) => {
-        props.setInputName(v)
-    }    
+    }; 
 
     const numberFmily = 8;
     var indents = [];
@@ -32,9 +24,13 @@ export const Step3: React.FC<StepProps> = (props) => {
         indents.push(
             <EditFields 
                 click={props.click}
+                handleClick={props.handleClick}
                 inputName={props.inputName}
-                handleClick={handleClick}
-                handleInput={handleInput}
+                handleInput={props.handleInput}
+                active={props.active}
+                setActive={props.setActive}
+                handleChange={props.handleChange}
+                settings={props.settings}
                 index={i}
                 key={i}
             />

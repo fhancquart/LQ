@@ -1,4 +1,13 @@
 .cartes{
+    input, textarea{
+        color: $textP;
+        text-transform: inherit;
+        font-size: 1em;
+        &::placeholder {
+            text-transform: uppercase;
+            font-size: 1.15em;
+        }
+    }
     .step1{
         p{
             max-width: 80%;
@@ -52,9 +61,6 @@
                         padding: 0.5em .75em;
                         width: 100%;
                         margin: 0.25em 0;
-                        font-size: 1em;
-                        color: $textP;
-                        text-transform: inherit;
                     }
                 }
             }
