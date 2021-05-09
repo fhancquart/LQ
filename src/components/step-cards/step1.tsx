@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext } from "react";
+import React, {useContext } from "react";
 import { Button } from "../Button";
 import { Step2 } from "./Step2";
 import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
@@ -15,12 +15,13 @@ export const Step1: React.FC<StepProps> = (props) => {
                 <Step2 
                     click={props.click}
                     handleClick={props.handleClick}
-                    inputName={props.inputName}
-                    handleInput={props.handleInput}
                     active={props.active}
                     setActive={props.setActive}
                     handleChange={props.handleChange}
                     settings={props.settings}
+                    handleChangeButtons={props.handleChangeButtons}
+                    family={props.family}
+                    setFamily={props.setFamily}
                 />
             : 
                 <span className="step1">

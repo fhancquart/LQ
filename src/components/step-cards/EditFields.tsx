@@ -3,12 +3,6 @@ import { EditFieldsProps } from "../../utils/Types/interface";
 import { Inputs } from "./Inputs";
 
 export const EditFields: React.FC<EditFieldsProps> = (props) => {
-
-    const [active,setActive] = useState({
-        button: "", active: false,
-        button2: "", active2: false,
-        button3: "", active3: false,
-      });
     
     return(
         <>
@@ -17,55 +11,52 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                     <div className="buttonGroups">
 
                         <div className={
-                                active.active && active.button == "type" + props.index || active.button == "" ? `active left` : (
-                                props.click == "T" + props.index ? 
+                                (props.active.type && props.active.number == props.index ? 
                                 `active left` : `left`)
                             } 
                             onClick={
                                 () => {
-                                    props.handleClick("T" + props.index)
-                                    props.handleInput("type" + props.index)
-                                    setActive({
-                                        button: "type" + props.index, active: true,
-                                        button2: "question" + props.index, active2: false,
-                                        button3: "reponse" + props.index, active3: false,
-                                    })
+                                    props.handleClick("type" + props.index);
+                                    props.handleChangeButtons({
+                                        number: props.index,
+                                        type: true,
+                                        question: false,
+                                        reponse: false,
+                                    });
                                 }
                             }
                         >T</div>
 
                         <div className={
-                                active.active2 && active.button2 == "question" + props.index ? `active center` :
-                                (props.click == "Q" + props.index ? 
+                                (props.active.question && props.active.number == props.index ? 
                                 `active center` : `center`)
                             } 
                             onClick={
                                 () => {
-                                    props.handleClick("Q" + props.index)
-                                    props.handleInput("question" + props.index)
-                                    setActive({
-                                        button: "type" + props.index, active: false,
-                                        button2: "question" + props.index, active2: true,
-                                        button3: "reponse" + props.index, active3: false,
-                                    })
+                                    props.handleClick("question" + props.index);
+                                    props.handleChangeButtons({
+                                        number: props.index,
+                                        type: false,
+                                        question: true,
+                                        reponse: false,
+                                    });
                                 }
                             }
                         >Q</div>
 
                         <div className={
-                                active.active3 && active.button3 == "reponse" + props.index ? `active right` :
-                                (props.click == "R" + props.index ? 
+                                (props.active.reponse && props.active.number == props.index ? 
                                 `active right` : `right`)
                             } 
                             onClick={
                                 () => {
-                                    props.handleClick("R" + props.index)
-                                    props.handleInput("reponse" + props.index)
-                                    setActive({
-                                        button: "type" + props.index, active: false,
-                                        button2: "question" + props.index, active2: false,
-                                        button3: "reponse" + props.index, active3: true,
-                                    })
+                                    props.handleClick("reponse" + props.index);
+                                    props.handleChangeButtons({
+                                        number: props.index,
+                                        type: false,
+                                        question: false,
+                                        reponse: true,
+                                    });
                                 }
                             }
                         >R</div>
@@ -77,7 +68,7 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                         index={props.index}
                         handleChange={props.handleChange}
                         settings={props.settings}
-                        active={active}
+                        active={props.active}
                     />
 
                 </div>

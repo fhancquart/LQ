@@ -3,25 +3,26 @@ import { Dispatch, SetStateAction } from "react";
 export interface StepProps {
     click: string
     handleClick: any
-    inputName: string
-    handleInput: any
+    family?: any
     active: any
     setActive: any
     handleChange: any
     settings: any
+    handleChangeButtons: any
+    setFamily?: any
 }
 
 export interface EditFieldsProps {
     click: string
-    inputName: string
     handleClick: any
-    handleInput: any
     index: number
     key: number
     active: any
     setActive: any
     handleChange: any
     settings: any
+    handleChangeButtons: any
+    setstate?: any
 }
 
 export interface InputsProps {

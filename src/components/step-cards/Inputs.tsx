@@ -5,19 +5,19 @@ export const Inputs: React.FC<InputsProps> = (props) => {
 
     return(
         <>
-            {props.click == "T" + props.index || props.active.active && props.active.button == "type" + props.index ? 
+            {props.active.type && props.active.number == props.index ?
                 <input type="text" name={`type${props.index}`} placeholder="Type" 
                     onChange={(e) => {
                         props.handleChange(e);
                     }} value={props.settings["type" + props.index] || ""}
                 /> 
-            : (props.click == "Q" + props.index || props.active.active2 && props.active.button2 == "question" + props.index ? 
+            : (props.active.question && props.active.number == props.index ?
                 <input type="text" name={`question${props.index}`} placeholder="Question"
                     onChange={(e) => {
                         props.handleChange(e);
                     }} value={props.settings["question" + props.index] || ""}
                 /> 
-            :  (props.click == "R" + props.index || props.active.active3 && props.active.button3 == "reponse" + props.index ?  
+            :  (props.active.reponse && props.active.number == props.index ?
                 <input type="text" name={`reponse${props.index}`} placeholder="Réponse"
                     onChange={(e) => {
                         props.handleChange(e);

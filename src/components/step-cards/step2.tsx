@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext } from "react";
+import React, {useContext } from "react";
 import { Button } from "../Button";
 import { Step3 } from "./Step3";
 import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
@@ -15,12 +15,11 @@ export const Step2: React.FC<StepProps> = (props) => {
                 <Step3 
                     click={props.click}
                     handleClick={props.handleClick}
-                    inputName={props.inputName}
-                    handleInput={props.handleInput}
                     active={props.active}
                     setActive={props.setActive}
                     handleChange={props.handleChange}
                     settings={props.settings}
+                    handleChangeButtons={props.handleChangeButtons}
                 />
             :                 
                 <span className="step2">
@@ -30,7 +29,10 @@ export const Step2: React.FC<StepProps> = (props) => {
                         <label htmlFor="name">Quel est son nom ?</label>
                         <input type="text" name="name" placeholder="Nom du jeu" onChange={props.handleChange} value={props.settings.name}/>
                         <label htmlFor="name">De combien de familles dispose-t-il ?</label>
-                        <input type="number" name="family" placeholder="7 max." onChange={props.handleChange} min="1" max="7" value={props.settings.family}/>
+                        <input type="number" name="family" placeholder="7 max." onChange={(e) =>{
+                            props.handleChange;
+                            props.setFamily(e.target.value)
+                        }} min="1" max="7" value={props.family}/>
                         <label htmlFor="name">Court résumé de sa thématique</label>
                         <textarea name="summary" placeholder="50 caractères max." maxLength={50} onChange={props.handleChange} value={props.settings.summary}></textarea>
                     </div>

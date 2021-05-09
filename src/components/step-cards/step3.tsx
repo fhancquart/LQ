@@ -16,26 +16,7 @@ export const Step3: React.FC<StepProps> = (props) => {
     const colorPicker = {
         backgroundColor: color,
         borderColor: shadeColor(color,-10)
-    }; 
-
-    const numberFmily = 8;
-    var indents = [];
-    for (var i = 1; i < numberFmily; i++) {
-        indents.push(
-            <EditFields 
-                click={props.click}
-                handleClick={props.handleClick}
-                inputName={props.inputName}
-                handleInput={props.handleInput}
-                active={props.active}
-                setActive={props.setActive}
-                handleChange={props.handleChange}
-                settings={props.settings}
-                index={i}
-                key={i}
-            />
-        );
-    }
+    };    
 
     return(
         <>  
@@ -74,7 +55,21 @@ export const Step3: React.FC<StepProps> = (props) => {
                             </span>
                         </div>    
                         <div className="bottomBloc">
-                            {indents}
+                            {props.active.map((v:any,i:number) => {
+                                return (
+                                    <EditFields 
+                                        click={props.click}
+                                        handleClick={props.handleClick}
+                                        active={v}
+                                        setActive={props.setActive}
+                                        handleChange={props.handleChange}
+                                        settings={props.settings}
+                                        handleChangeButtons={props.handleChangeButtons}
+                                        index={i+1}
+                                        key={i+1}
+                                    />
+                                )
+                            })}
                         </div>                    
                     </div>
 
