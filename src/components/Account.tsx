@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react";
 import useOnClick from "../utils/CustomHooks/useOnClick";
 import Image from 'next/image';
+import { Switch } from "./Switch";
+import { SwitchProps } from "../utils/Types/interface";
 
-
-interface AccountProps {}
-
-export const Account: React.FC<AccountProps> = () => {
+export const Account: React.FC<SwitchProps> = (props) => {
 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -26,6 +25,7 @@ export const Account: React.FC<AccountProps> = () => {
                 {showMenu === true ? 
                     <div className="profilMenu" ref={ref}>
                         <ul>
+                            <li><Switch isDark={props.isDark} setIsDark={props.setIsDark} /></li>
                             <li>Déconnexion</li>
                         </ul>
                     </div>

@@ -1,14 +1,13 @@
-import React, { useReducer, useState } from "react";
+import React, { Dispatch, SetStateAction, useReducer } from "react";
 import { Header } from "./Header";
 import {PrevNextContext, initialState, reducer} from '../utils/CustomHooks/usePrevNextContext'
+import { SwitchProps } from "../utils/Types/interface";
 
 
-interface ConteneurProps {}
-
-export const Conteneur: React.FC<ConteneurProps> = ({children}) => {
+export const Conteneur: React.FC<SwitchProps> = ({children, ...pageProps}) => {
     
     const [step, setStep] = useReducer(reducer, initialState)
-
+    
     return(
         <>
             <span className="conteneur">
@@ -19,7 +18,10 @@ export const Conteneur: React.FC<ConteneurProps> = ({children}) => {
                         Prev: () => setStep({type: "decrement"}),
                         Reinit: () => setStep({type: "reinit"}),
                     }}>
-                        <Header />
+                        <Header 
+                            isDark={pageProps.isDark}
+                            setIsDark={pageProps.setIsDark}
+                        />
                         {children}
                     </PrevNextContext.Provider>
                 </div>

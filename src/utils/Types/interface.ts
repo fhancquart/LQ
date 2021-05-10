@@ -33,4 +33,9 @@ export interface InputsProps {
     active: any
 }
 
+export interface SwitchProps {
+    isDark: any
+    setIsDark: any
+}
+
 // export interface ExtendStepProps extends StepProps {}

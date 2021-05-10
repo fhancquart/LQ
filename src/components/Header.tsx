@@ -1,15 +1,13 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import {PrevNextContext} from '../utils/CustomHooks/usePrevNextContext'
 import { Back } from "./Back";
 import { Account } from "./Account";
+import { SwitchProps } from "../utils/Types/interface";
 
-
-interface HeaderProps {}
-
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC<SwitchProps> = (props) => {
 
     const router = useRouter();
     const isLogOrReg = router.pathname === "/";
@@ -34,7 +32,10 @@ export const Header: React.FC<HeaderProps> = () => {
                 </Link>
             </div>
             {!isLogOrReg ? 
-                <Account />
+                <Account 
+                    isDark={props.isDark}
+                    setIsDark={props.setIsDark}
+                />
             : ""}
         </div>
     )

@@ -5,7 +5,13 @@ import {useSwitchList} from "../utils/CustomHooks/useSwitchList";
 export default function Cartes() { 
 
   const [settings, setSettings] = useState({});
-  const [active, setActive, family, setFamily, handleChangeButtons] = useSwitchList();
+  const [
+    active, 
+    setActive, 
+    family, 
+    setFamily, 
+    handleChangeButtons
+  ] = useSwitchList();
   const [click, setClick] = useState("");
 
   const handleChange = (evt: any) => {
