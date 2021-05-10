@@ -13,6 +13,8 @@ export function useSwitchList() {
 
     const [active,setActive] = useState([values]);
 
+    console.log(active)
+
     useEffect(() => {
         active.length = 0; //reinit
         for (var i = 1; i <= family; i++) {

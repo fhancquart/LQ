@@ -25,8 +25,8 @@ export const Account: React.FC<SwitchProps> = (props) => {
                 {showMenu === true ? 
                     <div className="profilMenu" ref={ref}>
                         <ul>
-                            <li><Switch isDark={props.isDark} setIsDark={props.setIsDark} /></li>
-                            <li>Déconnexion</li>
+                            <li className="switchDarkMode"><Switch isDark={props.isDark} setIsDark={props.setIsDark} /></li>
+                            <li className="out">Déconnexion</li>
                         </ul>
                     </div>
                 : ""}

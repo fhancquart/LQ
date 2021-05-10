@@ -22,9 +22,6 @@ export default function Cartes() {
     });
   }
 
- 
-
-
   const handleClick = async (v: string) => {
     setClick(v)
   }    

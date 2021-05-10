@@ -20,17 +20,8 @@ body {
     }
 }
 
-.light{
-    background-image: url('../../img/background.png'), linear-gradient(0.5turn, darken($cream, 7%), darken($cream, 2%), darken($cream, 7%));
-    p {
-        color: $textP;
-    }
-    h2,
-    h3 {
-        color: $black;
-        font-weight: normal;
-    }
-}
+@include switchMode(".light", $cream, darken($cream, 2%), $textP);
+@include switchMode(".dark", $dark, #6f3b96, #fff);
 
 .dark{
     background-image: url('../../img/background-dark.png'), linear-gradient(0.5turn, darken($dark, 7%), darken(#6f3b96, 2%), darken($dark, 7%));
@@ -129,11 +120,11 @@ button {
 }  
 
 .ssButton{
-    padding: .65em 1em .85em 1em;
+    padding: 0em 0em 0em 0em;
     border-radius: 10px;
     border: 2px solid #f0f0f0;
     background-color: #fff;
-    width: fit-content;
+    max-width: 100%;
     margin:auto;
     text-transform: uppercase;
     font-weight: bolder;
@@ -143,9 +134,14 @@ button {
         top: -.25em;
         padding: 0 .5em;
     }
+    input[type="text"]{
+        border: 0px;
+        background-color: transparent;
+    }
     input[type="color"]{
         position: relative;
-        top: .05em;
+        top: .35em;
+        right: 1em;
     }
 }
 
@@ -159,19 +155,19 @@ button {
             color: #fff;
         }
     }
-    .left, .center, .right{
+    .T, .Q, .R{
         @extend .default;
         margin: 0.25em 0;
         cursor: $cursor;
     }
-    .left{
+    .T{
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
-    .center{
+    .Q{
         border-radius: 0px;
     }
-    .right{
+    .R{
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
     }
@@ -246,16 +242,15 @@ select {
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 75px;
-	height: 40px;
-	background-color: #2c2c2c;
+	width: 50px;
+	height: 25px;
 	color: #000;
 	-webkit-transition: all 0.6s;
 	transition: all 0.6s;
 }
 .switch.dark {
 	border-radius: 25px;
-	padding: 5px;
+	padding: 1px;
 	cursor: pointer;
 	&:before {
 		-webkit-transition: 0.6s;
@@ -263,38 +258,22 @@ select {
 		display: block;
 		position: absolute;
 		content: "";
-		height: 39px;
-		width: 39px;
+		height: 20px;
+		width: 20px;
 		left: 4px;
-		top: 5px;
-		background-color: #f2c74e;
+		top: 2.5px;
+		background-color: $orange;
 		-webkit-transition: 0.6s;
 		transition: all 0.6s;
 		-webkit-transition-delay: 0.01s;
 		transition-delay: 0.01s;
-		-moz-box-shadow: inset -8px -8px 6px -6px #c7960f;
-		-webkit-box-shadow: inset -8px -8px 6px -6px #c7960f;
 		border-radius: 50%;
-		box-shadow: inset -8px -8px 6px -6px #c7960f;
-	}
-	&:after {
-		-webkit-transition: 0.6s;
-		transition: all 0.6s;
-		display: block;
-		position: absolute;
-		content: ": (";
-		-o-transform: rotate(-270deg);
-		-webkit-transform: rotate(-270deg);
-		-ms-transform: rotate(-270deg);
-		transform: rotate(-270deg);
-		left: 17px;
-		top: 15px;
 	}
 }
 
 .switch.light {
 	border-radius: 25px;
-	padding: 5px;
+	padding: 1px;
 	cursor: pointer;
 	&:before {
 		-webkit-transition: 0.6s;
@@ -302,34 +281,19 @@ select {
 		display: block;
 		position: absolute;
 		content: "";
-		height: 39px;
-		width: 39px;
+		height: 20px;
+		width: 20px;
 		left: 4px;
-		top: 5px;
-		background-color: #f2c74e;
+		top: 2.5px;
+		background-color: $orange;
 		-webkit-transition: 0.6s;
 		transition: all 0.6s;
 		-webkit-transition-delay: 0.01s;
 		transition-delay: 0.01s;
-		-moz-box-shadow: inset -8px -8px 6px -6px #c7960f;
-		-webkit-box-shadow: inset -8px -8px 6px -6px #c7960f;
 		border-radius: 50%;
-		box-shadow: inset -8px -8px 6px -6px #c7960f;
-		-webkit-transform: translateX(38px);
-		-ms-transform: translateX(38px);
-		transform: translateX(38px);
-	}
-	&:after {
-		-webkit-transition: 0.6s;
-		transition: all 0.6s;
-		position: absolute;
-		content: ": )";
-		-o-transform: rotate(90deg);
-		-webkit-transform: rotate(90deg);
-		-ms-transform: rotate(90deg);
-		transform: rotate(90deg);
-		left: 56px;
-		top: 15px;
+		-webkit-transform: translateX(23px);
+		-ms-transform: translateX(23px);
+		transform: translateX(23px);
 	}
 }
 
