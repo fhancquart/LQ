@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useReducer, useState} from "react";
+import React, { useContext, useState} from "react";
 import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
 import { shadeColor } from "../../utils/shadeColor";
 import { Button } from "../Button";
@@ -41,7 +41,7 @@ export const Step3: React.FC<StepProps> = (props) => {
                                 />
                             </span>
                             <div className="ssButton" style={colorPicker}>
-                                <input type="text" style={color ? { color: 'white' } : {color: "#777777"}} placeholder="Nom de la famille" />
+                                <input type="text" name="familyInput" style={color ? { color: 'white' } : {color: "#777777"}} placeholder="Nom de la famille" />
                                 <input type="color" value={color} onChange={e => setColor(e.target.value)} ></input>
                             </div>
                             <span className="nextSsButton">

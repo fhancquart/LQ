@@ -18,8 +18,31 @@
 @mixin switchMode($base, $bgColor, $gradient, $textColor) {
     #{$base}{
         background-image: url('../../img/background.png'), linear-gradient(0.5turn, darken($bgColor, 7%), $gradient, darken($bgColor, 7%));
-        p {
-            color: $textColor;
+        p, label,textarea {
+            color: $textColor !important;
+        }
+        input {
+            &:not([name='inputFamily']){
+                color: $textColor;
+            }
+        }
+        .buttonGroups .default, .buttonGroups .T, .buttonGroups .Q, .buttonGroups .R{
+            color: rgba($textColor, .5) !important;
+        }
+        .buttonGroups{
+            .active{
+                background-color: $green !important;
+                color: #fff !important;
+            }
+        }
+        input, textarea{
+            &::placeholder {
+                color: $textColor !important;
+                opacity: .4;
+            }
+        }
+        svg{
+            fill: $textColor !important;
         }
         h2,
         h3 {
