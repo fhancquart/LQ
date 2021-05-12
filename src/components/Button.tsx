@@ -13,6 +13,8 @@ interface ButtonProps {
     link: string;
     isClick?: boolean;
     click?: any;
+    onClick?: any;
+    disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {

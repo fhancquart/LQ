@@ -9,6 +9,6 @@ export const Switch: React.FC<SwitchProps> = (props) => {
     }
 
     return(
-        <div className={`switch ${props.isDark ? "dark" : "light"}`} onClick={switchMode}></div>
+        <div className={`switch ${props.isDark ? "darkMode" : "lightMode"}`} onClick={switchMode}></div>
     )
 }

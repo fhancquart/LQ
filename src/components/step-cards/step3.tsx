@@ -23,9 +23,10 @@ export const Step3: React.FC<StepProps> = (props) => {
             {step == 3 || step != 2 ? 
                 "YO"
             :                 
-                <span className="step3">                    
+                <span className="step3">      
+                    <span className="step">2/3</span>              
                     <b><h1>Passons à l'édition</h1></b>
-                    <p>Nom du jeu : <b>Nom</b></p>
+                    <p>Nom du jeu : <b>{props.settings.name}</b></p>
 
                     <p>Pour chaque familles, renseignez un titre et une couleur. Puis renseignez vos 6 Types <b>(T)</b>, Questions <b>(Q)</b>, et Réponses <b>(R)</b></p>
 

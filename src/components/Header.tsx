@@ -6,6 +6,7 @@ import {PrevNextContext} from '../utils/CustomHooks/usePrevNextContext'
 import { Back } from "./Back";
 import { Account } from "./Account";
 import { SwitchProps } from "../utils/Types/interface";
+import { useDarkMode } from "../utils/CustomHooks/useDarkMode";
 
 export const Header: React.FC<SwitchProps> = (props) => {
 
@@ -15,20 +16,22 @@ export const Header: React.FC<SwitchProps> = (props) => {
     const context = useContext(PrevNextContext);
     const {Reinit} = context;
 
+    const view = props.isDark ? "DARK" : "LIGHT";
+
     return(
         <div className="header">
             {!isLogOrReg ? 
                 <Back />
             : ""}
             <div className="logo" onClick={Reinit}>
-                <Link href="/accueil">
-                    <Image 
-                        src="/SVG/logo.svg" 
-                        alt="Logo"
-                        width="160"
-                        height="90"
-                        className="logoico"
-                    />
+                <Link href="/accueil"> 
+                        <Image 
+                            src={`/SVG/${view}/logo.svg`}
+                            alt="Logo"
+                            width="160"
+                            height="90"
+                            className="logoico"
+                        />
                 </Link>
             </div>
             {!isLogOrReg ? 

@@ -8,6 +8,13 @@
             font-size: 1.15em;
         }
     }
+    .step{
+        display: block;
+        font-size: .85em;
+        color: $textP;
+        position: relative;
+        top: 1em;
+    }
     .step1{
         p{
             max-width: 80%;
@@ -29,6 +36,9 @@
             .ssButton{
                 margin: 2em auto;
                 text-align: center;
+                input[type="text"]{
+                    font-size: .95em;
+                }
             }
             .arrow{
                 opacity: .75;

@@ -1,0 +1,19 @@
+//Light
+@include switchMode(
+    ".light", 
+    $cream, 
+    darken($cream, 2%), 
+    $textP, 
+    #fff,
+    #fff
+);
+
+//Dark
+@include switchMode(
+    ".dark", 
+    $dark, 
+    $purple, 
+    #fff, 
+    $darkOrange,
+    #000
+);
