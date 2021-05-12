@@ -10,6 +10,8 @@ export default function Cartes() {
     setActive, 
     family, 
     setFamily, 
+    group,
+    setGroup,
     handleChangeButtons
   ] = useSwitchList();
   const [click, setClick] = useState("");
@@ -33,6 +35,8 @@ export default function Cartes() {
                 click={click}
                 family={family}
                 setFamily={setFamily}
+                group={group}
+                setGroup={setGroup}
                 handleClick={handleClick}
                 active={active}
                 setActive={setActive}

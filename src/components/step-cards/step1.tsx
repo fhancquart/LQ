@@ -17,6 +17,8 @@ export const Step1: React.FC<StepProps> = (props) => {
                     handleClick={props.handleClick}
                     active={props.active}
                     setActive={props.setActive}
+                    group={props.group}
+                    setGroup={props.setGroup}
                     handleChange={props.handleChange}
                     settings={props.settings}
                     handleChangeButtons={props.handleChangeButtons}

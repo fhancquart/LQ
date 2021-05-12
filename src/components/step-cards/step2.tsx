@@ -9,8 +9,8 @@ export const Step2: React.FC<StepProps> = (props) => {
     const context = useContext(PrevNextContext);
     const {step, Next} = context;
 
-    const maxValue = (e:any) => {
-        e > 7 ? props.setFamily(7) : props.setFamily(e);
+    const maxValue = (e:any, type:any) => {
+        e > 7 ? type(7) : type(e);
     }
     
     return(
@@ -34,9 +34,15 @@ export const Step2: React.FC<StepProps> = (props) => {
                         <label htmlFor="name">Quel est son nom ?</label>
                         <input type="text" name="name" placeholder="Nom du jeu" onChange={props.handleChange} value={props.settings.name}/>
 
-                        <label htmlFor="family">De combien de familles dispose-t-il ?</label>
+                        <label htmlFor="familyID">De combien de familles dispose-t-il ?</label>
+                        <input type="number" pattern="\d*" name="familyID" placeholder="7 max." onChange={(e) =>{
+                            maxValue(e.target.value, props.setGroup);
+                            props.handleChange;
+                        }} min="1" max="7" value={props.group == 0 ? "" : props.group}/>
+
+                        <label htmlFor="family">De combien de cartes dispose-t-il ?</label>
                         <input type="number" pattern="\d*" name="family" placeholder="7 max." onChange={(e) =>{
-                            maxValue(e.target.value);
+                            maxValue(e.target.value, props.setFamily);
                             props.handleChange;
                         }} min="1" max="7" value={props.family == 0 ? "" : props.family}/>
 

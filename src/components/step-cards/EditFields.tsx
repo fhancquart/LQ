@@ -15,6 +15,7 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                         {fields.map((v:any,i:number) => {
                             return (
                                 <ButtonGroups 
+                                    id={props.id}
                                     field={v}
                                     click={props.click}
                                     index={props.index}
@@ -26,6 +27,7 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                         })}
                     </div>
                     <Inputs
+                        id={props.id}
                         click={props.click}
                         index={props.index}
                         handleChange={props.handleChange}

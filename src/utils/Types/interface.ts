@@ -2,15 +2,18 @@ export interface StepProps {
     click: string
     handleClick: any
     family?: any
+    group?: any
     active: any
     setActive: any
     handleChange: any
     settings: any
     handleChangeButtons: any
     setFamily?: any
+    setGroup?: any
 }
 
 export interface EditFieldsProps {
+    id?: number
     click: string
     handleClick: any
     index: number
@@ -24,6 +27,7 @@ export interface EditFieldsProps {
 }
 
 export interface InputsProps {
+    id?: number
     click: string
     index: number
     handleChange: any
