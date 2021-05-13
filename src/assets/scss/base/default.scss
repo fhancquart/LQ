@@ -127,7 +127,7 @@ button {
 .buttonGroups{
     display: inline-flex;
     .default{
-        padding: 0.15em 0.5em 0.3em 0.5em !important;
+        padding: 0.25em 0.65em 0.5em 0.65em !important;
         @include inputStyle;
         &:hover, &:active{
             background-color: $green;
@@ -139,13 +139,13 @@ button {
         margin: 0.25em 0;
         cursor: $cursor;
     }
-    .T{
+    .T, .Q{
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
-    .Q{
-        border-radius: 0px;
-    }
+    // .Q{
+    //     border-radius: 0px;
+    // }
     .R{
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;

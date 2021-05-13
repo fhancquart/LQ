@@ -5,7 +5,7 @@ import { Inputs } from "./Inputs";
 
 export const EditFields: React.FC<EditFieldsProps> = (props) => {
 
-    const fields = ["type", "question", "reponse"];
+    const fields = ["question", "reponse"];
     
     return(
         <>

@@ -12,7 +12,6 @@ export function useSwitchList() {
 
     let values = {
         number: 0,
-        type:false,
         question:false,
         reponse:false
     };
@@ -30,11 +29,9 @@ export function useSwitchList() {
         }
 
         active.forEach((e) => {
-            // console.log(e.content)
             for (var i = 1; i <= family - 1; i++) { //Puis les cartes pour chaque familles
                 e.content.push({
                     number: i,
-                    type:false,
                     question:false,
                     reponse:false
                 } as any)

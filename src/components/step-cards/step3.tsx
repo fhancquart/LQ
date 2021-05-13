@@ -1,16 +1,17 @@
-import React, { useContext, useState} from "react";
+import React, { useContext, useReducer} from "react";
 import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
-import { shadeColor } from "../../utils/shadeColor";
+import {initialState, reducer} from '../../utils/CustomHooks/usePrevNextFamily'
 import { Button } from "../Button";
-import Image from 'next/image';
 import { StepProps } from "../../utils/Types/interface";
 import { EditFields } from "./EditFields";
-import { ColorPicker } from "./ColorPicker";
+import { HeaderFamily } from "./HeaderFamily";
 
 export const Step3: React.FC<StepProps> = (props) => {
     
     const context = useContext(PrevNextContext);
     const {step, Next} = context;
+
+    const [prevNextFamily, dispatch] = useReducer(reducer, initialState)
 
     return(
         <>  
@@ -22,52 +23,43 @@ export const Step3: React.FC<StepProps> = (props) => {
                     <b><h1>Passons à l'édition</h1></b>
                     <p>Nom du jeu : <b>{props.settings.name}</b></p>
 
-                    <p>Pour chaque familles, renseignez un titre et une couleur. Puis renseignez vos 6 Types <b>(T)</b>, Questions <b>(Q)</b>, et Réponses <b>(R)</b></p>
+                    <p>Pour vos {props.group} familles, renseignez un titre et une couleur. Puis renseignez vos {props.family} Questions <b>(Q)</b>, et Réponses <b>(R)</b></p>
 
                     <div className="edition">
-                        {props.active.map((v:any,i:number) => {
+                        {props.active.map((v:any,i:number) => {                              
                             return(
-                                <span>
-                                    <div className="top">
-                                        <span className="prevSsButton">
-                                            <Image 
-                                                src="/SVG/arrow.svg" 
-                                                alt="Arrow"
-                                                width="25"
-                                                height="25"
-                                                className="arrow"
+                                prevNextFamily.count == i ?
+                                    <span key={i}>
+                                        <div className="top">
+                                            <HeaderFamily 
+                                                active={props.active}
+                                                i={i}
+                                                handleChange={props.handleChange}
+                                                settings={props.settings}
+                                                prevNextFamily={prevNextFamily}
+                                                dispatch={dispatch}
                                             />
-                                        </span>
-                                        <ColorPicker index={i} />
-                                        <span className="nextSsButton">
-                                            <Image 
-                                                src="/SVG/arrow.svg" 
-                                                alt="Arrow"
-                                                width="25"
-                                                height="25"
-                                                className="arrow"
-                                            />
-                                        </span>
-                                    </div>    
-                                    <div className="bottomBloc">
-                                        {v.content.map((v2:any,i2:number) => {
-                                            return (
-                                                <EditFields 
-                                                    id={v.id}
-                                                    click={props.click}
-                                                    handleClick={props.handleClick}
-                                                    active={v2}
-                                                    setActive={props.setActive}
-                                                    handleChange={props.handleChange}
-                                                    settings={props.settings}
-                                                    handleChangeButtons={props.handleChangeButtons}
-                                                    index={i2+1}
-                                                    key={i2+1}
-                                                />
-                                            )
-                                        })}
-                                    </div>   
-                                </span>    
+                                        </div>    
+                                        <div className="bottomBloc">
+                                            {v.content.map((v2:any,i2:number) => {
+                                                return (
+                                                    <EditFields 
+                                                        id={v.id}
+                                                        click={props.click}
+                                                        handleClick={props.handleClick}
+                                                        active={v2}
+                                                        setActive={props.setActive}
+                                                        handleChange={props.handleChange}
+                                                        settings={props.settings}
+                                                        handleChangeButtons={props.handleChangeButtons}
+                                                        index={i2+1}
+                                                        key={i2+1}
+                                                    />
+                                                )
+                                            })}
+                                        </div>   
+                                    </span>    
+                                : ""
                             )
                         })}
                     </div>

@@ -14,11 +14,9 @@ export const ButtonGroups: React.FC<ButtonGroupsProps> = (props) => {
 
     let fieldName = props.field == "type" ? "T" : (props.field == "question" ? "Q" : "R");
 
-    console.log(props.active)
-
     return (
             <div className={
-                    (props.active[props.field] && props.active.number == props.index || props.active[props.field] == false && props.field == "type" //actif & par défaut
+                    (props.active[props.field] && props.active.number == props.index || props.active[props.field] == false && props.field == "question" //actif & par défaut
                         ? `active ${fieldName}` : `${fieldName}`)
                 } 
                 onClick={

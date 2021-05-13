@@ -24,6 +24,8 @@ export const Step2: React.FC<StepProps> = (props) => {
                     handleChange={props.handleChange}
                     settings={props.settings}
                     handleChangeButtons={props.handleChangeButtons}
+                    family={props.family}
+                    group={props.group}
                 />
             :                 
                 <span className="step2">
@@ -40,7 +42,7 @@ export const Step2: React.FC<StepProps> = (props) => {
                             props.handleChange;
                         }} min="1" max="7" value={props.group == 0 ? "" : props.group}/>
 
-                        <label htmlFor="family">De combien de cartes dispose-t-il ?</label>
+                        <label htmlFor="family">De combien de cartes dispose chaque famille ?</label>
                         <input type="number" pattern="\d*" name="family" placeholder="7 max." onChange={(e) =>{
                             maxValue(e.target.value, props.setFamily);
                             props.handleChange;
