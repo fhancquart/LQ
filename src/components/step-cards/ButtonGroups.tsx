@@ -21,7 +21,6 @@ export const ButtonGroups: React.FC<ButtonGroupsProps> = (props) => {
                     (
                         props.active[props.field] && props.active.number == props.index || 
                         props.active[props.field] == false && props.field == "question" //actif & par défaut
-                        && props.active.number == props.id
                         ? 
                             `active ${fieldName} ${props.id}` 
                         : 
