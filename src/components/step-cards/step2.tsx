@@ -34,22 +34,26 @@ export const Step2: React.FC<StepProps> = (props) => {
 
                     <div className="inputs">
                         <label htmlFor="name">Quel est son nom ?</label>
-                        <input type="text" name="name" placeholder="Nom du jeu" onChange={props.handleChange} value={props.settings.name}/>
+                        <input type="text" name="name" placeholder="Nom du jeu" onChange={(e) => {
+                            props.handleChange(e, 1)
+                        }} value={props.settings.others.name}/>
 
                         <label htmlFor="familyID">De combien de familles dispose-t-il ?</label>
                         <input type="number" pattern="\d*" name="familyID" placeholder="7 max." onChange={(e) =>{
                             maxValue(e.target.value, props.setGroup);
-                            props.handleChange;
+                            props.handleChange(e, 1);
                         }} min="1" max="7" value={props.group == 0 ? "" : props.group}/>
 
                         <label htmlFor="family">De combien de cartes dispose chaque famille ?</label>
                         <input type="number" pattern="\d*" name="family" placeholder="7 max." onChange={(e) =>{
                             maxValue(e.target.value, props.setFamily);
-                            props.handleChange;
+                            props.handleChange(e, 1);
                         }} min="1" max="7" value={props.family == 0 ? "" : props.family}/>
 
                         <label htmlFor="summary">Court résumé de sa thématique</label>
-                        <textarea name="summary" placeholder="50 caractères max." maxLength={50} onChange={props.handleChange} value={props.settings.summary}></textarea>
+                        <textarea name="summary" placeholder="50 caractères max." maxLength={50} onChange={(e) => {
+                            props.handleChange(e, 1)
+                        }} value={props.settings.others.summary}></textarea>
                     </div>
 
                     <Button

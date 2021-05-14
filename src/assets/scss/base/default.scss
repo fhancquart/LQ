@@ -170,8 +170,13 @@ button {
     }
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea {
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea, select {
     @include inputStyle;
+}
+
+select{
+    width: 100%;
+    font-size: 1em;
 }
 
 input[type="color"]{
@@ -206,12 +211,6 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
-}
-
-select {
-    padding: 0.5em 1em;
-    border-radius: 3px;
-    border-color: #ccc;
 }
 
 .switch {

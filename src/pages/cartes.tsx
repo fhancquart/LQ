@@ -4,7 +4,11 @@ import {useSwitchList} from "../utils/CustomHooks/useSwitchList";
 
 export default function Cartes() { 
 
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState({
+    others:{},
+    cards:{}
+  } as any);
+
   const [
     active, 
     setActive, 
@@ -14,13 +18,18 @@ export default function Cartes() {
     setGroup,
     handleChangeButtons
   ] = useSwitchList();
+
   const [click, setClick] = useState("");
 
-  const handleChange = (evt: any) => {
+  const handleChange = (evt: any, type:number) => {    
     const value = evt.target.value;
+    let valueKey = type == 1 ? "others" : "cards";
     setSettings({
-        ...settings,
+      ...settings,
+      [valueKey]: {
+        ...settings[valueKey],
         [evt.target.name]: value
+      } 
     });
   }
 
