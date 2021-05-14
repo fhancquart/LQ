@@ -7,7 +7,7 @@ export function useSwitchList() {
 
     let first = {
         id: 0,
-        content: {}
+        content: [{}]
     }
 
     let values = {

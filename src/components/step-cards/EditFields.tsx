@@ -19,6 +19,8 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                                     field={v}
                                     click={props.click}
                                     index={props.index}
+                                    i={i}
+                                    settings={props.settings}
                                     active={props.active}
                                     handleClick={props.handleClick}
                                     handleChangeButtons={props.handleChangeButtons}
