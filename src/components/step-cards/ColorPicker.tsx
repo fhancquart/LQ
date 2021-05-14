@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { shadeColor } from "../../utils/shadeColor";
 
 interface ColorPickerProps{
@@ -12,7 +11,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 
     const colorPicker = {
         backgroundColor: props.settings["color" + props.index],
-        borderColor: shadeColor(props.settings["color" + props.index] || "#ffffff",-10)
+        borderColor: shadeColor(props.settings["color" + props.index] || "#f0f0f0",-10)
     };   
 
     return(

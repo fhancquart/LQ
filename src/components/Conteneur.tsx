@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useReducer } from "react";
+import React, { useReducer } from "react";
 import { Header } from "./Header";
 import {PrevNextContext, initialState, reducer} from '../utils/CustomHooks/usePrevNextContext'
 import { SwitchProps } from "../utils/Types/interface";

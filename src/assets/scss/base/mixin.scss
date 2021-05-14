@@ -21,7 +21,7 @@
             color: $textColor !important;
         }
 
-        input, textarea, .buttonGroups .default{
+        input, textarea, .buttonGroups .default, .ssButton{
             background-color: rgba($content, 0.469);
             border: 2px solid $content;
         }

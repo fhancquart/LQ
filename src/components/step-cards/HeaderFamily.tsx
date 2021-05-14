@@ -20,8 +20,8 @@ export const HeaderFamily: React.FC<HeaderProps> = (props) => {
                 <Image 
                     src="/SVG/arrow.svg" 
                     alt="Arrow"
-                    width="25"
-                    height="25"
+                    width="30"
+                    height="30"
                     className="arrow"
                 />
             </span>
@@ -30,8 +30,8 @@ export const HeaderFamily: React.FC<HeaderProps> = (props) => {
                 <Image 
                     src="/SVG/arrow.svg" 
                     alt="Arrow"
-                    width="25"
-                    height="25"
+                    width="30"
+                    height="30"
                     className="arrow"
                 />
             </span>
