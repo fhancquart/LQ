@@ -1,12 +1,9 @@
 export interface StepProps {
-    click: string
-    handleClick: any
     family?: any
     group?: any
-    active: any
-    setActive: any
     handleChange: any
     settings: any
+    setSettings: any
     handleChangeButtons: any
     setFamily?: any
     setGroup?: any
@@ -14,8 +11,7 @@ export interface StepProps {
 
 export interface EditFieldsProps {
     id?: number
-    click: string
-    handleClick: any
+    setSettings: any
     index: number
     key: number
     active: any

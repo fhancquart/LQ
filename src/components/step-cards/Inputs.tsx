@@ -5,26 +5,32 @@ export const Inputs: React.FC<InputsProps> = (props) => {
 
     const fields = ["question", "reponse"];
 
+    const keySetting = props.settings.cards[props.id][props.index];
+    const indexPlus = props.index;
+
+
     return(
         <>
-            {props.active.type || props.active.question || props.active.reponse ? 
+            {keySetting.question == true || keySetting.reponse == true ? 
                 fields.map((v:any,i:number) => {
                     return (
-                        props.active[v] && props.active.number == props.index ?
-                            <input type="text" name={`${v}-${props.id}-${props.index}`} placeholder={`${props.index} - ${v}`} 
+                        keySetting[v] && keySetting.id == indexPlus ?
+                            <input key={i} type="text" name={`${v}-${indexPlus}`} placeholder={`${indexPlus} - ${v}`} 
                                 onChange={(e) => {
-                                    props.handleChange(e,2);
-                                }} value={props.settings.cards[v + "-" + props.id + "-" + props.index] || ""}
+                                    props.handleChange(e,2, props.index, props.id);
+                                }} 
+                                value={keySetting[v + "-" + indexPlus]}
                             /> 
                         :  
                             ""
                     )
                 })
                 :
-                <input type="text" name={`question-${props.id}-${props.index}`} placeholder={`${props.index} - Question`}
+                <input type="text" name={`question-${indexPlus}`} placeholder={`${indexPlus} - Question`}
                     onChange={(e) => {
-                        props.handleChange(e,2);
-                    }} value={props.settings.cards["question-" + props.id + "-" + props.index] || ""}
+                        props.handleChange(e,2, props.index, props.id);
+                    }}
+                    value={keySetting["question-" + indexPlus]}
                 />
             }
         </>

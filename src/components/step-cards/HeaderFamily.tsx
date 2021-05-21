@@ -12,7 +12,7 @@ interface HeaderProps{
 
 export const HeaderFamily: React.FC<HeaderProps> = (props) => {
 
-    const lastIndex = props.active.length;
+    const lastIndex = props.settings.cards.length;
     
     return(
         <>

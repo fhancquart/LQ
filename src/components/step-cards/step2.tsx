@@ -17,10 +17,7 @@ export const Step2: React.FC<StepProps> = (props) => {
         <>  
             {step == 2 || step != 1 ? 
                 <Step3 
-                    click={props.click}
-                    handleClick={props.handleClick}
-                    active={props.active}
-                    setActive={props.setActive}
+                    setSettings={props.setSettings}
                     handleChange={props.handleChange}
                     settings={props.settings}
                     handleChangeButtons={props.handleChangeButtons}

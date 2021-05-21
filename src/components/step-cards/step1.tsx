@@ -13,14 +13,11 @@ export const Step1: React.FC<StepProps> = (props) => {
         <>  
              {step == 1 || step != 0 ? 
                 <Step2 
-                    click={props.click}
-                    handleClick={props.handleClick}
-                    active={props.active}
-                    setActive={props.setActive}
                     group={props.group}
                     setGroup={props.setGroup}
                     handleChange={props.handleChange}
                     settings={props.settings}
+                    setSettings={props.setSettings}
                     handleChangeButtons={props.handleChangeButtons}
                     family={props.family}
                     setFamily={props.setFamily}

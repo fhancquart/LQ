@@ -13,7 +13,7 @@ export const Step3: React.FC<StepProps> = (props) => {
     const {step, Next} = context;
 
     const [prevNextFamily, dispatch] = useReducer(reducer, initialState)
-
+    
     return(
         <>  
             {step == 3 || step != 2 ? 
@@ -31,40 +31,38 @@ export const Step3: React.FC<StepProps> = (props) => {
                     <p>Pour vos {props.group} familles, renseignez un titre et une couleur. Puis renseignez vos {props.family} Questions <b>(Q)</b>, et Réponses <b>(R)</b></p>
 
                     <div className="edition">
-                        {props.active.map((v:any,i:number) => {                              
-                            return(
-                                prevNextFamily.count == i ?
-                                    <span key={i}>
-                                        <div className="top">
-                                            <HeaderFamily 
-                                                active={props.active}
-                                                i={i}
-                                                handleChange={props.handleChange}
-                                                settings={props.settings}
-                                                prevNextFamily={prevNextFamily}
-                                                dispatch={dispatch}
-                                            />
-                                        </div>    
-                                        <div className="bottomBloc">
-                                            {v.content.map((v2:any,i2:number) => {
-                                                return (
-                                                    <EditFields 
-                                                        id={v.id}
-                                                        click={props.click}
-                                                        handleClick={props.handleClick}
-                                                        active={v2}
-                                                        setActive={props.setActive}
-                                                        handleChange={props.handleChange}
-                                                        settings={props.settings}
-                                                        handleChangeButtons={props.handleChangeButtons}
-                                                        index={i2+1}
-                                                        key={i2+1}
-                                                    />
-                                                )
-                                            })}
-                                        </div>   
-                                    </span>    
-                                : ""
+                        {props.settings.cards.map((v:any,i:number) => {
+                            return (
+                            prevNextFamily.count == i ?
+                                <span key={i}>
+                                    <div className="top">
+                                        <HeaderFamily 
+                                            active={v}
+                                            i={i}
+                                            handleChange={props.handleChange}
+                                            settings={props.settings}
+                                            prevNextFamily={prevNextFamily}
+                                            dispatch={dispatch}
+                                        />
+                                    </div>    
+                                    <div className="bottomBloc">
+                                        {Object.keys(props.settings.cards[i]).map((v2:any,i2:number) => {
+                                            return (
+                                                i2 !== 0 &&
+                                                <EditFields 
+                                                    id={i}
+                                                    setSettings={props.setSettings}
+                                                    handleChange={props.handleChange}
+                                                    settings={props.settings}
+                                                    handleChangeButtons={props.handleChangeButtons}
+                                                    index={i2}
+                                                    key={i2}
+                                                />
+                                            )
+                                        })}
+                                    </div>   
+                                </span>    
+                            : ""
                             )
                         })}
                     </div>

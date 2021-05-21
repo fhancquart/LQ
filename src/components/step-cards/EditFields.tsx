@@ -17,12 +17,10 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                                 <ButtonGroups 
                                     id={props.id}
                                     field={v}
-                                    click={props.click}
                                     index={props.index}
                                     i={i}
                                     settings={props.settings}
-                                    active={props.active}
-                                    handleClick={props.handleClick}
+                                    setSettings={props.setSettings}
                                     handleChangeButtons={props.handleChangeButtons}
                                 />
                             )
@@ -34,7 +32,6 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                         index={props.index}
                         handleChange={props.handleChange}
                         settings={props.settings}
-                        active={props.active}
                     />
                 </div>
             </div>

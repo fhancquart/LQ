@@ -1,41 +1,40 @@
 import React from "react";
 
 interface ButtonGroupsProps{
-    id?: number
     field: string
     index: number
     i: number
-    active: any
-    handleClick: any
+    id: any
     settings: any
+    setSettings: any
     handleChangeButtons: any
-    click: string
 }
 
 export const ButtonGroups: React.FC<ButtonGroupsProps> = (props) => {
 
-    let fieldName = props.field == "type" ? "T" : (props.field == "question" ? "Q" : "R");
+    const fieldName = props.field == "type" ? "T" : (props.field == "question" ? "Q" : "R");
 
-    return (
-            <div className={
-                    (
-                        props.active[props.field] && props.active.number == props.index || 
-                        props.active[props.field] == false && props.field == "question" //actif & par défaut
-                        ? 
-                            `active ${fieldName} ${props.id}` 
-                        : 
-                            `${fieldName} ${props.id}`
-                    )
-                } 
-                onClick={
-                    () => {
-                        props.handleClick(props.field + "-" + props.id + "-" + props.index); //A supprimer
-                        props.handleChangeButtons({
-                            id: props.id,    
-                            content: /*[props.index]*/ [{ number: props.index, [props.field] : true,}]
-                        });
+    const realID = props.settings.cards[props.id][props.index].id;
+    const realNumber = props.field + props.index + 1;
+    const realBool = props.settings.cards[props.id][props.index][props.field];
+    const realField = props.settings.others.field;
+
+
+    return (           
+        <> 
+            <div className={ 
+                realBool == undefined && props.field == "question" || 
+                realBool == true ? `active ${fieldName}` : `${fieldName}`} 
+            onClick={
+                () => {
+                    props.handleChangeButtons({
+                        id: props.id,
+                        index: props.index,
+                        field: props.field,
                     }
-                }>{fieldName}</div>
+                )
+            }}>{fieldName}</div>
+        </>            
     )
 
 }
