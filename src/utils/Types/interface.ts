@@ -14,8 +14,6 @@ export interface EditFieldsProps {
     setSettings: any
     index: number
     key: number
-    active: any
-    setActive: any
     handleChange: any
     settings: any
     handleChangeButtons: any
