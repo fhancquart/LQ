@@ -1,8 +1,8 @@
 import React, {useContext } from "react";
-import { Button } from "../Button";
-import { Step2 } from "./Step2";
-import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
-import {StepProps} from '../../utils/Types/interface'
+import { Button } from "../../Button";
+import { Step2 } from "../step2/Step2";
+import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
+import {StepProps} from '../../../utils/Types/interface'
 
 export const Step1: React.FC<StepProps> = (props) => {
 

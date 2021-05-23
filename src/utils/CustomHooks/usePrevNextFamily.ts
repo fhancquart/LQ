@@ -6,6 +6,8 @@ export function reducer(state:any, action:any) {
       return {count: state.count + 1};
     case 'decrement':
       return {count: state.count - 1};
+    case 'reinit':
+      return {count: 0}
     default:
       throw new Error();
   }

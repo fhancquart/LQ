@@ -1,5 +1,5 @@
 import React from "react";
-import { shadeColor } from "../../utils/shadeColor";
+import { shadeColor } from "../../../utils/shadeColor";
 
 interface ColorPickerProps{
     index: number

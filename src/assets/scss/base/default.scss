@@ -246,6 +246,28 @@ img {
 	}
 }
 
+.arrow{
+    opacity: .75;
+    cursor: $cursor;
+    &:hover{
+        opacity: 1;   
+    }
+}
+.prevSsButton{
+    position: relative;
+    right: .5em;
+    .arrow{
+        transform: rotate(-90deg);
+    }
+}
+.nextSsButton{
+    position: relative;
+    left: .5em;
+    .arrow{
+        transform: rotate(90deg);
+    }
+}
+
 .switch.lightMode {
 	border-radius: 25px;
 	padding: 1px;
@@ -295,7 +317,7 @@ img {
     .back-cardnum {
         font-size: 25px;
         position: absolute;
-        top: -0.5em;
+        top: 0.5em;
         right: 0.5em;
         text-shadow: 3px 3px 0 black;
     }
@@ -320,25 +342,40 @@ img {
         position: relative;
         top: 8px;
     }
+    .your-visual{
+        font-size: 2em;
+        line-height: 1em !important;
+        position: relative;
+        top: 2.5em;
+        opacity: .35;
+    }
     .back-family {
-        font-size: 14;
+        font-size: 16pt;
         width: 171px;
         display: block;
         text-align: center;
         padding: 0.25em 0;
         margin: auto;
+        position: relative;
+        top: .5em;
     }
     .bloc-question {
         background-color: #fff;
         width: 90%;
-        height: 93px;
+        height: 80px;
         margin: auto;
         padding: 0.25em 0;
         text-align: center;
         border-radius: 10px;
-        font-size: 13px;
+        font-size: 12px;
+        display: block;
+        position: absolute;
+        bottom: 1em;
+        right: 0;
+        left: 0;
         p{
             padding: 0 1em;
+            color: #777777 !important;
         }
     }
     .bloc-reponse {

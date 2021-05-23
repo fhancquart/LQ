@@ -1,11 +1,11 @@
 import React, { useContext, useReducer} from "react";
-import {PrevNextContext} from '../../utils/CustomHooks/usePrevNextContext'
-import {initialState, reducer} from '../../utils/CustomHooks/usePrevNextFamily'
-import { Button } from "../Button";
-import { StepProps } from "../../utils/Types/interface";
+import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
+import {initialState, reducer} from '../../../utils/CustomHooks/usePrevNextFamily'
+import { Button } from "../../Button";
+import { StepProps } from "../../../utils/Types/interface";
 import { EditFields } from "./EditFields";
 import { HeaderFamily } from "./HeaderFamily";
-import { Step4 } from "./Step4";
+import { Step4 } from "../step4/Step4";
 
 export const Step3: React.FC<StepProps> = (props) => {
     
