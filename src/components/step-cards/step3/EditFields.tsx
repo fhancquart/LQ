@@ -1,5 +1,5 @@
 import React from "react";
-import { EditFieldsProps } from "../../utils/Types/interface";
+import { EditFieldsProps } from "../../../utils/Types/interface";
 import { ButtonGroups } from "./ButtonGroups";
 import { Inputs } from "./Inputs";
 
@@ -28,7 +28,6 @@ export const EditFields: React.FC<EditFieldsProps> = (props) => {
                     </div>
                     <Inputs
                         id={props.id}
-                        click={props.click}
                         index={props.index}
                         handleChange={props.handleChange}
                         settings={props.settings}

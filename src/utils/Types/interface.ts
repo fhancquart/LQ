@@ -23,12 +23,10 @@ export interface EditFieldsProps {
 }
 
 export interface InputsProps {
-    id?: number
-    click: string
+    id: any
     index: number
     handleChange: any
     settings: any
-    active: any
 }
 
 export interface SwitchProps {
