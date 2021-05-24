@@ -4,8 +4,8 @@ import {initialState, reducer} from '../../../utils/CustomHooks/usePrevNextFamil
 import { Button } from "../../Button";
 import { StepProps } from "../../../utils/Types/interface";
 import { EditFields } from "./EditFields";
-import { HeaderFamily } from "./HeaderFamily";
 import { Step4 } from "../step4/Step4";
+import { Navigation } from "../Navigation";
 
 export const Step3: React.FC<StepProps> = (props) => {
     
@@ -13,6 +13,8 @@ export const Step3: React.FC<StepProps> = (props) => {
     const {step, Next} = context;
 
     const [prevNextFamily, dispatch] = useReducer(reducer, initialState)
+
+    const lastIndex = props.settings.cards.length;
     
     return(
         <>  
@@ -35,14 +37,22 @@ export const Step3: React.FC<StepProps> = (props) => {
                             return (
                             prevNextFamily.count == i ?
                                 <span key={i}>
-                                    <div className="top">
-                                        <HeaderFamily 
-                                            active={v}
+                                    <div className="top">                                        
+                                        <Navigation 
+                                            prevClick={
+                                                () => prevNextFamily.count != 0 ? 
+                                                dispatch({type: 'decrement'}) 
+                                                : null
+                                            }
+                                            nextClick={
+                                                () => lastIndex != i + 1 ? 
+                                                dispatch({type: 'increment'}) 
+                                                : null
+                                            }
+                                            isInput={true}
                                             i={i}
                                             handleChange={props.handleChange}
                                             settings={props.settings}
-                                            prevNextFamily={prevNextFamily}
-                                            dispatch={dispatch}
                                         />
                                     </div>    
                                     <div className="bottomBloc">
