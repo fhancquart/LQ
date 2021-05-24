@@ -47,6 +47,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
                     {props.settings.cards.map((v:any,i:any) => {
                         const color = v[0]["color-" + (i+1)];
                         const family = v[0]["familyName-" + (i+1)];
+                        const lastIndexCard = v.length;
+
                         return(
                             prevNextFamily.count == i && //Tri famille
                             <>
@@ -63,7 +65,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                         dispatch({type: 'decrement'}) 
                                                         : null}
                                                     nextClick={
-                                                        () => lastIndex != i+1 ? 
+                                                        () => lastIndex != (i+1) ? 
                                                         dispatch({type: 'increment'}) 
                                                         : null}
                                                     isInput={false}
@@ -89,7 +91,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                         dispatchCard({type: 'decrement'}) 
                                                         : null}
                                                     nextClick={
-                                                        () => lastIndex != (i2) ? 
+                                                        () => lastIndexCard != (i2 + 1) ? 
                                                         dispatchCard({type: 'increment'}) 
                                                         : dispatchCard({type:'reinit'})}
                                                     isInput={false}
