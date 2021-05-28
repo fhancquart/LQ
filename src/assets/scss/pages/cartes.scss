@@ -72,5 +72,16 @@
             margin: auto;
         }
     }
-      
+    .step5{
+        .slider{
+            display: inline-flex;
+            white-space: nowrap;
+            .card{
+                margin: 1em 1em 0 1em;
+            }
+        }
+        button{
+            margin-top: 2em;
+        }
+    }      
 }

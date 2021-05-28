@@ -4,17 +4,17 @@ interface CardProps {
     color: any
     family: string
     number: number
-    hasVisual: boolean
+    hasEmptyVisual: boolean
     question: string
 }
 
 export const Card: React.FC<CardProps> = (props) => {
     return (
         <>
-            <div className="card" style={{backgroundColor: props.color}}>
+            <div className="card" style={{backgroundColor: props.color}} key={props.number}>
                 <span className="back-family fun-font">{props.family}</span>
                 <span className="back-cardnum fun-font">{props.number}</span>
-                {props.hasVisual ? 
+                {props.hasEmptyVisual ? 
                     <span className="your-visual fun-font">Votre<br/>visuel</span>
                 : ""}
                 <span className="bloc-question">

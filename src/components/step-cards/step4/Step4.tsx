@@ -25,8 +25,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
     const [prevNextFamily, dispatch] = useReducer(reducer, initialState)
     const [prevNextCard, dispatchCard] = useReducer(reducer, initialState)
 
-    const contextFirework = useContext(BackgroundContext);
-    const {active, setActive} = contextFirework;
+    const contextBackground = useContext(BackgroundContext);
+    const {setActive} = contextBackground;
 
 
     return(
@@ -34,6 +34,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
             {step == 4 || step != 3 ? 
                 <Step5 
                     settings={props.settings}
+                    cardTotal={cardTotal}
                 />
             :  
                 <span className="step4">      
@@ -82,7 +83,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                 color={color}
                                                 family={family}
                                                 number={i2}
-                                                hasVisual={true}
+                                                hasEmptyVisual={true}
                                                 question={v[i2]["question-" + (i2)]}
                                             />
 

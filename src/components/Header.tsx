@@ -6,6 +6,7 @@ import {PrevNextContext} from '../utils/CustomHooks/usePrevNextContext'
 import { Back } from "./Back";
 import { Account } from "./Account";
 import { SwitchProps } from "../utils/Types/interface";
+import { BackgroundContext } from "../utils/CustomHooks/useBackground";
 
 export const Header: React.FC<SwitchProps> = (props) => {
 
@@ -17,12 +18,15 @@ export const Header: React.FC<SwitchProps> = (props) => {
 
     const view = props.isDark ? "DARK" : "LIGHT";
 
+    const contextBackground = useContext(BackgroundContext);
+    const {setDesactive} = contextBackground;
+
     return(
         <div className="header">
             {!isLogOrReg ? 
-                <Back />
+                <Back setDesactive={setDesactive} />
             : ""}
-            <div className="logo" onClick={Reinit}>
+            <div className="logo" onClick={() => {Reinit(); setDesactive()}}>
                 <Link href="/accueil"> 
                         <Image 
                             src={`/SVG/${view}/logo.svg`}

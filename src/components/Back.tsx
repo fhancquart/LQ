@@ -4,9 +4,11 @@ import {PrevNextContext} from '../utils/CustomHooks/usePrevNextContext'
 import Image from 'next/image'
 
 
-interface BackProps {}
+interface BackProps {
+    setDesactive:any
+}
 
-export const Back: React.FC<BackProps> = () => {
+export const Back: React.FC<BackProps> = (props) => {
 
     const context = useContext(PrevNextContext);
     const {step,Prev} = context;
@@ -14,16 +16,20 @@ export const Back: React.FC<BackProps> = () => {
     const router = useRouter();
     const isCardProcess = router.pathname === "/cartes";
 
-    let back;
+    let back: { (): void; };
     step == 0 || step == -1 ?  back = () => router.push("/accueil") : back = Prev;
 
     return(
         <>
             <div className="back" onClick={
-                isCardProcess ? back 
+                isCardProcess ? 
+                  () => { 
+                    back(); 
+                    props.setDesactive(); 
+                  } 
                 : () => {
                     router.back(); 
-                }
+                  }
             }>
                 <Image 
                     src="/SVG/back.svg" 
