@@ -306,10 +306,10 @@ $box-shadow2: ();
 
 .firework {
     position: absolute;
-    top: 30%;
+    top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30em;
+    width: 100%;
     height: 10px;
 }
 .firework > .before,
