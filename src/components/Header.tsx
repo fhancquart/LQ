@@ -11,7 +11,7 @@ import { BackgroundContext } from "../utils/CustomHooks/useBackground";
 export const Header: React.FC<SwitchProps> = (props) => {
 
     const router = useRouter();
-    const isLogOrReg = router.pathname === "/";
+    const isLogOrReg = router.pathname === "/login";
 
     const context = useContext(PrevNextContext);
     const {Reinit} = context;
@@ -27,7 +27,7 @@ export const Header: React.FC<SwitchProps> = (props) => {
                 <Back setDesactive={setDesactive} />
             : ""}
             <div className="logo" onClick={() => {Reinit(); setDesactive()}}>
-                <Link href="/accueil"> 
+                <Link href="/"> 
                         <Image 
                             src={`/SVG/${view}/logo.svg`}
                             alt="Logo"

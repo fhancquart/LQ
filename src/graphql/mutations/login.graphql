@@ -1,0 +1,8 @@
+#Ce fichié est lié à la function login() dans user.ts du resolver du back
+#..RegularUser équivaut à un import du fichier fragment
+
+mutation Login($usernameOrEmail: String!, $password: String!){
+  login(usernameOrEmail: $usernameOrEmail, password: $password) {
+    ...RegularUserResponse
+  }
+}

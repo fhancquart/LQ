@@ -1,0 +1,5 @@
+#les types correspondent aux resolvers dans user.ts
+fragment RegularError on FieldError {
+    field 
+    message
+}

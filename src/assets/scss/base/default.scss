@@ -40,6 +40,7 @@ a {
     font-weight: bold;
     padding-top: 1em;
     font-size: .85em;
+    cursor: $cursor;
 }
 
 h1 {
@@ -59,7 +60,11 @@ h3{
 }
 
 
-
+.error{
+    color: red;
+    margin: 0.5em 0 1em 0;
+    display: block;
+}
 
 
 button {

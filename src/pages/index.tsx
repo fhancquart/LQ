@@ -1,25 +1,38 @@
 import React from "react";
 import { Button } from "../components/Button";
+import { useIsAuth } from "../utils/useIsAuth";
 
-export default function Home() {  
+export default function Accueil() {
+
+  useIsAuth();
+
   return (
     <>      
-        <span className="registration">
-          <b><h1>Nouveau joueur</h1></b>
+        <span className="home">
+          <b><h1>Bonjour, prenom</h1></b>
 
-          <div className="inputs">
-            <input type="email" placeholder="Pseudo ou email"/>
-            <input type="password" placeholder="Mot de passe"/>
-          </div>
-            
           <Button
-            text="Démarrer"
+            text="Partie"
             wButton="big"
             cButton="orange"
-            isImage={false}
+            isImage={true}
+            image="users.svg"
+            wImage={40}
+            hImage={39}
             link="/accueil"
           />
-            <a>Se connecter</a>
+
+          <Button
+            text="Cartes"
+            wButton="big"
+            cButton="orange"
+            isImage={true}
+            image="cards.svg"
+            wImage={40}
+            hImage={39}
+            link="/cartes"
+          />
+
         </span>
     </>
   )

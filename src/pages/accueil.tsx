@@ -1,7 +1,11 @@
 import React from "react";
 import { Button } from "../components/Button";
+import { useIsAuth } from "../utils/useIsAuth";
 
 export default function Accueil() {
+
+  useIsAuth();
+
   return (
     <>      
         <span className="home">
