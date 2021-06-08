@@ -1,15 +1,17 @@
 import React from "react";
 import { Button } from "../components/Button";
+import { useMeQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/useIsAuth";
 
 export default function Accueil() {
 
   useIsAuth();
+  const {data: meData} = useMeQuery()
 
   return (
     <>      
         <span className="home">
-          <b><h1>Bonjour, prenom</h1></b>
+          <b><h1>Bonjour, {meData?.me?.username}</h1></b>
 
           <Button
             text="Partie"
