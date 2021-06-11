@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Step1 } from "../components/step-cards/step1/Step1";
 import {useSwitchList} from "../utils/CustomHooks/useSwitchList";
+import { withApollo } from "../utils/withApollo";
 
-export default function Cartes() { 
+const Cartes: React.FC<{}> = ({}) => {
 
   const [
     family, 
@@ -32,3 +33,5 @@ export default function Cartes() {
     </>
   )
 }
+
+export default withApollo({ ssr: false })(Cartes);

@@ -26,6 +26,7 @@ export const Login: React.FC<LoginProps> = (props) => {
                     const response = await login({
                         variables: values,
                         update: (cache, {data}) => {
+                            console.log(cache)
                             cache.writeQuery<MeQuery>({
                                 query: MeDocument,
                                 data: {

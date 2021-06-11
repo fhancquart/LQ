@@ -2,8 +2,9 @@ import React from "react";
 import { Button } from "../components/Button";
 import { useMeQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/useIsAuth";
+import { withApollo } from "../utils/withApollo";
 
-export default function Accueil() {
+const Accueil = () => {
 
   useIsAuth();
   const {data: meData} = useMeQuery()
@@ -39,3 +40,5 @@ export default function Accueil() {
     </>
   )
 }
+
+export default withApollo({ ssr: true })(Accueil);
