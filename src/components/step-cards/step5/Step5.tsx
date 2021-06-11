@@ -11,7 +11,7 @@ interface Step5Props{
 export const Step5: React.FC<Step5Props> = (props) => {    
 
     const length = props.cardTotal;
-    const [active, setActive, handlers, style] = useCarousel(length, 1000);
+    const [, , handlers, style] = useCarousel(length, 1000);
 
     return(
         <>

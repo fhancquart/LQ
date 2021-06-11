@@ -17,7 +17,7 @@ export const Back: React.FC<BackProps> = (props) => {
     const isCardProcess = router.pathname === "/cartes";
 
     let back: { (): void; };
-    step == 0 || step == -1 ?  back = () => router.push("/accueil") : back = Prev;
+    step == 0 || step == -1 ?  back = () => router.push("/") : back = Prev;
 
     return(
         <>

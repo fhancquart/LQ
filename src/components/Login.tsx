@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Formik, Form, Field} from 'formik';
-import { useLoginMutation } from "../generated/graphql";
+import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { useRouter } from "next/router";
 
 
@@ -23,7 +23,18 @@ export const Login: React.FC<LoginProps> = (props) => {
                 initialValues={{usernameOrEmail: "", password: ""}}
                 onSubmit={async (values) => {
 
-                    const response = await login({variables: values}); 
+                    const response = await login({
+                        variables: values,
+                        update: (cache, {data}) => {
+                            cache.writeQuery<MeQuery>({
+                                query: MeDocument,
+                                data: {
+                                  __typename: "Query",
+                                  me: data?.login.user,
+                                },
+                              });
+                        }
+                    }); 
 
                     if(response.data?.login.errors){ 
                         response.data.login.errors.map((err:any) => {

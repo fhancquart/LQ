@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Login } from "../components/Login";
 import { Registration } from "../components/Registration";
+import { withApollo } from "../utils/withApollo";
 
-export default function Home() { 
+const Home: React.FC<{}> = ({}) => {
   
   const [isLogin, setisLogin] = useState(false)
 
@@ -16,3 +17,5 @@ export default function Home() {
     </>
   )
 }
+
+export default withApollo({ ssr: false })(Home);
