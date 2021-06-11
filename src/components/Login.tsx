@@ -53,7 +53,11 @@ export const Login: React.FC<LoginProps> = (props) => {
                             <Field name="password" type="password" placeholder="Mot de passe"/>
                             <span className="error">{allErrors}</span>
                         </div>
-                        <button type="submit" className="big-button orange-button"><div className="card1"></div><span className="maj">D</span><span>é</span><span>m</span><span>a</span><span>r</span><span>r</span><span>e</span><span>r</span></button>
+                        {isSubmitting ? 
+                            <p>loading</p>
+                        :
+                            <button type="submit" className="big-button orange-button"><div className="card1"></div><span className="maj">D</span><span>é</span><span>m</span><span>a</span><span>r</span><span>r</span><span>e</span><span>r</span></button>
+                        }
                     </Form>
                     )}
             </Formik>

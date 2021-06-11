@@ -38,7 +38,6 @@ export const Account: React.FC<SwitchProps> = (props) => {
                                 onClick={async () => { 
                                     await logout(); 
                                     await apolloClient.resetStore();
-                                    await router.push("/login");
                                 }} 
                                 className="out"
                             >Déconnexion</li>

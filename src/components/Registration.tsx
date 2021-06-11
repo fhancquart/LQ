@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {Formik, Form, Field} from 'formik';
 import { Button } from "../components/Button";
-import { useRegisterMutation } from "../generated/graphql";
+import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { useRouter } from "next/router";
 import { toErrorMap } from "../utils/ToErrorMap";
 
@@ -25,9 +25,18 @@ export const Registration: React.FC<RegistrationProps> = (props) => {
                 initialValues={{email: "", username: "", password: ""}}
                 onSubmit={async (values) => {
 
-                const response = await register({variables: {options: values}});
-
-                console.log(response)
+                const response = await register({
+                    variables: {options: values},
+                    update: (cache, { data }) => {
+                        cache.writeQuery<MeQuery>({
+                          query: MeDocument,
+                          data: {
+                            __typename: "Query",
+                            me: data?.register.user,
+                          },
+                        });
+                      },
+                });
 
                 if(response.data?.register.errors){ 
                     response.data.register.errors.map((err:any) => {
