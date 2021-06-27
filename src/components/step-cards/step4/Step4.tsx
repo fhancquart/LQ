@@ -1,10 +1,12 @@
+import { Formik, Form } from "formik";
 import React, { useContext, useReducer} from "react";
+import { useCategoryMutation } from "../../../generated/graphql";
 import { BackgroundContext } from "../../../utils/CustomHooks/useBackground";
 import { PrevNextContext } from "../../../utils/CustomHooks/usePrevNextContext";
 import {initialState, reducer} from '../../../utils/CustomHooks/usePrevNextFamily'
 import { Button } from "../../Button";
 import { Card } from "../../Card";
-import { Navigation } from "../Navigation";
+import { Navigation } from "../step3/Navigation";
 import { Step5 } from "../step5/Step5";
 
 interface Step4Props{
@@ -27,6 +29,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
 
     const contextBackground = useContext(BackgroundContext);
     const {setActive} = contextBackground;
+
+    const [category] = useCategoryMutation();
 
 
     return(
@@ -109,18 +113,33 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         )
                     })}
 
-                    <Button
-                        text="J'ai terminé"
-                        wButton="big"
-                        cButton="orange"
-                        isImage={false}
-                        link=""
-                        isClick={true}
-                        click={() => {
-                            Next(); 
+                    
+                    <Formik
+                        initialValues={{cd_name: "", cd_link: "", cd_resume: ""}}
+                        onSubmit={async () => {
+                            const {errors} = await category({variables: {input: {
+                                cd_name: props.settings.others.cd_name,
+                                cd_link: props.settings.others.cd_name,
+                                cd_resume: props.settings.others.cd_resume
+                            }}}) 
+                            Next();
                             setActive();
                         }}
-                    />
+                    >
+                        {({isSubmitting}) => ( 
+                            <Form>
+                                <Button
+                                    text="J'ai terminé"
+                                    wButton="big"
+                                    cButton="orange"
+                                    isImage={false}
+                                    link=""
+                                    isClick={true}
+                                    isSubmit={true}
+                                />
+                            </Form>
+                        )}
+                    </Formik>
 
                 </span>
             }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Formik, Form, Field} from 'formik';
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { useRouter } from "next/router";
+import { Button } from "./Button";
 
 
 interface LoginProps {
@@ -56,7 +57,15 @@ export const Login: React.FC<LoginProps> = (props) => {
                         {isSubmitting ? 
                             <p>loading</p>
                         :
-                            <button type="submit" className="big-button orange-button"><div className="card1"></div><span className="maj">D</span><span>é</span><span>m</span><span>a</span><span>r</span><span>r</span><span>e</span><span>r</span></button>
+                            <Button
+                                text="Démarrer"
+                                wButton="big"
+                                cButton="orange"
+                                isImage={false}
+                                link=""
+                                isClick={true}
+                                isSubmit={true}
+                            />
                         }
                     </Form>
                     )}

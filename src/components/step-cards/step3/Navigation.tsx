@@ -1,6 +1,6 @@
 import React from "react";
 import Image from 'next/image';
-import { ColorPicker } from "./step3/ColorPicker";
+import { ColorPicker } from "./ColorPicker";
 
 interface NavigationProps{
     prevClick: any

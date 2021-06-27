@@ -5,7 +5,7 @@ import { Button } from "../../Button";
 import { StepProps } from "../../../utils/Types/interface";
 import { EditFields } from "./EditFields";
 import { Step4 } from "../step4/Step4";
-import { Navigation } from "../Navigation";
+import { Navigation } from "./Navigation";
 
 export const Step3: React.FC<StepProps> = (props) => {
     
@@ -28,7 +28,7 @@ export const Step3: React.FC<StepProps> = (props) => {
                 <span className="step3">      
                     <span className="step">2/3</span>              
                     <b><h1>Passons à l'édition</h1></b>
-                    <p>Nom du jeu : <b>{props.settings.others.name}</b></p>
+                    <p>Nom du jeu : <b>{props.settings.others.cd_name}</b></p>
 
                     <p>Pour vos {props.group} familles, renseignez un titre et une couleur. Puis renseignez vos {props.family} Questions <b>(Q)</b>, et Réponses <b>(R)</b></p>
 

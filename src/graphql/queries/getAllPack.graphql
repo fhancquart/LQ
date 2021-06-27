@@ -1,0 +1,9 @@
+query getAllPack{
+    getAllPack {
+        pack {
+            cd_id
+            cd_name
+            cd_resume
+        }
+    }
+}

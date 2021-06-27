@@ -1,0 +1,5 @@
+mutation isPackNameExisting($cd_name: String!){
+  isPackNameExisting(cd_name: $cd_name) {
+    message
+  }
+}

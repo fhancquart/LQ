@@ -1,0 +1,7 @@
+query getInfoPack($cd_id: Float!) {
+  getInfoPack(cd_id: $cd_id) {
+    cd_id
+    cd_userid
+    cd_name
+  }
+}
