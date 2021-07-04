@@ -1,4 +1,5 @@
-import React, {useContext, useEffect } from "react";
+import React, {useContext } from "react";
+import Image from 'next/image';
 import { Button } from "../../Button";
 import { Step2 } from "../step2/Step2";
 import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
@@ -11,6 +12,7 @@ export const Step1: React.FC<StepProps> = (props) => {
     const {step, Next} = context;
 
     const {data: allPackData} = useGetAllPackQuery();
+    const allPack = allPackData?.getAllPack?.pack;
 
     return(
         <>  
@@ -28,10 +30,25 @@ export const Step1: React.FC<StepProps> = (props) => {
             : 
                 <span className="step1">
                     <b><h1>Bienvenue dans l'assistant de création de jeu de carte en ligne</h1></b>
-                    {allPackData?.getAllPack?.pack == [] ? 
-                        <p>Vous ne disposez actuellement d'aucun jeu de carte</p>
+                    {allPack?.length == 0 ? 
+                        <p className="empty">Vous ne disposez actuellement d'aucun jeu de carte</p>
                     :
-                        <p>Yo</p>
+                        allPack?.map((e) => {
+                            return(
+                                <>
+                                    <span className="pack">
+                                        <Image 
+                                            src={`/SVG/pack.svg`}
+                                            alt="Logo"
+                                            width="160"
+                                            height="90"
+                                            className="logoico"
+                                        />
+                                        <p><span className="name">{e.cd_name}</span><br /><span className="number">27 cartes</span></p>
+                                    </span>
+                                </>
+                            )
+                        })
                     }
                     <Button
                         text="Commencer"

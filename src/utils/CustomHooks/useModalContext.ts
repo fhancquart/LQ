@@ -6,7 +6,7 @@ export const initialState = {
     setDesactive: () => {},
 };
 
-export const BackgroundContext = createContext(initialState)
+export const ModalContext = createContext(initialState)
 
 type activeType = {
     active: boolean

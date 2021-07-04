@@ -5,6 +5,8 @@ import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
 import { StepProps } from "../../../utils/Types/interface";
 import { useCategoryMutation, useIsPackNameExistingMutation, useMeQuery, useUpdateCategoryMutation } from "../../../generated/graphql";
 import { Field, Form, Formik } from "formik";
+import { ModalContext } from "../../../utils/CustomHooks/useModalContext";
+
 
 export const Step2: React.FC<StepProps> = (props) => {
 
@@ -30,6 +32,9 @@ export const Step2: React.FC<StepProps> = (props) => {
         cd_id: idCard!
     };
 
+
+    const ContextModal = useContext(ModalContext);
+    const {setActive, setDesactive} = ContextModal;
     
     return(
         <>  
@@ -55,7 +60,12 @@ export const Step2: React.FC<StepProps> = (props) => {
                                 Next();
                             } else{
                                 const test = await isPackNameExisting({variables: {cd_name: props.settings.others.cd_name}})
-                                if(test.data?.isPackNameExisting?.message != "existe"){
+                                if(test.data?.isPackNameExisting?.message == "existe"){
+                                    setActive();
+                                    setTimeout(() => {
+                                        setDesactive()
+                                    }, 3000);
+                                } else{
                                     const response = await category({variables: {input: datas}}) 
                                     setIdCard(response.data?.category.cd_id)
                                     setIdCreator(response.data?.category.cd_userid)

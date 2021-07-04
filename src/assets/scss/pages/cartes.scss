@@ -16,10 +16,37 @@
         top: 1em;
     }
     .step1{
-        p{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        h1{
+            display: block;
+            padding-bottom: .5em;
+        }
+        p.empty{
             max-width: 80%;
             margin: auto;
             padding: 2em 0 3em 0;
+        }
+        .pack{
+            width: 33%;
+            div{
+                height: 6em;
+                cursor: $cursor;
+            }
+            p{
+                margin: 0;
+                padding: 0 0 1em 0;
+                .name{
+                    font-weight: bold;
+                }
+                .number{
+                    font-size: .85em;
+                }
+            }            
+        }
+        button{
+            margin: .75em auto 0 auto !important;
         }
     }
     .step3{

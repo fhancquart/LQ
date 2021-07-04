@@ -13,7 +13,7 @@
     }
 }
 
-@mixin switchMode($base, $bgColor, $gradient, $textColor, $borderButton, $content) {
+@mixin switchMode($base, $bgColor, $gradient, $textColor, $borderButton, $content, $modal) {
     #{$base}{
         background-image: url('../../img/background.png'), linear-gradient(0.5turn, darken($bgColor, 7%), $gradient, darken($bgColor, 7%));
 
@@ -23,6 +23,11 @@
 
         input, textarea, .buttonGroups .default, .ssButton, select{
             background-color: rgba($content, 0.469);
+            border: 2px solid $content;
+        }
+
+        .modal{
+            background-color: $modal;
             border: 2px solid $content;
         }
 
@@ -81,86 +86,21 @@
         }  
 
         .conteneur{
-            display: flex;
-            align-items: center;  
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
-            -webkit-flex-wrap: wrap;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
             .content{
-                max-width: 300px;
-                min-width: 300px;
                 background-color: rgba($content, 0.3);
                 border: 3px solid rgba($content, 0.4);
-                padding: 2em 1em 3.5em 1em;
-                border-radius: 40px;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                overflow:hidden;
-                // transition: all 1s;
-                // transition-timing-function: $funnyBezier;
-                --shadow: 0 2px 0px -1px #{rgba(rgba(51, 51, 51, 0.048), .12)};
-                box-shadow: var(--shadow);
                 .header{
-                    display: inline-flex;
-                    position: relative;
                     .logo, .logout, .back{
-                        display: inline-flex;
-                        align-items: center;
-                        align-content: center;
                         cursor: $cursor;
                     }
-                    .logout{
-                        float: right;
-                        padding: 1em;
-                    }
-                    .back{
-                        float: left;
-                        padding: 1em;
-                    }
                     .profilMenu{
-                        background-color: white;
                         color: $grey;
-                        width: fit-content;
-                        position: absolute;
-                        right: -.85em;
-                        bottom: -4.5em;
-                        text-align: center;
-                        border-radius: 5px;
-                        z-index: 999;
-                        &:before{
-                            content: '';
-                            position: absolute;
-                            left: 32%;
-                            top: -10px;
-                            transform: rotate(180deg);
-                            width: 0;
-                            height: 0;
-                            border-left: 20px solid transparent;
-                            border-right: 20px solid transparent;
-                            border-top: 20px solid #fff;
-                            clear: both;
-                        }
                         ul{
-                            margin: 0;
-                            padding: 0;
                             li{
-                                list-style: none;
-                                font-size: .8em;
                                 cursor: $cursor;
-                                padding: .75em;
                                 &:hover{
                                     color: $orange;
                                 }
-                            }
-                            .out{
-                                background-color: #f0f0f0;
-                                border-bottom-left-radius: 5px;
-                                border-bottom-right-radius: 5px;
                             }
                         }
                     }
