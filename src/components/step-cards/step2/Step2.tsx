@@ -35,6 +35,15 @@ export const Step2: React.FC<StepProps> = (props) => {
 
     const ContextModal = useContext(ModalContext);
     const {setActive, setDesactive} = ContextModal;
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+                if(step == 1){
+                    console.log('Logs every 10s');
+                }
+            }, 10000);        
+            return () => clearInterval(interval);
+        }, [])
     
     return(
         <>  
@@ -46,6 +55,8 @@ export const Step2: React.FC<StepProps> = (props) => {
                     handleChangeButtons={props.handleChangeButtons}
                     family={props.family}
                     group={props.group}
+                    idCard={idCard}
+                    idCreator={idCreator}
                 />
             :                 
                 <span className="step2">

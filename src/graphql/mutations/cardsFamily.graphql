@@ -1,0 +1,8 @@
+mutation Family($input: familyFields!){
+  family(options: $input){
+     cf_id
+     cf_category
+     cf_name
+     cf_color
+  }
+}

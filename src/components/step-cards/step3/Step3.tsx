@@ -53,6 +53,8 @@ export const Step3: React.FC<StepProps> = (props) => {
                                             i={i}
                                             handleChange={props.handleChange}
                                             settings={props.settings}
+                                            idCard={props.idCard}
+                                            idCreator={props.idCreator}
                                         />
                                     </div>    
                                     <div className="bottomBloc">

@@ -10,6 +10,8 @@ interface NavigationProps{
     i?: any
     handleChange?: any
     settings?: any
+    idCard: any
+    idCreator: any
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
@@ -26,7 +28,13 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
             </span>
 
             {props.isInput ? 
-                <ColorPicker index={props.i} handleChange={props.handleChange} settings={props.settings} />
+                <ColorPicker 
+                    index={props.i} 
+                    handleChange={props.handleChange} 
+                    settings={props.settings} 
+                    idCard={props.idCard}
+                    idCreator={props.idCreator}
+                />
             : 
                 <p className="numberCard"><b>{props.text}</b></p>
             } 

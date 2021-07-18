@@ -7,6 +7,8 @@ export interface StepProps {
     handleChangeButtons: any
     setFamily?: any
     setGroup?: any
+    idCard?: any
+    idCreator?: any
 }
 
 export interface EditFieldsProps {

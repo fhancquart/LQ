@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Step1 } from "../components/step-cards/step1/Step1";
 import {useSwitchList} from "../utils/CustomHooks/useSwitchList";
 import { withApollo } from "../utils/withApollo";

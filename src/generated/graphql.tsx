@@ -23,6 +23,14 @@ export type Cards_Category = {
   cd_resume: Scalars['String'];
 };
 
+export type Cards_Family = {
+  __typename?: 'Cards_family';
+  cf_id: Scalars['Float'];
+  cf_category: Scalars['Float'];
+  cf_name: Scalars['String'];
+  cf_color: Scalars['String'];
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -42,6 +50,7 @@ export type Mutation = {
   category: Cards_Category;
   updateCategory?: Maybe<Cards_Category>;
   isPackNameExisting?: Maybe<FieldName>;
+  family: Cards_Family;
 };
 
 
@@ -71,6 +80,11 @@ export type MutationUpdateCategoryArgs = {
 
 export type MutationIsPackNameExistingArgs = {
   cd_name: Scalars['String'];
+};
+
+
+export type MutationFamilyArgs = {
+  options: FamilyFields;
 };
 
 export type Query = {
@@ -117,6 +131,12 @@ export type CategoryFields = {
   cd_resume: Scalars['String'];
 };
 
+export type FamilyFields = {
+  cf_category: Scalars['Float'];
+  cf_name: Scalars['String'];
+  cf_color: Scalars['String'];
+};
+
 export type RegularErrorFragment = (
   { __typename?: 'FieldError' }
   & Pick<FieldError, 'field' | 'message'>
@@ -148,6 +168,19 @@ export type CategoryMutation = (
   & { category: (
     { __typename?: 'Cards_category' }
     & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume'>
+  ) }
+);
+
+export type FamilyMutationVariables = Exact<{
+  input: FamilyFields;
+}>;
+
+
+export type FamilyMutation = (
+  { __typename?: 'Mutation' }
+  & { family: (
+    { __typename?: 'Cards_family' }
+    & Pick<Cards_Family, 'cf_id' | 'cf_category' | 'cf_name' | 'cf_color'>
   ) }
 );
 
@@ -313,6 +346,42 @@ export function useCategoryMutation(baseOptions?: Apollo.MutationHookOptions<Cat
 export type CategoryMutationHookResult = ReturnType<typeof useCategoryMutation>;
 export type CategoryMutationResult = Apollo.MutationResult<CategoryMutation>;
 export type CategoryMutationOptions = Apollo.BaseMutationOptions<CategoryMutation, CategoryMutationVariables>;
+export const FamilyDocument = gql`
+    mutation Family($input: familyFields!) {
+  family(options: $input) {
+    cf_id
+    cf_category
+    cf_name
+    cf_color
+  }
+}
+    `;
+export type FamilyMutationFn = Apollo.MutationFunction<FamilyMutation, FamilyMutationVariables>;
+
+/**
+ * __useFamilyMutation__
+ *
+ * To run a mutation, you first call `useFamilyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFamilyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [familyMutation, { data, loading, error }] = useFamilyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useFamilyMutation(baseOptions?: Apollo.MutationHookOptions<FamilyMutation, FamilyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FamilyMutation, FamilyMutationVariables>(FamilyDocument, options);
+      }
+export type FamilyMutationHookResult = ReturnType<typeof useFamilyMutation>;
+export type FamilyMutationResult = Apollo.MutationResult<FamilyMutation>;
+export type FamilyMutationOptions = Apollo.BaseMutationOptions<FamilyMutation, FamilyMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($usernameOrEmail: String!, $password: String!) {
   login(usernameOrEmail: $usernameOrEmail, password: $password) {

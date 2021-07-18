@@ -1,6 +1,5 @@
 import React, { MouseEventHandler, useContext } from "react";
 import { ModalContext } from "../utils/CustomHooks/useModalContext";
-import Image from 'next/image';
 
 interface ModalProps {
     visible?:boolean
