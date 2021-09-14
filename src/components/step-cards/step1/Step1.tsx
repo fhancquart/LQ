@@ -12,8 +12,7 @@ export const Step1: React.FC<StepProps> = (props) => {
     const {step, Next} = context;
 
     const {data: allPackData, loading} = useGetAllPackQuery();
-    const datapack = allPackData?.getAllPack?.pack;
-   
+    const datapack = allPackData?.getAllPack?.pack;   
 
     return(
         <>  
@@ -29,42 +28,45 @@ export const Step1: React.FC<StepProps> = (props) => {
                     setFamily={props.setFamily}
                 />
             : 
-                (loading ?
-                    <p>Chargement...</p> 
-                    : 
-                    <span className="step1">
-                        <b><h1>Bienvenue dans l'assistant de création de jeu de carte en ligne</h1></b>
+                
+                <span className="step1">
+                    <b><h1>Bienvenue dans l'assistant de création de jeu de carte en ligne</h1></b>
+                    <span className="allPack">
                         {datapack?.length == 0 ? 
                             <p className="empty">Vous ne disposez actuellement d'aucun jeu de carte</p>
                         :
-                            datapack?.map((e:any) => {
-                                return(
-                                    <>
-                                        <span className="pack">
-                                            <Image 
-                                                src={`/SVG/pack.svg`}
-                                                alt="Logo"
-                                                width="160"
-                                                height="90"
-                                                className="logoico"
-                                            />
-                                            <p><span className="name">{e.cd_name}</span><br /><span className="number">27 cartes</span></p>
-                                        </span>
-                                    </>
-                                )
-                            })
+                            (loading ?
+                                <p className="loader">Chargement...</p> 
+                                : 
+                                datapack?.map((e:any) => {
+                                    return(
+                                        <>
+                                            <span className="pack">
+                                                <Image 
+                                                    src={`/SVG/pack.svg`}
+                                                    alt="Logo"
+                                                    width="160"
+                                                    height="90"
+                                                    className="logoico"
+                                                />
+                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">27 cartes</span></p>
+                                            </span>
+                                        </>
+                                    )
+                                })
+                            )
                         }
-                        <Button
-                            text="Commencer"
-                            wButton="big"
-                            cButton="orange"
-                            isImage={false}
-                            link=""
-                            isClick={true}
-                            click={Next}
-                        />
                     </span>
-                )
+                    <Button
+                        text="Commencer"
+                        wButton="big"
+                        cButton="orange"
+                        isImage={false}
+                        link=""
+                        isClick={true}
+                        click={Next}
+                    />
+                </span>                
             } 
         </>
     )

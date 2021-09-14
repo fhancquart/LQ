@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { Step1 } from "../components/step-cards/step1/Step1";
 import {useSwitchList} from "../utils/CustomHooks/useSwitchList";
+import { useIsAuth } from "../utils/useIsAuth";
 import { withApollo } from "../utils/withApollo";
 
 const Cartes: React.FC<{}> = ({}) => {
+
+  useIsAuth();
 
   const [
     family, 

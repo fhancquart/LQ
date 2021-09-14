@@ -16,34 +16,51 @@
         top: 1em;
     }
     .step1{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         h1{
             display: block;
             padding-bottom: .5em;
         }
-        p.empty{
-            max-width: 80%;
-            margin: auto;
-            padding: 2em 0 3em 0;
-        }
-        .pack{
-            width: 33%;
-            div{
-                height: 6em;
-                cursor: $cursor;
+        .allPack{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            max-height: 19em;
+            overflow-y: scroll;
+            margin-bottom: 1em;
+            p.empty{
+                max-width: 80%;
+                margin: auto;
+                padding: 2em 0 3em 0;
             }
-            p{
-                margin: 0;
-                padding: 0 0 1em 0;
-                .name{
-                    font-weight: bold;
+            .pack{
+                width: 33%;
+                &:hover{
+                    img{
+                        @include funnyImg;
+                        opacity: .65;
+                    }
+                    p{
+                        color: $orange !important;
+                    }
                 }
-                .number{
-                    font-size: .85em;
+                div{
+                    height: 6em;
+                    cursor: $cursor;
                 }
-            }            
+                p{
+                    margin: 0;
+                    padding: 0 0 1em 0;
+                    .name{
+                        font-weight: bold;
+                    }
+                    .number{
+                        font-size: .85em;
+                    }
+                }   
+                img{
+                    transition: all .5s; 
+                }       
+            }
         }
         button{
             margin: .75em auto 0 auto !important;

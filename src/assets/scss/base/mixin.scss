@@ -166,6 +166,11 @@
     }
 }
 
+@mixin funnyImg{
+    transform: rotate(0deg);
+    animation: funnyImg .5s $funnyBezier calc(0.075 * 0.5s) forwards;
+}
+
 $color: (
     main: #c9a04e,
     minor: #f7f6f2,

@@ -10,8 +10,8 @@ interface NavigationProps{
     i?: any
     handleChange?: any
     settings?: any
-    idCard: any
-    idCreator: any
+    idCard?: any
+    idCreator?: any
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {

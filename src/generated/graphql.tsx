@@ -27,6 +27,7 @@ export type Cards_Family = {
   __typename?: 'Cards_family';
   cf_id: Scalars['Float'];
   cf_category: Scalars['Float'];
+  cf_number: Scalars['Float'];
   cf_name: Scalars['String'];
   cf_color: Scalars['String'];
 };
@@ -51,6 +52,8 @@ export type Mutation = {
   updateCategory?: Maybe<Cards_Category>;
   isPackNameExisting?: Maybe<FieldName>;
   family: Cards_Family;
+  isFamilyNameExist?: Maybe<FieldName>;
+  updateFamily?: Maybe<Cards_Family>;
 };
 
 
@@ -85,6 +88,20 @@ export type MutationIsPackNameExistingArgs = {
 
 export type MutationFamilyArgs = {
   options: FamilyFields;
+};
+
+
+export type MutationIsFamilyNameExistArgs = {
+  cf_number: Scalars['Float'];
+  cf_category: Scalars['Float'];
+};
+
+
+export type MutationUpdateFamilyArgs = {
+  cf_number: Scalars['Float'];
+  cf_color: Scalars['String'];
+  cf_name: Scalars['String'];
+  cf_category: Scalars['Float'];
 };
 
 export type Query = {
@@ -133,6 +150,7 @@ export type CategoryFields = {
 
 export type FamilyFields = {
   cf_category: Scalars['Float'];
+  cf_number: Scalars['Float'];
   cf_name: Scalars['String'];
   cf_color: Scalars['String'];
 };
@@ -180,7 +198,7 @@ export type FamilyMutation = (
   { __typename?: 'Mutation' }
   & { family: (
     { __typename?: 'Cards_family' }
-    & Pick<Cards_Family, 'cf_id' | 'cf_category' | 'cf_name' | 'cf_color'>
+    & Pick<Cards_Family, 'cf_id' | 'cf_category' | 'cf_number' | 'cf_name' | 'cf_color'>
   ) }
 );
 
@@ -235,6 +253,22 @@ export type UpdateCategoryMutation = (
   )> }
 );
 
+export type UpdateFamilyMutationVariables = Exact<{
+  cf_name: Scalars['String'];
+  cf_category: Scalars['Float'];
+  cf_color: Scalars['String'];
+  cf_number: Scalars['Float'];
+}>;
+
+
+export type UpdateFamilyMutation = (
+  { __typename?: 'Mutation' }
+  & { updateFamily?: Maybe<(
+    { __typename?: 'Cards_family' }
+    & Pick<Cards_Family, 'cf_name' | 'cf_color'>
+  )> }
+);
+
 export type GetAllPackQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -259,6 +293,20 @@ export type GetInfoPackQuery = (
   & { getInfoPack?: Maybe<(
     { __typename?: 'Cards_category' }
     & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name'>
+  )> }
+);
+
+export type IsFamilyNameExistMutationVariables = Exact<{
+  cf_number: Scalars['Float'];
+  cf_category: Scalars['Float'];
+}>;
+
+
+export type IsFamilyNameExistMutation = (
+  { __typename?: 'Mutation' }
+  & { isFamilyNameExist?: Maybe<(
+    { __typename?: 'FieldName' }
+    & Pick<FieldName, 'message'>
   )> }
 );
 
@@ -351,6 +399,7 @@ export const FamilyDocument = gql`
   family(options: $input) {
     cf_id
     cf_category
+    cf_number
     cf_name
     cf_color
   }
@@ -524,6 +573,48 @@ export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
 export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
 export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export const UpdateFamilyDocument = gql`
+    mutation updateFamily($cf_name: String!, $cf_category: Float!, $cf_color: String!, $cf_number: Float!) {
+  updateFamily(
+    cf_name: $cf_name
+    cf_category: $cf_category
+    cf_color: $cf_color
+    cf_number: $cf_number
+  ) {
+    cf_name
+    cf_color
+  }
+}
+    `;
+export type UpdateFamilyMutationFn = Apollo.MutationFunction<UpdateFamilyMutation, UpdateFamilyMutationVariables>;
+
+/**
+ * __useUpdateFamilyMutation__
+ *
+ * To run a mutation, you first call `useUpdateFamilyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFamilyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFamilyMutation, { data, loading, error }] = useUpdateFamilyMutation({
+ *   variables: {
+ *      cf_name: // value for 'cf_name'
+ *      cf_category: // value for 'cf_category'
+ *      cf_color: // value for 'cf_color'
+ *      cf_number: // value for 'cf_number'
+ *   },
+ * });
+ */
+export function useUpdateFamilyMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFamilyMutation, UpdateFamilyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFamilyMutation, UpdateFamilyMutationVariables>(UpdateFamilyDocument, options);
+      }
+export type UpdateFamilyMutationHookResult = ReturnType<typeof useUpdateFamilyMutation>;
+export type UpdateFamilyMutationResult = Apollo.MutationResult<UpdateFamilyMutation>;
+export type UpdateFamilyMutationOptions = Apollo.BaseMutationOptions<UpdateFamilyMutation, UpdateFamilyMutationVariables>;
 export const GetAllPackDocument = gql`
     query getAllPack {
   getAllPack {
@@ -599,6 +690,40 @@ export function useGetInfoPackLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetInfoPackQueryHookResult = ReturnType<typeof useGetInfoPackQuery>;
 export type GetInfoPackLazyQueryHookResult = ReturnType<typeof useGetInfoPackLazyQuery>;
 export type GetInfoPackQueryResult = Apollo.QueryResult<GetInfoPackQuery, GetInfoPackQueryVariables>;
+export const IsFamilyNameExistDocument = gql`
+    mutation isFamilyNameExist($cf_number: Float!, $cf_category: Float!) {
+  isFamilyNameExist(cf_number: $cf_number, cf_category: $cf_category) {
+    message
+  }
+}
+    `;
+export type IsFamilyNameExistMutationFn = Apollo.MutationFunction<IsFamilyNameExistMutation, IsFamilyNameExistMutationVariables>;
+
+/**
+ * __useIsFamilyNameExistMutation__
+ *
+ * To run a mutation, you first call `useIsFamilyNameExistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useIsFamilyNameExistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [isFamilyNameExistMutation, { data, loading, error }] = useIsFamilyNameExistMutation({
+ *   variables: {
+ *      cf_number: // value for 'cf_number'
+ *      cf_category: // value for 'cf_category'
+ *   },
+ * });
+ */
+export function useIsFamilyNameExistMutation(baseOptions?: Apollo.MutationHookOptions<IsFamilyNameExistMutation, IsFamilyNameExistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<IsFamilyNameExistMutation, IsFamilyNameExistMutationVariables>(IsFamilyNameExistDocument, options);
+      }
+export type IsFamilyNameExistMutationHookResult = ReturnType<typeof useIsFamilyNameExistMutation>;
+export type IsFamilyNameExistMutationResult = Apollo.MutationResult<IsFamilyNameExistMutation>;
+export type IsFamilyNameExistMutationOptions = Apollo.BaseMutationOptions<IsFamilyNameExistMutation, IsFamilyNameExistMutationVariables>;
 export const IsPackNameExistingDocument = gql`
     mutation isPackNameExisting($cd_name: String!) {
   isPackNameExisting(cd_name: $cd_name) {

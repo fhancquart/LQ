@@ -1,0 +1,5 @@
+mutation isFamilyNameExist($cf_number: Float!, $cf_category: Float!){
+  isFamilyNameExist(cf_number: $cf_number, cf_category: $cf_category) {
+    message
+  }
+}

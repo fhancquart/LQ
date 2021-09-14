@@ -1,0 +1,11 @@
+mutation updateFamily(
+  $cf_name: String!
+  $cf_category: Float!
+  $cf_color: String!
+  $cf_number: Float!
+){
+  updateFamily(cf_name: $cf_name, cf_category: $cf_category, cf_color: $cf_color, cf_number: $cf_number) {
+    cf_name
+    cf_color
+  }
+}
