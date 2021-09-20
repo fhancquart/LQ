@@ -19,6 +19,7 @@ export function useSwitchList() {
             settings.cards.push(new Array({
               ["familyName-" + g]: "",
               ["color-" + g]: "",
+              ["family"]: g,
             }))
         }
     
@@ -26,10 +27,8 @@ export function useSwitchList() {
             for (var i = 1; i <= family; i++) { //Puis les cartes pour chaque familles
                 e.push({
                     id: i,
-                    question:undefined,
                     ["question-" + i]: "",
-                    reponse:undefined,
-                    ["reponse-" + i]: ""              
+                    ["reponse-" + i]: ""          
                 } as any)
             }
         })
@@ -51,6 +50,7 @@ export function useSwitchList() {
         } else{
     
           settings.cards[f][i][evt.target.name] = value
+          // settings.cards[f][i]["family"] = i
       
           setSettings({
             ...settings,

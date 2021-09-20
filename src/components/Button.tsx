@@ -16,6 +16,7 @@ interface ButtonProps {
     onClick?: any;
     disabled?: boolean;
     isSubmit?:boolean;
+    action?:any;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {

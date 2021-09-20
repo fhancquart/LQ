@@ -1,0 +1,7 @@
+mutation Game($input: categoryGameFields!) {
+  game(
+    options: $input
+  ) {
+    message
+  }
+}

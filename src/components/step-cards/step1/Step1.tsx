@@ -1,10 +1,11 @@
-import React, {useContext } from "react";
+import React, {useContext, useEffect } from "react";
 import Image from 'next/image';
 import { Button } from "../../Button";
 import { Step2 } from "../step2/Step2";
 import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
 import {StepProps} from '../../../utils/Types/interface'
 import { useGetAllPackQuery } from "../../../generated/graphql";
+import { useApolloClient } from "@apollo/client";
 
 export const Step1: React.FC<StepProps> = (props) => {
 
@@ -13,6 +14,17 @@ export const Step1: React.FC<StepProps> = (props) => {
 
     const {data: allPackData, loading} = useGetAllPackQuery();
     const datapack = allPackData?.getAllPack?.pack;   
+
+    const countCards = 0; 
+
+    const apolloClient = useApolloClient();
+    const cacheReset = () => apolloClient.cache.reset();
+
+    useEffect(() => {
+        if(step == 0){
+            cacheReset()
+        }
+    }, [step])
 
     return(
         <>  
@@ -49,7 +61,7 @@ export const Step1: React.FC<StepProps> = (props) => {
                                                     height="90"
                                                     className="logoico"
                                                 />
-                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">27 cartes</span></p>
+                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">{countCards} cartes</span></p>
                                             </span>
                                         </>
                                     )

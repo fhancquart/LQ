@@ -51,6 +51,7 @@ export type Mutation = {
   category: Cards_Category;
   updateCategory?: Maybe<Cards_Category>;
   isPackNameExisting?: Maybe<FieldName>;
+  game: FieldName;
   family: Cards_Family;
   isFamilyNameExist?: Maybe<FieldName>;
   updateFamily?: Maybe<Cards_Family>;
@@ -83,6 +84,11 @@ export type MutationUpdateCategoryArgs = {
 
 export type MutationIsPackNameExistingArgs = {
   cd_name: Scalars['String'];
+};
+
+
+export type MutationGameArgs = {
+  options: CategoryGameFields;
 };
 
 
@@ -148,6 +154,14 @@ export type CategoryFields = {
   cd_resume: Scalars['String'];
 };
 
+export type CategoryGameFields = {
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_question: Scalars['String'];
+  cg_reponse: Scalars['String'];
+};
+
 export type FamilyFields = {
   cf_category: Scalars['Float'];
   cf_number: Scalars['Float'];
@@ -199,6 +213,19 @@ export type FamilyMutation = (
   & { family: (
     { __typename?: 'Cards_family' }
     & Pick<Cards_Family, 'cf_id' | 'cf_category' | 'cf_number' | 'cf_name' | 'cf_color'>
+  ) }
+);
+
+export type GameMutationVariables = Exact<{
+  input: CategoryGameFields;
+}>;
+
+
+export type GameMutation = (
+  { __typename?: 'Mutation' }
+  & { game: (
+    { __typename?: 'FieldName' }
+    & Pick<FieldName, 'message'>
   ) }
 );
 
@@ -431,6 +458,39 @@ export function useFamilyMutation(baseOptions?: Apollo.MutationHookOptions<Famil
 export type FamilyMutationHookResult = ReturnType<typeof useFamilyMutation>;
 export type FamilyMutationResult = Apollo.MutationResult<FamilyMutation>;
 export type FamilyMutationOptions = Apollo.BaseMutationOptions<FamilyMutation, FamilyMutationVariables>;
+export const GameDocument = gql`
+    mutation Game($input: categoryGameFields!) {
+  game(options: $input) {
+    message
+  }
+}
+    `;
+export type GameMutationFn = Apollo.MutationFunction<GameMutation, GameMutationVariables>;
+
+/**
+ * __useGameMutation__
+ *
+ * To run a mutation, you first call `useGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [gameMutation, { data, loading, error }] = useGameMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGameMutation(baseOptions?: Apollo.MutationHookOptions<GameMutation, GameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GameMutation, GameMutationVariables>(GameDocument, options);
+      }
+export type GameMutationHookResult = ReturnType<typeof useGameMutation>;
+export type GameMutationResult = Apollo.MutationResult<GameMutation>;
+export type GameMutationOptions = Apollo.BaseMutationOptions<GameMutation, GameMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($usernameOrEmail: String!, $password: String!) {
   login(usernameOrEmail: $usernameOrEmail, password: $password) {
