@@ -6,7 +6,7 @@ import { StepProps } from "../../../utils/Types/interface";
 import { EditFields } from "./EditFields";
 import { Step4 } from "../step4/Step4";
 import { Navigation } from "./Navigation";
-import { useGameMutation } from "../../../generated/graphql";
+import { useGameMutation, useIsGameExistMutation, useUpdateGameMutation } from "../../../generated/graphql";
 import { Formik, Form } from "formik";
 
 export const Step3: React.FC<StepProps> = (props) => {
@@ -19,6 +19,8 @@ export const Step3: React.FC<StepProps> = (props) => {
     const lastIndex = props.settings.cards.length;
 
     const [game] = useGameMutation();
+    const [isGameExist] = useIsGameExistMutation();
+    const [updateGame] = useUpdateGameMutation();
 
     console.log(props.settings.cards)
     
@@ -40,20 +42,35 @@ export const Step3: React.FC<StepProps> = (props) => {
                         <Formik
                             initialValues={{cg_category: "", cg_family: "", cg_number: "", cg_question: "", cg_reponse: ""}}
                             onSubmit={async () => {
+                                
+                                const exist = await isGameExist({variables: {cg_category: props.idCard}})
+
                                 for (let i = 0; i < props.group; i++) {
-                                    // console.log("family", props.family)
-                                    // console.log("group", props.group)
-                                    for (let j = 1; j < props.family; j++) {
-                                        await game({variables: {
-                                            input: 
-                                            {
-                                                cg_category: props.idCard,
-                                                cg_family: props.settings.cards[i][0]["family"],
-                                                cg_number: j,
-                                                cg_question: props.settings.cards[i][j]["question-" + (j)],
-                                                cg_reponse: props.settings.cards[i][j]["reponse-" + (j)]
-                                            }
-                                        }})                                    
+                                    for (let j = 0; j < props.family; j++) {
+                                        if(exist.data?.isGameExist?.message == "inexistant"){
+                                            await game({
+                                                variables: {
+                                                    input: 
+                                                    {
+                                                        cg_category: props.idCard,
+                                                        cg_family: props.settings.cards[i][0]["family"],
+                                                        cg_number: j+1,
+                                                        cg_question: props.settings.cards[i][j+1]["question-" + (j+1)],
+                                                        cg_reponse: props.settings.cards[i][j+1]["reponse-" + (j+1)]
+                                                    }
+                                                }
+                                            })   
+                                        } else{
+                                            await updateGame({
+                                                variables:{
+                                                    cg_category: props.idCard,
+                                                    cg_family: props.settings.cards[i][0]["family"],
+                                                    cg_number: j+1,
+                                                    cg_question: props.settings.cards[i][j+1]["question-" + (j+1)],
+                                                    cg_reponse: props.settings.cards[i][j+1]["reponse-" + (j+1)]
+                                                }
+                                            })
+                                        }                                                                         
                                     }                                   
                                 }
                                 Next()

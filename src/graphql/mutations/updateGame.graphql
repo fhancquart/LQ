@@ -1,0 +1,11 @@
+mutation updateGame(
+  $cg_category: Float!
+  $cg_family: Float!
+  $cg_number: Float!
+  $cg_question: String!
+  $cg_reponse: String!
+){
+  updateGame(cg_category: $cg_category, cg_family: $cg_family, cg_number: $cg_number, cg_question: $cg_question, cg_reponse: $cg_reponse) {
+    cg_category
+  }
+}

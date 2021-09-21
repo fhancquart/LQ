@@ -20,6 +20,9 @@ export const Card: React.FC<CardProps> = (props) => {
                 <span className="bloc-question">
                     <p>{props.question}</p>
                 </span>
+                <span className="bloc-reponse">
+                    <p></p>
+                </span>
             </div>
         </>
     )

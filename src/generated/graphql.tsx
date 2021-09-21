@@ -32,6 +32,16 @@ export type Cards_Family = {
   cf_color: Scalars['String'];
 };
 
+export type Cards_Game = {
+  __typename?: 'Cards_game';
+  cg_id: Scalars['Float'];
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_question: Scalars['String'];
+  cg_reponse: Scalars['String'];
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -51,10 +61,12 @@ export type Mutation = {
   category: Cards_Category;
   updateCategory?: Maybe<Cards_Category>;
   isPackNameExisting?: Maybe<FieldName>;
-  game: FieldName;
   family: Cards_Family;
   isFamilyNameExist?: Maybe<FieldName>;
   updateFamily?: Maybe<Cards_Family>;
+  game: FieldName;
+  isGameExist?: Maybe<FieldName>;
+  updateGame?: Maybe<Cards_Game>;
 };
 
 
@@ -87,11 +99,6 @@ export type MutationIsPackNameExistingArgs = {
 };
 
 
-export type MutationGameArgs = {
-  options: CategoryGameFields;
-};
-
-
 export type MutationFamilyArgs = {
   options: FamilyFields;
 };
@@ -108,6 +115,25 @@ export type MutationUpdateFamilyArgs = {
   cf_color: Scalars['String'];
   cf_name: Scalars['String'];
   cf_category: Scalars['Float'];
+};
+
+
+export type MutationGameArgs = {
+  options: CategoryGameFields;
+};
+
+
+export type MutationIsGameExistArgs = {
+  cg_category: Scalars['Float'];
+};
+
+
+export type MutationUpdateGameArgs = {
+  cg_reponse: Scalars['String'];
+  cg_question: Scalars['String'];
+  cg_number: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_category: Scalars['Float'];
 };
 
 export type Query = {
@@ -296,6 +322,23 @@ export type UpdateFamilyMutation = (
   )> }
 );
 
+export type UpdateGameMutationVariables = Exact<{
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_question: Scalars['String'];
+  cg_reponse: Scalars['String'];
+}>;
+
+
+export type UpdateGameMutation = (
+  { __typename?: 'Mutation' }
+  & { updateGame?: Maybe<(
+    { __typename?: 'Cards_game' }
+    & Pick<Cards_Game, 'cg_category'>
+  )> }
+);
+
 export type GetAllPackQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -332,6 +375,19 @@ export type IsFamilyNameExistMutationVariables = Exact<{
 export type IsFamilyNameExistMutation = (
   { __typename?: 'Mutation' }
   & { isFamilyNameExist?: Maybe<(
+    { __typename?: 'FieldName' }
+    & Pick<FieldName, 'message'>
+  )> }
+);
+
+export type IsGameExistMutationVariables = Exact<{
+  cg_category: Scalars['Float'];
+}>;
+
+
+export type IsGameExistMutation = (
+  { __typename?: 'Mutation' }
+  & { isGameExist?: Maybe<(
     { __typename?: 'FieldName' }
     & Pick<FieldName, 'message'>
   )> }
@@ -675,6 +731,49 @@ export function useUpdateFamilyMutation(baseOptions?: Apollo.MutationHookOptions
 export type UpdateFamilyMutationHookResult = ReturnType<typeof useUpdateFamilyMutation>;
 export type UpdateFamilyMutationResult = Apollo.MutationResult<UpdateFamilyMutation>;
 export type UpdateFamilyMutationOptions = Apollo.BaseMutationOptions<UpdateFamilyMutation, UpdateFamilyMutationVariables>;
+export const UpdateGameDocument = gql`
+    mutation updateGame($cg_category: Float!, $cg_family: Float!, $cg_number: Float!, $cg_question: String!, $cg_reponse: String!) {
+  updateGame(
+    cg_category: $cg_category
+    cg_family: $cg_family
+    cg_number: $cg_number
+    cg_question: $cg_question
+    cg_reponse: $cg_reponse
+  ) {
+    cg_category
+  }
+}
+    `;
+export type UpdateGameMutationFn = Apollo.MutationFunction<UpdateGameMutation, UpdateGameMutationVariables>;
+
+/**
+ * __useUpdateGameMutation__
+ *
+ * To run a mutation, you first call `useUpdateGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGameMutation, { data, loading, error }] = useUpdateGameMutation({
+ *   variables: {
+ *      cg_category: // value for 'cg_category'
+ *      cg_family: // value for 'cg_family'
+ *      cg_number: // value for 'cg_number'
+ *      cg_question: // value for 'cg_question'
+ *      cg_reponse: // value for 'cg_reponse'
+ *   },
+ * });
+ */
+export function useUpdateGameMutation(baseOptions?: Apollo.MutationHookOptions<UpdateGameMutation, UpdateGameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateGameMutation, UpdateGameMutationVariables>(UpdateGameDocument, options);
+      }
+export type UpdateGameMutationHookResult = ReturnType<typeof useUpdateGameMutation>;
+export type UpdateGameMutationResult = Apollo.MutationResult<UpdateGameMutation>;
+export type UpdateGameMutationOptions = Apollo.BaseMutationOptions<UpdateGameMutation, UpdateGameMutationVariables>;
 export const GetAllPackDocument = gql`
     query getAllPack {
   getAllPack {
@@ -784,6 +883,39 @@ export function useIsFamilyNameExistMutation(baseOptions?: Apollo.MutationHookOp
 export type IsFamilyNameExistMutationHookResult = ReturnType<typeof useIsFamilyNameExistMutation>;
 export type IsFamilyNameExistMutationResult = Apollo.MutationResult<IsFamilyNameExistMutation>;
 export type IsFamilyNameExistMutationOptions = Apollo.BaseMutationOptions<IsFamilyNameExistMutation, IsFamilyNameExistMutationVariables>;
+export const IsGameExistDocument = gql`
+    mutation isGameExist($cg_category: Float!) {
+  isGameExist(cg_category: $cg_category) {
+    message
+  }
+}
+    `;
+export type IsGameExistMutationFn = Apollo.MutationFunction<IsGameExistMutation, IsGameExistMutationVariables>;
+
+/**
+ * __useIsGameExistMutation__
+ *
+ * To run a mutation, you first call `useIsGameExistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useIsGameExistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [isGameExistMutation, { data, loading, error }] = useIsGameExistMutation({
+ *   variables: {
+ *      cg_category: // value for 'cg_category'
+ *   },
+ * });
+ */
+export function useIsGameExistMutation(baseOptions?: Apollo.MutationHookOptions<IsGameExistMutation, IsGameExistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<IsGameExistMutation, IsGameExistMutationVariables>(IsGameExistDocument, options);
+      }
+export type IsGameExistMutationHookResult = ReturnType<typeof useIsGameExistMutation>;
+export type IsGameExistMutationResult = Apollo.MutationResult<IsGameExistMutation>;
+export type IsGameExistMutationOptions = Apollo.BaseMutationOptions<IsGameExistMutation, IsGameExistMutationVariables>;
 export const IsPackNameExistingDocument = gql`
     mutation isPackNameExisting($cd_name: String!) {
   isPackNameExisting(cd_name: $cd_name) {

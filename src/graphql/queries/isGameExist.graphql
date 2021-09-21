@@ -1,0 +1,5 @@
+mutation isGameExist($cg_category: Float!){
+  isGameExist(cg_category: $cg_category) {
+    message
+  }
+}
