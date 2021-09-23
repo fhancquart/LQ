@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import React, { useContext, useReducer} from "react";
+import React, { useContext, useReducer, useState} from "react";
 import { useCategoryMutation } from "../../../generated/graphql";
 import { BackgroundContext } from "../../../utils/CustomHooks/useBackground";
 import { PrevNextContext } from "../../../utils/CustomHooks/usePrevNextContext";
@@ -13,6 +13,7 @@ interface Step4Props{
     settings: any
     group: number
     family: number
+    handleChange: any
 }
 
 export const Step4: React.FC<Step4Props> = (props) => {
@@ -32,6 +33,12 @@ export const Step4: React.FC<Step4Props> = (props) => {
 
     const [category] = useCategoryMutation();
 
+    const [pic, setPic] = useState("0");
+    const [numPic, setNumPic] = useState(0);
+
+    const number = props.settings.cards[numPic][0]["family"];
+    console.log(number)
+
 
     return(
         <>
@@ -47,11 +54,17 @@ export const Step4: React.FC<Step4Props> = (props) => {
                     <p>Nom du jeu : <b>{props.settings.others.name}</b></p>
                     <p>Pour chacune de vos <b>{cardTotal}</b> cartes, définissez un visuel approprié</p>
 
-                    <select name="pictures">
-                        <option value="" selected disabled>Choisissez une catégorie</option>
-                        <option value="pic1">1</option>
-                        <option value="pic2">2</option>
-                        <option value="pic3">3</option>
+                    <select 
+                        name={`image-${numPic+1}`}
+                        onChange={(e) => {
+                            setPic(e.target.value);
+                            props.handleChange(e,2, pic, number);
+                        }}
+                    >
+                        <option value="0" selected disabled>Choisissez une catégorie</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
 
                     {props.settings.cards.map((v:any,i:any) => {
@@ -71,15 +84,17 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                             <div className="align-flex">
                                                 <Navigation 
                                                     prevClick={
-                                                        () => prevNextFamily.count != 0 ? 
-                                                        dispatch({type: 'decrement'}) 
-                                                        : null}
+                                                        () => {
+                                                            prevNextFamily.count != 0 ? dispatch({type: 'decrement'}) : null;
+                                                            prevNextFamily.count != 0 && setNumPic(numPic - 1); //On set le nom du select selon l'id de famille
+                                                        }}
                                                     nextClick={
-                                                        () => lastIndex != (i+1) ? 
-                                                        dispatch({type: 'increment'}) 
-                                                        : null}
+                                                        () => {
+                                                            lastIndex != (i+1) ? dispatch({type: 'increment'}) : null;
+                                                            lastIndex != (i+1) && setNumPic(numPic + 1);
+                                                        }}
                                                     isInput={false}
-                                                    text={`(${prevNextFamily.count + 1}/${props.group}) Famille ${family}`}
+                                                    text={`(${prevNextFamily.count + 1}/${props.group}) Familles ${family}`}
                                                 />
                                             </div>
 

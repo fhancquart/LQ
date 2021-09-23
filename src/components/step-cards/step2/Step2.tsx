@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState } from "react";
+import React, {useContext, useState } from "react";
 import { Button } from "../../Button";
 import { Step3 } from "../step3/Step3";
 import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
@@ -35,15 +35,6 @@ export const Step2: React.FC<StepProps> = (props) => {
 
     const ContextModal = useContext(ModalContext);
     const {setActive, setDesactive} = ContextModal;
-
-        useEffect(() => {
-            const interval = setInterval(() => {
-                if(step == 1){
-                    console.log('Logs every 10s');
-                }
-            }, 10000);        
-            return () => clearInterval(interval);
-        }, [])
     
     return(
         <>  
@@ -111,19 +102,16 @@ export const Step2: React.FC<StepProps> = (props) => {
                                     }} value={props.settings.others.cd_resume} />
                                 </div>
 
-                                {isSubmitting ? 
-                                    <p>loading</p>
-                                :
-                                    <Button
-                                        text="Suivant"
-                                        wButton="big"
-                                        cButton="orange"
-                                        isImage={false}
-                                        link=""
-                                        isClick={true}
-                                        isSubmit={true}
-                                    />
-                                }
+                                <Button
+                                    text="Suivant"
+                                    wButton="big"
+                                    cButton="orange"
+                                    isImage={false}
+                                    link=""
+                                    isClick={true}
+                                    isSubmit={true}
+                                    isLoading={isSubmitting ? true : false}
+                                />
 
                             </Form>
                         )}

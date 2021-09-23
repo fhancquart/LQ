@@ -28,7 +28,8 @@ export function useSwitchList() {
                 e.push({
                     id: i,
                     ["question-" + i]: "",
-                    ["reponse-" + i]: ""          
+                    ["reponse-" + i]: "",          
+                    ["image-" + i]: "",          
                 } as any)
             }
         })

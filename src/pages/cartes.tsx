@@ -19,6 +19,8 @@ const Cartes: React.FC<{}> = ({}) => {
     handleChangeButtons
   ] = useSwitchList();
 
+  console.log(settings)
+
   return (
     <>      
         <span className="cartes">

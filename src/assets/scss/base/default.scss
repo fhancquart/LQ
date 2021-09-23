@@ -327,6 +327,13 @@ img {
     }
 }
 
+.desactivate-button {
+    border: 6px solid #fff;
+    color: white;
+    background-color: darken($orange, 10%);
+    filter: brightness(1);
+}  
+
 .switch {
 	position: relative;
 	display: inline-block;
