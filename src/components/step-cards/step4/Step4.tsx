@@ -33,12 +33,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
 
     const [category] = useCategoryMutation();
 
-    const [pic, setPic] = useState("0");
-    const [numPic, setNumPic] = useState(0);
-
-    const number = props.settings.cards[numPic][0]["family"];
-    console.log(number)
-
+    const famille = prevNextFamily.count + 1;
+    const carte = prevNextCard.count + 1;
 
     return(
         <>
@@ -54,13 +50,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                     <p>Nom du jeu : <b>{props.settings.others.name}</b></p>
                     <p>Pour chacune de vos <b>{cardTotal}</b> cartes, définissez un visuel approprié</p>
 
-                    <select 
-                        name={`image-${numPic+1}`}
-                        onChange={(e) => {
-                            setPic(e.target.value);
-                            props.handleChange(e,2, pic, number);
-                        }}
-                    >
+                    <select name={`image-${carte}`} onChange={(e) => {props.handleChange(e,2, carte, famille-1)}}>
                         <option value="0" selected disabled>Choisissez une catégorie</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -84,15 +74,11 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                             <div className="align-flex">
                                                 <Navigation 
                                                     prevClick={
-                                                        () => {
-                                                            prevNextFamily.count != 0 ? dispatch({type: 'decrement'}) : null;
-                                                            prevNextFamily.count != 0 && setNumPic(numPic - 1); //On set le nom du select selon l'id de famille
-                                                        }}
+                                                        () => prevNextFamily.count != 0 ? dispatch({type: 'decrement'}) : null
+                                                        }
                                                     nextClick={
-                                                        () => {
-                                                            lastIndex != (i+1) ? dispatch({type: 'increment'}) : null;
-                                                            lastIndex != (i+1) && setNumPic(numPic + 1);
-                                                        }}
+                                                        () => lastIndex != (i+1) ? dispatch({type: 'increment'}) : null
+                                                        }
                                                     isInput={false}
                                                     text={`(${prevNextFamily.count + 1}/${props.group}) Familles ${family}`}
                                                 />
@@ -102,20 +88,18 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                 color={color}
                                                 family={family}
                                                 number={i2}
-                                                hasEmptyVisual={true}
                                                 question={v[i2]["question-" + (i2)]}
+                                                image={v[i2]["image-" + (i2)]}
                                             />
 
                                             <div className="align-flex">
                                                 <Navigation 
                                                     prevClick={
-                                                        () => prevNextCard.count != 0 ?
-                                                        dispatchCard({type: 'decrement'}) 
-                                                        : null}
+                                                        () => prevNextCard.count != 0 ? dispatchCard({type: 'decrement'}) : null
+                                                    }
                                                     nextClick={
-                                                        () => lastIndexCard != (i2 + 1) ? 
-                                                        dispatchCard({type: 'increment'}) 
-                                                        : dispatchCard({type:'reinit'})}
+                                                        () => lastIndexCard != (i2 + 1) ? dispatchCard({type: 'increment'}) : dispatchCard({type:'reinit'})
+                                                    }
                                                     isInput={false}
                                                     text={`Carte ${prevNextCard.count + 1}/${props.family}`}
                                                 />

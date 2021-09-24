@@ -1,7 +1,3 @@
-import { useGameMutation, useIsGameExistMutation, useUpdateGameMutation } from '../../generated/graphql';
-
-
-
 const useInsertCardGame = async (family:number, group:number, idcard:number, settings: any, game:any, isGameExist:any, updateGame:any) => {
 
     const exist = await isGameExist({variables: {cg_category: idcard}})
