@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Step1 } from "../components/step-cards/step1/Step1";
 import {useSwitchList} from "../utils/CustomHooks/useSwitchList";
 import { useIsAuth } from "../utils/useIsAuth";
@@ -18,8 +18,6 @@ const Cartes: React.FC<{}> = ({}) => {
     handleChange,
     handleChangeButtons
   ] = useSwitchList();
-
-  console.log(settings)
 
   return (
     <>      

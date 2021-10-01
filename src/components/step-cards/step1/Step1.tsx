@@ -70,7 +70,7 @@ export const Step1: React.FC<StepProps> = (props) => {
                         }
                     </span>
                     <Button
-                        text="Commencer"
+                        text="Créer un jeu"
                         wButton="big"
                         cButton="orange"
                         isImage={false}

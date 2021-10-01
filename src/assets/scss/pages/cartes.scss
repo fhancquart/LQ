@@ -115,6 +115,31 @@
             width: 80%;
             margin: auto;
         }
+        .navigationgroupText{
+            display: inline-block;
+            position: relative;
+            top: -.35em;
+        }
+        .navigationgroup{
+            background-color: rgba(255, 255, 255, 0.469);
+            border: 2px solid #fff;
+            padding: 1em .5em .25em .5em;
+            border-radius: 10px;
+            margin: 0 .25em;
+            img{
+                opacity: .5;
+                width: 1.5em;
+            }
+            &:hover{
+                background-color: rgba(255, 255, 255, 1);
+            }
+            &:active{
+                background-color: rgb(230, 230, 230);
+            }
+        }
+        .doubleNavigationgroup{
+            @extend .navigationgroup;
+        }
     }
     .step5{
         .slider{

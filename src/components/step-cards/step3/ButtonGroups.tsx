@@ -13,12 +13,7 @@ interface ButtonGroupsProps{
 export const ButtonGroups: React.FC<ButtonGroupsProps> = (props) => {
 
     const fieldName = props.field == "type" ? "T" : (props.field == "question" ? "Q" : "R");
-
-    const realID = props.settings.cards[props.id][props.index].id;
-    const realNumber = props.field + props.index + 1;
     const realBool = props.settings.cards[props.id][props.index][props.field];
-    const realField = props.settings.others.field;
-
 
     return (           
         <> 
