@@ -1,0 +1,7 @@
+mutation getImagesByTags($img_tag1: Float!, $img_tag2: Float){
+  getImagesByTags(img_tag1: $img_tag1, img_tag2: $img_tag2) {
+    images {
+      img_name
+    }
+  }
+}

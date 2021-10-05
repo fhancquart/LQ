@@ -1,15 +1,15 @@
 import { Formik, Form } from "formik";
 import Image from 'next/image'
 import React, { useContext, useReducer} from "react";
-import { useCategoryMutation } from "../../../generated/graphql";
+import { useCategoryMutation, useGetImagesByTagsMutation, useGetTagsQuery } from "../../../generated/graphql";
 import { BackgroundContext } from "../../../utils/CustomHooks/useBackground";
 import { PrevNextContext } from "../../../utils/CustomHooks/usePrevNextContext";
 import {initialState, reducer} from '../../../utils/CustomHooks/usePrevNextFamily'
 import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { NavigationGroup } from "../step4/NavigationGroup";
-import { Navigation } from "../step3/Navigation";
 import { Step5 } from "../step5/Step5";
+import { CustomSelect } from "./CustomSelect";
 
 interface Step4Props{
     settings: any
@@ -61,15 +61,12 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         textC={`${prevNextCard.count + 1}/${props.family}`}
                     />
 
-                    <select name={`image-${carte}`} onChange={(e) => {props.handleChange(e,2, carte, famille-1)}}>
-                        <option value="0" selected disabled>Choisissez une catégorie</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                    </select>                   
+                    <CustomSelect 
+                        handleChange={props.handleChange}
+                        nameSelect={`image-${carte}`}
+                        carte={carte}
+                        famille={famille}
+                    />               
 
                     {props.settings.cards.map((v:any,i:any) => {
                         const color = v[0]["color-" + (i+1)];

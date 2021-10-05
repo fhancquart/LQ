@@ -140,6 +140,40 @@
         .doubleNavigationgroup{
             @extend .navigationgroup;
         }
+        .select{
+            position: relative;
+            display: block;
+            .customSelect{
+                @include inputStyle;
+                display: block;
+                border: 2px solid #fff;
+                background-color: #FCF8F1;
+                padding: .65em 1em;
+                text-align: left;
+                z-index: 99;
+                position: relative;
+            }
+            .listing{
+                position: absolute;
+                background-color: #fff;
+                display: block;
+                z-index: 9;
+                width: 100%;
+                text-align: left;
+                top: 2.5em;
+                max-height: 20em;
+                overflow-x: scroll;
+                padding-top: 1em;
+                p{
+                    max-width: inherit;
+                    margin: inherit;
+                    padding: 1em;
+                    &:hover{
+                        background-color: #f0f0f0;
+                    }
+                }
+            }
+        }
     }
     .step5{
         .slider{

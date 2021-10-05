@@ -9,7 +9,6 @@ interface CardProps {
 }
 
 export const Card: React.FC<CardProps> = (props) => {
-    console.log(props.image == 0)
     return (
         <>
             <div className="card" style={{backgroundColor: props.color}} key={props.number}>

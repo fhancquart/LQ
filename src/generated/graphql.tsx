@@ -42,6 +42,21 @@ export type Cards_Game = {
   cg_reponse: Scalars['String'];
 };
 
+export type Cards_Image = {
+  __typename?: 'Cards_image';
+  img_id: Scalars['Float'];
+  img_name: Scalars['String'];
+  img_type: Scalars['Float'];
+  img_tag1: Scalars['Float'];
+  img_tag2: Scalars['Float'];
+};
+
+export type Cards_Tags = {
+  __typename?: 'Cards_tags';
+  tag_id: Scalars['Float'];
+  tag_name: Scalars['String'];
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -67,6 +82,7 @@ export type Mutation = {
   game: FieldName;
   isGameExist?: Maybe<FieldName>;
   updateGame?: Maybe<Cards_Game>;
+  getImagesByTags: AllImages;
 };
 
 
@@ -136,11 +152,19 @@ export type MutationUpdateGameArgs = {
   cg_category: Scalars['Float'];
 };
 
+
+export type MutationGetImagesByTagsArgs = {
+  img_tag2?: Maybe<Scalars['Float']>;
+  img_tag1: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<User>;
   getInfoPack?: Maybe<Cards_Category>;
   getAllPack: AllPack;
+  getImages: AllImages;
+  getTags: AllTags;
 };
 
 
@@ -169,9 +193,19 @@ export type UsernamePasswordinput = {
   password: Scalars['String'];
 };
 
+export type AllImages = {
+  __typename?: 'allImages';
+  images: Array<Cards_Image>;
+};
+
 export type AllPack = {
   __typename?: 'allPack';
   pack: Array<Cards_Category>;
+};
+
+export type AllTags = {
+  __typename?: 'allTags';
+  tags: Array<Cards_Tags>;
 };
 
 export type CategoryFields = {
@@ -252,6 +286,23 @@ export type GameMutation = (
   & { game: (
     { __typename?: 'FieldName' }
     & Pick<FieldName, 'message'>
+  ) }
+);
+
+export type GetImagesByTagsMutationVariables = Exact<{
+  img_tag1: Scalars['Float'];
+  img_tag2?: Maybe<Scalars['Float']>;
+}>;
+
+
+export type GetImagesByTagsMutation = (
+  { __typename?: 'Mutation' }
+  & { getImagesByTags: (
+    { __typename?: 'allImages' }
+    & { images: Array<(
+      { __typename?: 'Cards_image' }
+      & Pick<Cards_Image, 'img_name'>
+    )> }
   ) }
 );
 
@@ -364,6 +415,20 @@ export type GetInfoPackQuery = (
     { __typename?: 'Cards_category' }
     & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name'>
   )> }
+);
+
+export type GetTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTagsQuery = (
+  { __typename?: 'Query' }
+  & { getTags: (
+    { __typename?: 'allTags' }
+    & { tags: Array<(
+      { __typename?: 'Cards_tags' }
+      & Pick<Cards_Tags, 'tag_name'>
+    )> }
+  ) }
 );
 
 export type IsFamilyNameExistMutationVariables = Exact<{
@@ -547,6 +612,42 @@ export function useGameMutation(baseOptions?: Apollo.MutationHookOptions<GameMut
 export type GameMutationHookResult = ReturnType<typeof useGameMutation>;
 export type GameMutationResult = Apollo.MutationResult<GameMutation>;
 export type GameMutationOptions = Apollo.BaseMutationOptions<GameMutation, GameMutationVariables>;
+export const GetImagesByTagsDocument = gql`
+    mutation getImagesByTags($img_tag1: Float!, $img_tag2: Float) {
+  getImagesByTags(img_tag1: $img_tag1, img_tag2: $img_tag2) {
+    images {
+      img_name
+    }
+  }
+}
+    `;
+export type GetImagesByTagsMutationFn = Apollo.MutationFunction<GetImagesByTagsMutation, GetImagesByTagsMutationVariables>;
+
+/**
+ * __useGetImagesByTagsMutation__
+ *
+ * To run a mutation, you first call `useGetImagesByTagsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGetImagesByTagsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [getImagesByTagsMutation, { data, loading, error }] = useGetImagesByTagsMutation({
+ *   variables: {
+ *      img_tag1: // value for 'img_tag1'
+ *      img_tag2: // value for 'img_tag2'
+ *   },
+ * });
+ */
+export function useGetImagesByTagsMutation(baseOptions?: Apollo.MutationHookOptions<GetImagesByTagsMutation, GetImagesByTagsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GetImagesByTagsMutation, GetImagesByTagsMutationVariables>(GetImagesByTagsDocument, options);
+      }
+export type GetImagesByTagsMutationHookResult = ReturnType<typeof useGetImagesByTagsMutation>;
+export type GetImagesByTagsMutationResult = Apollo.MutationResult<GetImagesByTagsMutation>;
+export type GetImagesByTagsMutationOptions = Apollo.BaseMutationOptions<GetImagesByTagsMutation, GetImagesByTagsMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($usernameOrEmail: String!, $password: String!) {
   login(usernameOrEmail: $usernameOrEmail, password: $password) {
@@ -849,6 +950,42 @@ export function useGetInfoPackLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetInfoPackQueryHookResult = ReturnType<typeof useGetInfoPackQuery>;
 export type GetInfoPackLazyQueryHookResult = ReturnType<typeof useGetInfoPackLazyQuery>;
 export type GetInfoPackQueryResult = Apollo.QueryResult<GetInfoPackQuery, GetInfoPackQueryVariables>;
+export const GetTagsDocument = gql`
+    query getTags {
+  getTags {
+    tags {
+      tag_name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTagsQuery__
+ *
+ * To run a query within a React component, call `useGetTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTagsQuery(baseOptions?: Apollo.QueryHookOptions<GetTagsQuery, GetTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTagsQuery, GetTagsQueryVariables>(GetTagsDocument, options);
+      }
+export function useGetTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTagsQuery, GetTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTagsQuery, GetTagsQueryVariables>(GetTagsDocument, options);
+        }
+export type GetTagsQueryHookResult = ReturnType<typeof useGetTagsQuery>;
+export type GetTagsLazyQueryHookResult = ReturnType<typeof useGetTagsLazyQuery>;
+export type GetTagsQueryResult = Apollo.QueryResult<GetTagsQuery, GetTagsQueryVariables>;
 export const IsFamilyNameExistDocument = gql`
     mutation isFamilyNameExist($cf_number: Float!, $cf_category: Float!) {
   isFamilyNameExist(cf_number: $cf_number, cf_category: $cf_category) {
