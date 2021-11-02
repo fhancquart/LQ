@@ -6,12 +6,13 @@ interface CardProps {
     number: number
     image: number
     question: string
+    cardColorRef: any
 }
 
 export const Card: React.FC<CardProps> = (props) => {
     return (
         <>
-            <div className="card" style={{backgroundColor: props.color}} key={props.number}>
+            <div className="card" style={{backgroundColor: props.color}} ref={props.cardColorRef} data-color={props.color} key={props.number}>
                 <span className="back-family fun-font">{props.family}</span>
                 <span className="back-cardnum fun-font">{props.number}</span>                
                 <span className="your-visual fun-font">{`${props.image == 0 ?  "Votre visuel" : props.image}`}</span>

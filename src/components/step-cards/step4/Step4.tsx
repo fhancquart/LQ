@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import Image from 'next/image'
-import React, { useContext, useReducer} from "react";
+import React, { useContext, useEffect, useReducer, useRef, useState} from "react";
 import { useCategoryMutation, useGetImagesByTagsMutation, useGetTagsQuery } from "../../../generated/graphql";
 import { BackgroundContext } from "../../../utils/CustomHooks/useBackground";
 import { PrevNextContext } from "../../../utils/CustomHooks/usePrevNextContext";
@@ -38,6 +38,13 @@ export const Step4: React.FC<Step4Props> = (props) => {
     const famille = prevNextFamily.count + 1;
     const carte = prevNextCard.count + 1;
 
+    const cardColorRef = useRef<any>();
+    const [colorFamily, setColorFamily] = useState("");
+    useEffect(() => {
+        setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
+    })
+
+
     return(
         <>
             {step == 4 || step != 3 ? 
@@ -53,10 +60,22 @@ export const Step4: React.FC<Step4Props> = (props) => {
                     <p>Pour chacune de vos <b>{cardTotal}</b> cartes, définissez un visuel approprié</p>
 
                     <NavigationGroup 
-                        prevClickF={() => prevNextFamily.count != 0 ? dispatch({type: 'decrement'}) : null}
-                        nextClickF={() => lastIndex != (prevNextFamily.count + 1) ? dispatch({type: 'increment'}) : null}
-                        prevClickC={() => prevNextCard.count != 0 ? dispatchCard({type: 'decrement'}) : null}
-                        nextClickC={() => props.family != (prevNextCard.count + 1) ? dispatchCard({type: 'increment'}) : dispatchCard({type:'reinit'})}
+                        prevClickF={() => {
+                            prevNextFamily.count != 0 ? dispatch({type: 'decrement'}) : null;
+                            setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
+                        }}
+                        nextClickF={() => {
+                            lastIndex != (prevNextFamily.count + 1) ? dispatch({type: 'increment'}) : null;
+                            setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
+                        }}
+                        prevClickC={() => {
+                            prevNextCard.count != 0 ? dispatchCard({type: 'decrement'}) : null;
+                            setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
+                        }}
+                        nextClickC={() => {
+                            props.family != (prevNextCard.count + 1) ? dispatchCard({type: 'increment'}) : dispatchCard({type:'reinit'});
+                            setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
+                        }}
                         textF={`(${prevNextFamily.count + 1}/${props.group}) Familles`}
                         textC={`${prevNextCard.count + 1}/${props.family}`}
                     />
@@ -66,6 +85,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         nameSelect={`image-${carte}`}
                         carte={carte}
                         famille={famille}
+                        color={colorFamily}
                     />               
 
                     {props.settings.cards.map((v:any,i:any) => {
@@ -86,6 +106,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                 number={i2}
                                                 question={v[i2]["question-" + (i2)]}
                                                 image={v[i2]["image-" + (i2)]}
+                                                cardColorRef={cardColorRef}
                                             />
                                         </>
                                     )
