@@ -18,6 +18,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     const [first, setFirst] = useState(true);
     const [category, setCategory] = useState("");
+    const [idCategory, setIdCategory] = useState(0);
     const [secondCategory, setSecondCategory] = useState("");
     const [deleteCategory, setDeleteCategory] = useState(false);
     const [deleteSecondCategory, setDeleteSecondCategory] = useState(false);
@@ -54,12 +55,15 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                     setOpen(false);
                                     setMenuImages(true);
                                     await props.handleChange(event,2, props.carte, props.famille-1); //gère le visu front
-                                    const getImages = await images({variables: {img_tag1: i+1}}); 
-                                    setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                     if (!first){  
+                                        const getImages = await images({variables: {img_tag1: idCategory, img_tag2: i+1}}); 
+                                        setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                         setSecondCategory(v.tag_name); 
                                         setDeleteSecondCategory(false); 
                                     } else{ 
+                                        setIdCategory(i+1);
+                                        const getImages = await images({variables: {img_tag1: idCategory}}); 
+                                        setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                         setCategory(v.tag_name);
                                         setDeleteCategory(false); 
                                     }
