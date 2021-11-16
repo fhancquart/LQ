@@ -14,14 +14,17 @@ export const Modal: React.FC<ModalProps> = (props) => {
     const {active} = contextModal;
     
     return(
-        active &&
         <>
-            <div className="modal">
-                <h2>{props.title}</h2>
-                <p>{props.text}</p>
-                {/* <button type="button" onClick={props.toggle}>Fermer</button> */}
-            </div>
-            <div className="overlay"></div>
+            {active ?
+                <span>
+                    <div className="modal">
+                        <h2>{props.title}</h2>
+                        <p>{props.text}</p>
+                        {/* <button type="button" onClick={props.toggle}>Fermer</button> */}
+                    </div>
+                    <div className="overlay"></div>
+                </span>
+            : ""}
         </>
     )
 

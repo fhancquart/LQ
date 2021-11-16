@@ -4,9 +4,10 @@ interface CardProps {
     color: any
     family: string
     number: number
-    image: number
+    image?: number
     question: string
-    cardColorRef: any
+    cardColorRef?: any
+    hasEmptyVisual?: boolean
 }
 
 export const Card: React.FC<CardProps> = (props) => {
