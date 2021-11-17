@@ -8,8 +8,8 @@ interface ColorPickerProps {
   index: number;
   handleChange: any;
   settings: any;
-  idCard: any;
-  idCreator: any;
+  idCard?: any;
+  idCreator?: any;
 }
 
 export const ColorPicker: React.FC<ColorPickerProps> = (props) => {

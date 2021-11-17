@@ -2,6 +2,8 @@ import { createWithApollo } from "./createWithApollo";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { NextPageContext } from "next";
 
+console.log(process.env.NEXT_PUBLIC_API_URL as string);
+
 const createClient = (ctx: NextPageContext) =>
   new ApolloClient({
     uri: process.env.NEXT_PUBLIC_API_URL as string,
