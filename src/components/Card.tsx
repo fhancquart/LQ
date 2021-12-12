@@ -5,7 +5,7 @@ import Image from 'next/image';
 interface CardProps {
     color: any
     family: string
-    visual: string | undefined
+    visual?: string | undefined
     number: number
     image?: number
     question: string
