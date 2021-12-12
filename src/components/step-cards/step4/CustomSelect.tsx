@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from 'next/image';
 import { useGetImagesByTagsMutation, useGetTagsQuery } from "../../../generated/graphql";
+import { NavCategory } from "./NavCategory";
 
 interface CustomSelectProps{
     handleChange: any
@@ -8,6 +9,7 @@ interface CustomSelectProps{
     nameSelect: string
     carte: number
     color: any
+    setVisual: any
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
@@ -40,6 +42,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                     <span className="choose">Choisissez une catégorie</span>
                 </span>
 
+                {/* Ecran 1 */}
                 {open && !menuImages &&
                     <span className="listing">
                         {data?.getTags.tags.map((v:any,i:number) => {
@@ -67,46 +70,31 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                         setCategory(v.tag_name);
                                         setDeleteCategory(false); 
                                     }
+
                                 }}>{i+1} - {v.tag_name}</p>
                             )
                         })}
                     </span>
                 }
 
+                {/* Ecran 2 */}
                 {menuImages &&
                     <span className="listing">  
                         <span className="listPicto">
                             <div className="navCat">
 
-                                <span className="add" onClick={() => {
-                                    setOpen(true)
-                                    if (first){ 
-                                        setFirst(false); 
-                                        setDeleteCategory(false); 
-                                    } else{ 
-                                        setFirst(true); 
-                                        setDeleteSecondCategory(false);
-                                    }
-                                    setMenuImages(false)
-                                }}>+</span>
-
-                                {!deleteCategory && 
-                                    <span className="pastille" onClick={() => {
-                                        setDeleteCategory(true);
-                                        setFirst(false); 
-                                    }}>
-                                            <span className="plus">+</span>{category}
-                                    </span>
-                                }
-
-                                {!first && !deleteSecondCategory && 
-                                    <span className="pastille secondP" onClick={() => {
-                                        setDeleteSecondCategory(true);
-                                        setFirst(true); 
-                                    }}>
-                                        <span className="plus">+</span>{secondCategory}
-                                    </span>
-                                }
+                                <NavCategory 
+                                    setOpen={setOpen}
+                                    first={first}
+                                    setFirst={setFirst}
+                                    setDeleteCategory={setDeleteCategory}
+                                    setDeleteSecondCategory={setDeleteSecondCategory}
+                                    deleteCategory={deleteCategory}
+                                    setMenuImages={setMenuImages}
+                                    category={category}
+                                    deleteSecondCategory={deleteSecondCategory}
+                                    secondCategory={secondCategory}
+                                />
 
                             </div>
                             <div className="allPictos">
@@ -128,6 +116,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                         className="pictoCard"
                                                         onClick={() => {
                                                             setMenuImages(false);
+                                                            props.setVisual(myLoader);
                                                         }}
                                                     />
                                                     <style jsx global>{`
@@ -136,7 +125,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                             border-color: ${props.color};
                                                         }
                                                     `}</style>
-                                                    </span>
+                                                </span>
                                             </>
                                         )
                                     })

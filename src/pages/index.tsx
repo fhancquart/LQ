@@ -22,7 +22,7 @@ const Accueil = () => {
             image="users.svg"
             wImage={40}
             hImage={39}
-            link="/accueil"
+            link="/"
           />
 
           <Button
