@@ -26,12 +26,11 @@ export const NavCategory: React.FC<NavCategoryProps> = (props) => {
                 } else{ 
                     props.setFirst(true); 
                     props.setDeleteCategory(false); 
-                    props.setDeleteSecondCategory(false);
                 }
                 props.setMenuImages(false)
             }}>+</span>
 
-            {!props.deleteCategory && 
+            {!props.deleteCategory && props.category != "" &&
                 <span className="pastille" onClick={() => {
                     props.setDeleteCategory(true);
                     props.setFirst(false); 

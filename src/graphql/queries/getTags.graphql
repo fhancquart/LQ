@@ -2,6 +2,7 @@ query getTags{
   getTags {
     tags {
       tag_name
+      tag_num
     }
   }
 }

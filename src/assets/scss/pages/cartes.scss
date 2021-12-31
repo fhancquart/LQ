@@ -165,6 +165,7 @@
                 overflow-x: hidden;
                 overflow-y: scroll;
                 padding-top: 1em;
+                padding-bottom: 1em;
                 border-bottom-left-radius: 10px 10px;
                 border-bottom-right-radius: 10px 10px;
                 p{
@@ -218,7 +219,7 @@
                         }
                     }
                     .allPictos{     
-                        padding-top: .5em;                   
+                        padding-top: 1em;                   
                         .globPicto{
                             border: 2px solid #68645f36;
                             background-color: #9e9a9380;

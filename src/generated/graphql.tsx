@@ -46,7 +46,6 @@ export type Cards_Image = {
   __typename?: 'Cards_image';
   img_id: Scalars['Float'];
   img_name: Scalars['String'];
-  img_type: Scalars['Float'];
   img_tag1: Scalars['Float'];
   img_tag2: Scalars['Float'];
 };
@@ -54,6 +53,7 @@ export type Cards_Image = {
 export type Cards_Tags = {
   __typename?: 'Cards_tags';
   tag_id: Scalars['Float'];
+  tag_num: Scalars['Float'];
   tag_name: Scalars['String'];
 };
 
@@ -426,7 +426,7 @@ export type GetTagsQuery = (
     { __typename?: 'allTags' }
     & { tags: Array<(
       { __typename?: 'Cards_tags' }
-      & Pick<Cards_Tags, 'tag_name'>
+      & Pick<Cards_Tags, 'tag_name' | 'tag_num'>
     )> }
   ) }
 );
@@ -955,6 +955,7 @@ export const GetTagsDocument = gql`
   getTags {
     tags {
       tag_name
+      tag_num
     }
   }
 }
