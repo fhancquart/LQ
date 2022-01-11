@@ -22,8 +22,8 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     const [category, setCategory] = useState("");
     const [idCategory, setIdCategory] = useState(0);
     const [secondCategory, setSecondCategory] = useState("");
-    const [deleteCategory, setDeleteCategory] = useState(false);
-    const [deleteSecondCategory, setDeleteSecondCategory] = useState(false);
+    const [deleteCategory, setDeleteCategory] = useState(true);
+    const [deleteSecondCategory, setDeleteSecondCategory] = useState(true);
 
     const [allImages, setAllImages] = useState({img_name: [] as any});
 
@@ -55,11 +55,10 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
                             return(
                                 <p data-value={v.tag_num} onClick={async () => {
-                                    console.log("-----", i+1)
                                     setOpen(false);
                                     setMenuImages(true);
                                     //await props.handleChange(event,2, props.carte, props.famille-1); //gère le visu front
-                                    if (!first){  
+                                    if (!first || !deleteCategory && !deleteSecondCategory){  
                                         const getImages = await images({variables: {img_tag1: idCategory, img_tag2: i+1}}); 
                                         setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                         setSecondCategory(v.tag_name); 
@@ -70,6 +69,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                         setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                         setCategory(v.tag_name);
                                         setDeleteCategory(false); 
+                                        // setDeleteSecondCategory(true); 
                                     }
 
                                 }}>{i+1} - {v.tag_name}</p>

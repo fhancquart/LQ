@@ -26,6 +26,12 @@ export const NavCategory: React.FC<NavCategoryProps> = (props) => {
                 } else{ 
                     props.setFirst(true); 
                     props.setDeleteCategory(false); 
+                    if(props.deleteSecondCategory){
+                        props.setFirst(true); 
+                    }  else{
+                        props.setFirst(false); 
+                        props.setDeleteCategory(false); 
+                    }
                 }
                 props.setMenuImages(false)
             }}>+</span>
@@ -42,7 +48,7 @@ export const NavCategory: React.FC<NavCategoryProps> = (props) => {
             {!props.deleteSecondCategory && props.secondCategory != "" && 
                 <span className="pastille secondP" onClick={() => {
                     props.setDeleteSecondCategory(true);
-                    props.setFirst(true); 
+                    props.deleteCategory ? props.setFirst(false) : props.setFirst(true); //gestion suppr des 2 pastilles
                 }}>
                     <span className="plus">+</span>{props.secondCategory}
                 </span>
