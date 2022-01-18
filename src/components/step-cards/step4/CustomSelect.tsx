@@ -80,7 +80,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                         // setDeleteSecondCategory(true); 
                                     }
 
-                                }}>{i+1} - {v.tag_name}</p>
+                                }}>{i+1} - {v.tag_name}</p> 
                             )
                         })}
                     </span>
