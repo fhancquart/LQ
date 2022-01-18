@@ -472,8 +472,17 @@ img {
         font-size: 2em;
         line-height: 1em !important;
         position: relative;
-        top: 2.5em;
-        opacity: .35;
+        top: 1.5em;
+        // opacity: .35;
+        img{
+            position: relative;
+            top: 2em;
+        }
+        .empty{
+            opacity: .35;
+            position: relative;
+            top: 1em;
+        }
     }
     .back-family {
         font-size: 16pt;
@@ -506,11 +515,12 @@ img {
     }
     .bloc-reponse {
         margin: auto;
-        font-size: 10px;
-        position: relative;
-        top: 1.25em;
+        font-size: 12px;
+        position: absolute;
+        bottom: 0.25em;
+        left: 0;
+        right: 0;
         font-weight: bolder;
-        font-size: 1em;
         padding: .5em 0;
         border-radius: 5px;
     }

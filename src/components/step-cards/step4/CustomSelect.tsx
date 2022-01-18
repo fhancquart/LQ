@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
 import { useGetImagesByTagsMutation, useGetTagsQuery } from "../../../generated/graphql";
 import { NavCategory } from "./NavCategory";
+import useOnClick from "../../../utils/CustomHooks/useOnClick";
 
 interface CustomSelectProps{
     handleChange: any
@@ -10,6 +11,7 @@ interface CustomSelectProps{
     carte: number
     color: any
     setVisual: any
+    visual: any
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
@@ -34,6 +36,18 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     const {data: data} = useGetTagsQuery();
     const [images] = useGetImagesByTagsMutation();
 
+    const ref = useRef<HTMLDivElement>(null); // .listing
+    const ref2 = useRef<HTMLDivElement>(null); // .listing
+    useOnClick(ref, () => setOpen(false));
+    useOnClick(ref2, () => setMenuImages(false));
+
+    let event = {
+        target : {
+            name : `image-${props.carte}`,
+            value: props.visual //remplacer par props.image, doit etre un context avec Card et step4
+        }
+    }
+
     return(
         <>
             <span className="select">
@@ -44,14 +58,8 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
                 {/* Ecran 1 */}
                 {open && !menuImages &&
-                    <span className="listing">
+                    <span className="listing" ref={ref}>
                         {data?.getTags.tags.map((v:any,i:number) => {
-                            let event = {
-                                target : {
-                                    name : `image-${props.carte}`,
-                                    value: i+1
-                                }
-                            }
 
                             return(
                                 <p data-value={v.tag_num} onClick={async () => {
@@ -80,7 +88,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
                 {/* Ecran 2 */}
                 {menuImages &&
-                    <span className="listing">  
+                    <span className="listing" ref={ref2}>  
                         <span className="listPicto">
                             <div className="navCat">
 
@@ -101,13 +109,13 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                             <div className="allPictos">
                                 {go && 
                                     allImages.img_name.map((i:any) => {
-                                        const myLoader = () => {
-                                            return `http://learnerquiz.info/img/pictos/${i.img_name}`
-                                        }
+                                        
+                                        let visu = `http://learnerquiz.info/img/pictos/${i.img_name}`;
+                                        const myLoader = () => {return visu}
 
                                         return (
                                             <>  
-                                                <span className="globPicto">
+                                                <span className="globPicto" onClick={() => {props.setVisual(visu); props.handleChange(event,2, props.carte, props.famille-1); }}>
                                                     <Image 
                                                         loader={myLoader}
                                                         src="me.png"
@@ -117,7 +125,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                         className="pictoCard"
                                                         onClick={() => {
                                                             setMenuImages(false);
-                                                            props.setVisual(myLoader);
+                                                            console.log(props.visual)
                                                         }}
                                                     />
                                                     <style jsx global>{`

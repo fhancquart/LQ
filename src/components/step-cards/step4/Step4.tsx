@@ -46,7 +46,6 @@ export const Step4: React.FC<Step4Props> = (props) => {
         setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
     })
 
-
     return(
         <>
             {step == 4 || step != 3 ? 
@@ -89,6 +88,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         famille={famille}
                         color={colorFamily}
                         setVisual={setVisual}
+                        visual={visual}
                     />               
 
                     {props.settings.cards.map((v:any,i:any) => {
@@ -99,6 +99,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                             prevNextFamily.count == i && //Tri famille
                             <>
                                 {Object.keys(props.settings.cards[i]).map((v2:any,i2:number) => {
+
                                     return (
                                         i2 !== 0 && //suppr. champs color et familyName
                                         (prevNextCard.count + 1) == i2 && //Tri cartes
@@ -108,6 +109,7 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                 family={family}
                                                 number={i2}
                                                 question={v[i2]["question-" + (i2)]}
+                                                reponse={v[i2]["reponse-" + (i2)]}
                                                 image={v[i2]["image-" + (i2)]}
                                                 visual={visual}
                                                 cardColorRef={cardColorRef}
