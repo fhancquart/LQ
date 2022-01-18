@@ -10,8 +10,6 @@ interface CustomSelectProps{
     nameSelect: string
     carte: number
     color: any
-    setVisual: any
-    visual: any
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
@@ -40,13 +38,19 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     const ref2 = useRef<HTMLDivElement>(null); // .listing
     useOnClick(ref, () => setOpen(false));
     useOnClick(ref2, () => setMenuImages(false));
-
-    let event = {
+    
+    const [event, setEvent] = useState({
         target : {
-            name : `image-${props.carte}`,
-            value: props.visual //remplacer par props.image, doit etre un context avec Card et step4
+            name : "", 
+            value: ""
         }
-    }
+    });
+
+    useEffect(() => {
+        props.handleChange(event,2, props.carte, props.famille-1)
+    }, [event])
+
+
 
     return(
         <>
@@ -80,7 +84,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                         // setDeleteSecondCategory(true); 
                                     }
 
-                                }}>{i+1} - {v.tag_name}</p> 
+                                }}>{i+1} - {v.tag_name}</p>
                             )
                         })}
                     </span>
@@ -110,12 +114,22 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                 {go && 
                                     allImages.img_name.map((i:any) => {
                                         
-                                        let visu = `http://learnerquiz.info/img/pictos/${i.img_name}`;
-                                        const myLoader = () => {return visu}
+                                        const myLoader = () => {
+                                            return `http://learnerquiz.info/img/pictos/${i.img_name}`
+                                        }
 
                                         return (
                                             <>  
-                                                <span className="globPicto" onClick={() => {props.setVisual(visu); props.handleChange(event,2, props.carte, props.famille-1); }}>
+                                                <span key={i} className="globPicto" onClick={async (e: any) => {
+                                                    setEvent({
+                                                        ...event as any, 
+                                                        target:{
+                                                                ...event.target as any, 
+                                                                value: `http://learnerquiz.info/img/pictos/${i.img_name}`, 
+                                                                name: `image-${props.carte}`
+                                                            }
+                                                        });
+                                                }}>
                                                     <Image 
                                                         loader={myLoader}
                                                         src="me.png"
@@ -123,9 +137,8 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                         width="50"
                                                         height="50"
                                                         className="pictoCard"
-                                                        onClick={() => {
+                                                        onClick={(e: any) => {
                                                             setMenuImages(false);
-                                                            console.log(props.visual)
                                                         }}
                                                     />
                                                     <style jsx global>{`

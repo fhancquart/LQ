@@ -38,10 +38,9 @@ export const Step4: React.FC<Step4Props> = (props) => {
     const famille = prevNextFamily.count + 1;
     const carte = prevNextCard.count + 1;
 
-    const [visual, setVisual] = useState();
-
     const cardColorRef = useRef<any>();
     const [colorFamily, setColorFamily] = useState("");
+
     useEffect(() => {
         setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
     })
@@ -87,8 +86,6 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         carte={carte}
                         famille={famille}
                         color={colorFamily}
-                        setVisual={setVisual}
-                        visual={visual}
                     />               
 
                     {props.settings.cards.map((v:any,i:any) => {
@@ -111,7 +108,6 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                 question={v[i2]["question-" + (i2)]}
                                                 reponse={v[i2]["reponse-" + (i2)]}
                                                 image={v[i2]["image-" + (i2)]}
-                                                visual={visual}
                                                 cardColorRef={cardColorRef}
                                             />
                                         </>

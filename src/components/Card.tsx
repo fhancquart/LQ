@@ -1,12 +1,10 @@
 import React from "react";
 import Image from 'next/image';
-import { spawn } from "child_process";
 
 
 interface CardProps {
     color: any
     family: string
-    visual?: string | undefined
     number: number
     image?: number | string
     question: string
