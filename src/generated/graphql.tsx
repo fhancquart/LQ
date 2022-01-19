@@ -40,6 +40,7 @@ export type Cards_Game = {
   cg_number: Scalars['Float'];
   cg_question: Scalars['String'];
   cg_reponse: Scalars['String'];
+  cg_image: Scalars['String'];
 };
 
 export type Cards_Image = {
@@ -83,6 +84,7 @@ export type Mutation = {
   isGameExist?: Maybe<FieldName>;
   updateGame?: Maybe<Cards_Game>;
   getImagesByTags: AllImages;
+  updateImage?: Maybe<Cards_Game>;
 };
 
 
@@ -156,6 +158,14 @@ export type MutationUpdateGameArgs = {
 export type MutationGetImagesByTagsArgs = {
   img_tag2?: Maybe<Scalars['Float']>;
   img_tag1: Scalars['Float'];
+};
+
+
+export type MutationUpdateImageArgs = {
+  cg_image: Scalars['String'];
+  cg_number: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_category: Scalars['Float'];
 };
 
 export type Query = {
@@ -387,6 +397,22 @@ export type UpdateGameMutation = (
   & { updateGame?: Maybe<(
     { __typename?: 'Cards_game' }
     & Pick<Cards_Game, 'cg_category'>
+  )> }
+);
+
+export type UpdateImageMutationVariables = Exact<{
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_image: Scalars['String'];
+}>;
+
+
+export type UpdateImageMutation = (
+  { __typename?: 'Mutation' }
+  & { updateImage?: Maybe<(
+    { __typename?: 'Cards_game' }
+    & Pick<Cards_Game, 'cg_image'>
   )> }
 );
 
@@ -875,6 +901,47 @@ export function useUpdateGameMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateGameMutationHookResult = ReturnType<typeof useUpdateGameMutation>;
 export type UpdateGameMutationResult = Apollo.MutationResult<UpdateGameMutation>;
 export type UpdateGameMutationOptions = Apollo.BaseMutationOptions<UpdateGameMutation, UpdateGameMutationVariables>;
+export const UpdateImageDocument = gql`
+    mutation updateImage($cg_category: Float!, $cg_family: Float!, $cg_number: Float!, $cg_image: String!) {
+  updateImage(
+    cg_category: $cg_category
+    cg_family: $cg_family
+    cg_number: $cg_number
+    cg_image: $cg_image
+  ) {
+    cg_image
+  }
+}
+    `;
+export type UpdateImageMutationFn = Apollo.MutationFunction<UpdateImageMutation, UpdateImageMutationVariables>;
+
+/**
+ * __useUpdateImageMutation__
+ *
+ * To run a mutation, you first call `useUpdateImageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateImageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateImageMutation, { data, loading, error }] = useUpdateImageMutation({
+ *   variables: {
+ *      cg_category: // value for 'cg_category'
+ *      cg_family: // value for 'cg_family'
+ *      cg_number: // value for 'cg_number'
+ *      cg_image: // value for 'cg_image'
+ *   },
+ * });
+ */
+export function useUpdateImageMutation(baseOptions?: Apollo.MutationHookOptions<UpdateImageMutation, UpdateImageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateImageMutation, UpdateImageMutationVariables>(UpdateImageDocument, options);
+      }
+export type UpdateImageMutationHookResult = ReturnType<typeof useUpdateImageMutation>;
+export type UpdateImageMutationResult = Apollo.MutationResult<UpdateImageMutation>;
+export type UpdateImageMutationOptions = Apollo.BaseMutationOptions<UpdateImageMutation, UpdateImageMutationVariables>;
 export const GetAllPackDocument = gql`
     query getAllPack {
   getAllPack {

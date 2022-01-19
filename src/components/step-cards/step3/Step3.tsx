@@ -40,6 +40,7 @@ export const Step3: React.FC<StepProps> = (props) => {
                     group={props.group}
                     family={props.family}
                     handleChange={props.handleChange}
+                    idCard={props.idCard}
                 />
             :                 
                 <span className="step3">      

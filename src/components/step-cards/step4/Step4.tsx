@@ -16,6 +16,7 @@ interface Step4Props{
     group: number
     family: number
     handleChange: any
+    idCard: any
 }
 
 export const Step4: React.FC<Step4Props> = (props) => {
@@ -86,6 +87,9 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         carte={carte}
                         famille={famille}
                         color={colorFamily}
+                        idCard={props.idCard}
+                        group={props.group}
+                        family={props.family}
                     />               
 
                     {props.settings.cards.map((v:any,i:any) => {

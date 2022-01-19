@@ -36,6 +36,8 @@ export const Step5: React.FC<Step5Props> = (props) => {
                                                 number={i2}
                                                 hasEmptyVisual={false}
                                                 question={v[i2]["question-" + (i2)]}
+                                                reponse={v[i2]["reponse-" + (i2)]}
+                                                image={v[i2]["image-" + (i2)]}
                                             />
                                         </>
                                     )

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
-import { useGetImagesByTagsMutation, useGetTagsQuery } from "../../../generated/graphql";
+import { useGetImagesByTagsMutation, useGetTagsQuery, useUpdateImageMutation } from "../../../generated/graphql";
 import { NavCategory } from "./NavCategory";
 import useOnClick from "../../../utils/CustomHooks/useOnClick";
 
@@ -10,6 +10,9 @@ interface CustomSelectProps{
     nameSelect: string
     carte: number
     color: any
+    idCard: any
+    group: any
+    family: any
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
@@ -33,6 +36,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     const {data: data} = useGetTagsQuery();
     const [images] = useGetImagesByTagsMutation();
+    const [updateImage] = useUpdateImageMutation();
 
     const ref = useRef<HTMLDivElement>(null); // .listing
     const ref2 = useRef<HTMLDivElement>(null); // .listing
@@ -48,6 +52,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     useEffect(() => {
         props.handleChange(event,2, props.carte, props.famille-1)
+        updateImage({variables:{cg_category: props.idCard, cg_family: props.famille, cg_number: props.carte, cg_image: event.target.value}})
     }, [event])
 
 
@@ -69,7 +74,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                 <p data-value={v.tag_num} onClick={async () => {
                                     setOpen(false);
                                     setMenuImages(true);
-                                    //await props.handleChange(event,2, props.carte, props.famille-1); //gère le visu front
                                     if (!first || !deleteCategory && !deleteSecondCategory){  
                                         const getImages = await images({variables: {img_tag1: idCategory, img_tag2: i+1}}); 
                                         setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
@@ -81,7 +85,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                         setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                         setCategory(v.tag_name);
                                         setDeleteCategory(false); 
-                                        // setDeleteSecondCategory(true); 
                                     }
 
                                 }}>{i+1} - {v.tag_name}</p>
