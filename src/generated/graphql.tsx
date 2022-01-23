@@ -40,7 +40,7 @@ export type Cards_Game = {
   cg_number: Scalars['Float'];
   cg_question: Scalars['String'];
   cg_reponse: Scalars['String'];
-  cg_image: Scalars['String'];
+  cg_image?: Maybe<Scalars['String']>;
 };
 
 export type Cards_Image = {
@@ -83,6 +83,7 @@ export type Mutation = {
   game: FieldName;
   isGameExist?: Maybe<FieldName>;
   updateGame?: Maybe<Cards_Game>;
+  getCurrentGame?: Maybe<CurrentGame>;
   getImagesByTags: AllImages;
   updateImage?: Maybe<Cards_Game>;
 };
@@ -152,6 +153,11 @@ export type MutationUpdateGameArgs = {
   cg_number: Scalars['Float'];
   cg_family: Scalars['Float'];
   cg_category: Scalars['Float'];
+};
+
+
+export type MutationGetCurrentGameArgs = {
+  cd_id: Scalars['Float'];
 };
 
 
@@ -230,6 +236,13 @@ export type CategoryGameFields = {
   cg_number: Scalars['Float'];
   cg_question: Scalars['String'];
   cg_reponse: Scalars['String'];
+};
+
+export type CurrentGame = {
+  __typename?: 'currentGame';
+  category: Array<Cards_Category>;
+  family: Array<Cards_Family>;
+  game: Array<Cards_Game>;
 };
 
 export type FamilyFields = {
@@ -428,6 +441,28 @@ export type GetAllPackQuery = (
       & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume'>
     )> }
   ) }
+);
+
+export type GetCurrentGameMutationVariables = Exact<{
+  cd_id: Scalars['Float'];
+}>;
+
+
+export type GetCurrentGameMutation = (
+  { __typename?: 'Mutation' }
+  & { getCurrentGame?: Maybe<(
+    { __typename?: 'currentGame' }
+    & { category: Array<(
+      { __typename?: 'Cards_category' }
+      & Pick<Cards_Category, 'cd_name' | 'cd_resume'>
+    )>, family: Array<(
+      { __typename?: 'Cards_family' }
+      & Pick<Cards_Family, 'cf_category' | 'cf_number' | 'cf_name' | 'cf_color'>
+    )>, game: Array<(
+      { __typename?: 'Cards_game' }
+      & Pick<Cards_Game, 'cg_family' | 'cg_number' | 'cg_question' | 'cg_reponse' | 'cg_image'>
+    )> }
+  )> }
 );
 
 export type GetInfoPackQueryVariables = Exact<{
@@ -980,6 +1015,55 @@ export function useGetAllPackLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetAllPackQueryHookResult = ReturnType<typeof useGetAllPackQuery>;
 export type GetAllPackLazyQueryHookResult = ReturnType<typeof useGetAllPackLazyQuery>;
 export type GetAllPackQueryResult = Apollo.QueryResult<GetAllPackQuery, GetAllPackQueryVariables>;
+export const GetCurrentGameDocument = gql`
+    mutation getCurrentGame($cd_id: Float!) {
+  getCurrentGame(cd_id: $cd_id) {
+    category {
+      cd_name
+      cd_resume
+    }
+    family {
+      cf_category
+      cf_number
+      cf_name
+      cf_color
+    }
+    game {
+      cg_family
+      cg_number
+      cg_question
+      cg_reponse
+      cg_image
+    }
+  }
+}
+    `;
+export type GetCurrentGameMutationFn = Apollo.MutationFunction<GetCurrentGameMutation, GetCurrentGameMutationVariables>;
+
+/**
+ * __useGetCurrentGameMutation__
+ *
+ * To run a mutation, you first call `useGetCurrentGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [getCurrentGameMutation, { data, loading, error }] = useGetCurrentGameMutation({
+ *   variables: {
+ *      cd_id: // value for 'cd_id'
+ *   },
+ * });
+ */
+export function useGetCurrentGameMutation(baseOptions?: Apollo.MutationHookOptions<GetCurrentGameMutation, GetCurrentGameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GetCurrentGameMutation, GetCurrentGameMutationVariables>(GetCurrentGameDocument, options);
+      }
+export type GetCurrentGameMutationHookResult = ReturnType<typeof useGetCurrentGameMutation>;
+export type GetCurrentGameMutationResult = Apollo.MutationResult<GetCurrentGameMutation>;
+export type GetCurrentGameMutationOptions = Apollo.BaseMutationOptions<GetCurrentGameMutation, GetCurrentGameMutationVariables>;
 export const GetInfoPackDocument = gql`
     query getInfoPack($cd_id: Float!) {
   getInfoPack(cd_id: $cd_id) {

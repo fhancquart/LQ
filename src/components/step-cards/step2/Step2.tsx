@@ -81,6 +81,8 @@ export const Step2: React.FC<StepProps> = (props) => {
                                 <div className="inputs">
                                     <label htmlFor="cd_name">Quel est son nom ?</label>
                                     <Field name="cd_name" type="text" placeholder="Nom du jeu" onChange={(e:any) => {
+                                        console.log(e)
+                                        console.log(props.settings)
                                         props.handleChange(e, 1)
                                     }} value={props.settings.others.cd_name}/>
 

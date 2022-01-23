@@ -4,7 +4,7 @@ import { Button } from "../../Button";
 import { Step2 } from "../step2/Step2";
 import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
 import {StepProps} from '../../../utils/Types/interface'
-import { useGetAllPackQuery } from "../../../generated/graphql";
+import { useGetAllPackQuery, useGetCurrentGameMutation,   } from "../../../generated/graphql";
 import { useApolloClient } from "@apollo/client";
 
 export const Step1: React.FC<StepProps> = (props) => {
@@ -19,6 +19,21 @@ export const Step1: React.FC<StepProps> = (props) => {
 
     const apolloClient = useApolloClient();
     const cacheReset = () => apolloClient.cache.reset();
+
+
+    const [getCurrntGame] = useGetCurrentGameMutation()
+
+    const test = () => {
+        const currentGame = getCurrntGame({variables:{cd_id: 1}})
+        currentGame.then(function(result) {
+            console.log(result)
+            props.handleChange({target:{name:"cd_name", value:"test"}}, 1)
+            console.log(props.settings)
+        })
+
+    }
+
+
 
     useEffect(() => {
         if(step == 0){
@@ -60,6 +75,7 @@ export const Step1: React.FC<StepProps> = (props) => {
                                                     width="160"
                                                     height="90"
                                                     className="logoico"
+                                                    onClick={() => test()}
                                                 />
                                                 <p><span className="name">{e.cd_name}</span><br /><span className="number">{countCards} cartes</span></p>
                                             </span>
