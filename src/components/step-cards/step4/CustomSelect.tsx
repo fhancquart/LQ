@@ -118,7 +118,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                     allImages.img_name.map((i:any) => {
                                         
                                         const myLoader = () => {
-                                            return `http://learnerquiz.info/img/pictos/${i.img_name}`
+                                            return `/SVG/visus/${i.img_name}`
                                         }
 
                                         return (
@@ -128,7 +128,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                         ...event as any, 
                                                         target:{
                                                                 ...event.target as any, 
-                                                                value: `http://learnerquiz.info/img/pictos/${i.img_name}`, 
+                                                                value: `/SVG/visus/${i.img_name}`, 
                                                                 name: `image-${props.carte}`
                                                             }
                                                         });
