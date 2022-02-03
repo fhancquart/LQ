@@ -481,6 +481,10 @@ img {
             opacity: .35;
             position: relative;
             top: 1em;
+            cursor: $cursor;
+        }
+        .pictoCard{
+            cursor: $cursor;
         }
     }
     .back-family {

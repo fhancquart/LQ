@@ -46,6 +46,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
         setColorFamily(cardColorRef?.current?.getAttribute("data-color"));
     })
 
+    const [open, setOpen] = useState(false);
+
     return(
         <>
             {step == 4 || step != 3 ? 
@@ -90,6 +92,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
                         idCard={props.idCard}
                         group={props.group}
                         family={props.family}
+                        setOpen={setOpen}
+                        open={open}
                     />               
 
                     {props.settings.cards.map((v:any,i:any) => {
@@ -113,6 +117,8 @@ export const Step4: React.FC<Step4Props> = (props) => {
                                                 reponse={v[i2]["reponse-" + (i2)]}
                                                 image={v[i2]["image-" + (i2)]}
                                                 cardColorRef={cardColorRef}
+                                                setOpen={setOpen}
+                                                open={open}
                                             />
                                         </>
                                     )

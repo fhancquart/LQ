@@ -13,11 +13,12 @@ interface CustomSelectProps{
     idCard: any
     group: any
     family: any
+    setOpen: any
+    open: any
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
-    const [open, setOpen] = useState(false);
     const [menuImages, setMenuImages] = useState(false);
     const [go, setGo] = useState(false);
 
@@ -40,7 +41,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     const ref = useRef<HTMLDivElement>(null); // .listing
     const ref2 = useRef<HTMLDivElement>(null); // .listing
-    useOnClick(ref, () => setOpen(false));
+    useOnClick(ref, () => props.setOpen(false));
     useOnClick(ref2, () => setMenuImages(false));
     
     const [event, setEvent] = useState({
@@ -61,18 +62,18 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
         <>
             <span className="select">
 
-                <span className="customSelect" onClick={() => setOpen(open == false ? true : false)}>
+                <span className="customSelect" onClick={() => props.setOpen(props.open == false ? true : false)}>
                     <span className="choose">Choisissez une catégorie</span>
                 </span>
 
                 {/* Ecran 1 */}
-                {open && !menuImages &&
+                {props.open && !menuImages &&
                     <span className="listing" ref={ref}>
                         {data?.getTags.tags.map((v:any,i:number) => {
 
                             return(
                                 <p data-value={v.tag_num} onClick={async () => {
-                                    setOpen(false);
+                                    props.setOpen(false);
                                     setMenuImages(true);
                                     if (!first || !deleteCategory && !deleteSecondCategory){  
                                         const getImages = await images({variables: {img_tag1: idCategory, img_tag2: i+1}}); 
@@ -100,7 +101,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                             <div className="navCat">
 
                                 <NavCategory 
-                                    setOpen={setOpen}
+                                    setOpen={props.setOpen}
                                     first={first}
                                     setFirst={setFirst}
                                     setDeleteCategory={setDeleteCategory}
