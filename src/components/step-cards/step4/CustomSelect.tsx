@@ -21,6 +21,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     const [menuImages, setMenuImages] = useState(false);
     const [go, setGo] = useState(false);
+    const [selected, setSelected] = useState(0);
 
     const [first, setFirst] = useState(true);
     const [category, setCategory] = useState("");
@@ -55,8 +56,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
         props.handleChange(event,2, props.carte, props.famille-1)
         updateImage({variables:{cg_category: props.idCard, cg_family: props.famille, cg_number: props.carte, cg_image: event.target.value}})
     }, [event])
-
-
 
     return(
         <>
@@ -116,20 +115,20 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                             </div>
                             <div className="allPictos">
                                 {go && 
-                                    allImages.img_name.map((i:any) => {
+                                    allImages.img_name.map((v:any, i:any) => {
                                         
                                         const myLoader = () => {
-                                            return `/SVG/visus/${i.img_name}`
+                                            return `/SVG/visus/${v.img_name}`
                                         }
 
                                         return (
                                             <>  
-                                                <span key={i} className="globPicto" onClick={async (e: any) => {
+                                                <span key={i} className={`${selected == i ? "selected" : ""} globPicto`} onClick={async (e: any) => {
                                                     setEvent({
                                                         ...event as any, 
                                                         target:{
                                                                 ...event.target as any, 
-                                                                value: `/SVG/visus/${i.img_name}`, 
+                                                                value: `/SVG/visus/${v.img_name}`, 
                                                                 name: `image-${props.carte}`
                                                             }
                                                         });
@@ -143,10 +142,11 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                         className="pictoCard"
                                                         onClick={(e: any) => {
                                                             setMenuImages(false);
+                                                            setSelected(i)
                                                         }}
                                                     />
                                                     <style jsx global>{`
-                                                        .globPicto:hover{
+                                                        .globPicto:hover, .selected{
                                                             background-color: ${props.color} !important;
                                                             border-color: ${props.color};
                                                         }
