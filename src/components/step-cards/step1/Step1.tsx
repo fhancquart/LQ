@@ -126,7 +126,7 @@ export const Step1: React.FC<StepProps> = (props) => {
                                                     className="logoico"
                                                     onClick={() => openGame(e.cd_id, e.cd_userid)}
                                                 />
-                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">{countCards} cartes</span></p>
+                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">{e.cd_count} cartes</span></p>
                                             </span>
                                         </>
                                     )

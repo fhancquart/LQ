@@ -16,6 +16,7 @@ export type Scalars = {
 
 export type Cards_Category = {
   __typename?: 'Cards_category';
+  cd_count: Scalars['Float'];
   cd_id: Scalars['Float'];
   cd_link: Scalars['String'];
   cd_name: Scalars['String'];
@@ -143,6 +144,7 @@ export type MutationRegisterArgs = {
 
 
 export type MutationUpdateCategoryArgs = {
+  cd_count: Scalars['Float'];
   cd_id: Scalars['Float'];
   cd_link: Scalars['String'];
   cd_name: Scalars['String'];
@@ -225,6 +227,7 @@ export type AllTags = {
 };
 
 export type CategoryFields = {
+  cd_count: Scalars['Float'];
   cd_link: Scalars['String'];
   cd_name: Scalars['String'];
   cd_resume: Scalars['String'];
@@ -282,7 +285,7 @@ export type CategoryMutation = (
   { __typename?: 'Mutation' }
   & { category: (
     { __typename?: 'Cards_category' }
-    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume'>
+    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume' | 'cd_count'>
   ) }
 );
 
@@ -369,6 +372,7 @@ export type UpdateCategoryMutationVariables = Exact<{
   cd_link: Scalars['String'];
   cd_resume: Scalars['String'];
   cd_id: Scalars['Float'];
+  cd_count: Scalars['Float'];
 }>;
 
 
@@ -376,7 +380,7 @@ export type UpdateCategoryMutation = (
   { __typename?: 'Mutation' }
   & { updateCategory?: Maybe<(
     { __typename?: 'Cards_category' }
-    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume'>
+    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume' | 'cd_count'>
   )> }
 );
 
@@ -438,7 +442,7 @@ export type GetAllPackQuery = (
     { __typename?: 'allPack' }
     & { pack: Array<(
       { __typename?: 'Cards_category' }
-      & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume' | 'cd_userid'>
+      & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume' | 'cd_userid' | 'cd_count'>
     )> }
   ) }
 );
@@ -574,6 +578,7 @@ export const CategoryDocument = gql`
     cd_name
     cd_link
     cd_resume
+    cd_count
   }
 }
     `;
@@ -807,18 +812,20 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UpdateCategoryDocument = gql`
-    mutation updateCategory($cd_name: String!, $cd_link: String!, $cd_resume: String!, $cd_id: Float!) {
+    mutation updateCategory($cd_name: String!, $cd_link: String!, $cd_resume: String!, $cd_id: Float!, $cd_count: Float!) {
   updateCategory(
     cd_name: $cd_name
     cd_link: $cd_link
     cd_resume: $cd_resume
     cd_id: $cd_id
+    cd_count: $cd_count
   ) {
     cd_id
     cd_userid
     cd_name
     cd_link
     cd_resume
+    cd_count
   }
 }
     `;
@@ -841,6 +848,7 @@ export type UpdateCategoryMutationFn = Apollo.MutationFunction<UpdateCategoryMut
  *      cd_link: // value for 'cd_link'
  *      cd_resume: // value for 'cd_resume'
  *      cd_id: // value for 'cd_id'
+ *      cd_count: // value for 'cd_count'
  *   },
  * });
  */
@@ -985,6 +993,7 @@ export const GetAllPackDocument = gql`
       cd_name
       cd_resume
       cd_userid
+      cd_count
     }
   }
 }

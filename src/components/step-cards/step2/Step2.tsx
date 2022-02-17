@@ -29,7 +29,8 @@ export const Step2: React.FC<StepProps> = (props) => {
         cd_name: props.settings.others.cd_name,
         cd_link: props.settings.others.cd_name,
         cd_resume: props.settings.others.cd_resume,
-        cd_id: idCard! || props.idCard
+        cd_id: idCard! || props.idCard,
+        cd_count: props.group * props.family
     };
 
 

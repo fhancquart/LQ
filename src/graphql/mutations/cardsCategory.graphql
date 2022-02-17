@@ -5,5 +5,6 @@ mutation Category($input: categoryFields!){
     cd_name
     cd_link
     cd_resume
+    cd_count
   }
 }
