@@ -131,11 +131,6 @@ export const Step4: React.FC<Step4Props> = (props) => {
                     <Formik
                         initialValues={{cd_name: "", cd_link: "", cd_resume: ""}}
                         onSubmit={async () => {
-                            const {errors} = await category({variables: {input: {
-                                cd_name: props.settings.others.cd_name,
-                                cd_link: props.settings.others.cd_name,
-                                cd_resume: props.settings.others.cd_resume
-                            }}}) 
                             Next();
                             setActive();
                         }}

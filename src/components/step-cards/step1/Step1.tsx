@@ -6,11 +6,15 @@ import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
 import {StepProps} from '../../../utils/Types/interface'
 import { useGetAllPackQuery, useGetCurrentGameMutation,   } from "../../../generated/graphql";
 import { useApolloClient } from "@apollo/client";
+import { EditModeContext } from "../../../utils/CustomHooks/useEditModeContext";
 
 export const Step1: React.FC<StepProps> = (props) => {
 
     const context = useContext(PrevNextContext);
-    const {step, Next} = context;
+    const {step, Next, Next2} = context;
+
+    const contextEditMode = useContext(EditModeContext);
+    const {isEditmode, noEditMode} = contextEditMode;
 
     const {data: allPackData, loading} = useGetAllPackQuery();
     const datapack = allPackData?.getAllPack?.pack;   
@@ -30,6 +34,7 @@ export const Step1: React.FC<StepProps> = (props) => {
 
 
     function openGame(id:number, userid:number) {
+        isEditmode()//Blocage step2 au retour du mode edition 
         setIsCurrentGame(true)
         setIdCreator(userid)
         setIdCard(id)
@@ -66,7 +71,7 @@ export const Step1: React.FC<StepProps> = (props) => {
             1)       
 
             setFamilyGroupNum({...familyGroupNum, group: result.data?.getCurrentGame?.game.length, family: result.data?.getCurrentGame?.family.length})
-            Next()
+            Next2()
         })
     }
 
@@ -136,7 +141,7 @@ export const Step1: React.FC<StepProps> = (props) => {
                         isImage={false}
                         link=""
                         isClick={true}
-                        click={Next}
+                        click={() => {Next(); noEditMode();}}
                     />
                 </span>                
             } 
