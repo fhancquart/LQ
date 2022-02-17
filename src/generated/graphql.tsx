@@ -17,30 +17,30 @@ export type Scalars = {
 export type Cards_Category = {
   __typename?: 'Cards_category';
   cd_id: Scalars['Float'];
-  cd_userid: Scalars['Float'];
-  cd_name: Scalars['String'];
   cd_link: Scalars['String'];
+  cd_name: Scalars['String'];
   cd_resume: Scalars['String'];
+  cd_userid: Scalars['Float'];
 };
 
 export type Cards_Family = {
   __typename?: 'Cards_family';
-  cf_id: Scalars['Float'];
   cf_category: Scalars['Float'];
-  cf_number: Scalars['Float'];
-  cf_name: Scalars['String'];
   cf_color: Scalars['String'];
+  cf_id: Scalars['Float'];
+  cf_name: Scalars['String'];
+  cf_number: Scalars['Float'];
 };
 
 export type Cards_Game = {
   __typename?: 'Cards_game';
-  cg_id: Scalars['Float'];
   cg_category: Scalars['Float'];
   cg_family: Scalars['Float'];
+  cg_id: Scalars['Float'];
+  cg_image?: Maybe<Scalars['String']>;
   cg_number: Scalars['Float'];
   cg_question: Scalars['String'];
   cg_reponse: Scalars['String'];
-  cg_image?: Maybe<Scalars['String']>;
 };
 
 export type Cards_Image = {
@@ -54,8 +54,8 @@ export type Cards_Image = {
 export type Cards_Tags = {
   __typename?: 'Cards_tags';
   tag_id: Scalars['Float'];
-  tag_num: Scalars['Float'];
   tag_name: Scalars['String'];
+  tag_num: Scalars['Float'];
 };
 
 export type FieldError = {
@@ -71,32 +71,21 @@ export type FieldName = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  register: UserResponse;
-  login: UserResponse;
-  logout: Scalars['Boolean'];
   category: Cards_Category;
-  updateCategory?: Maybe<Cards_Category>;
-  isPackNameExisting?: Maybe<FieldName>;
   family: Cards_Family;
-  isFamilyNameExist?: Maybe<FieldName>;
-  updateFamily?: Maybe<Cards_Family>;
   game: FieldName;
-  isGameExist?: Maybe<FieldName>;
-  updateGame?: Maybe<Cards_Game>;
   getCurrentGame?: Maybe<CurrentGame>;
   getImagesByTags: AllImages;
+  isFamilyNameExist?: Maybe<FieldName>;
+  isGameExist?: Maybe<FieldName>;
+  isPackNameExisting?: Maybe<FieldName>;
+  login: UserResponse;
+  logout: Scalars['Boolean'];
+  register: UserResponse;
+  updateCategory?: Maybe<Cards_Category>;
+  updateFamily?: Maybe<Cards_Family>;
+  updateGame?: Maybe<Cards_Game>;
   updateImage?: Maybe<Cards_Game>;
-};
-
-
-export type MutationRegisterArgs = {
-  options: UsernamePasswordinput;
-};
-
-
-export type MutationLoginArgs = {
-  password: Scalars['String'];
-  usernameOrEmail: Scalars['String'];
 };
 
 
@@ -105,54 +94,13 @@ export type MutationCategoryArgs = {
 };
 
 
-export type MutationUpdateCategoryArgs = {
-  cd_id: Scalars['Float'];
-  cd_resume: Scalars['String'];
-  cd_link: Scalars['String'];
-  cd_name: Scalars['String'];
-};
-
-
-export type MutationIsPackNameExistingArgs = {
-  cd_name: Scalars['String'];
-};
-
-
 export type MutationFamilyArgs = {
   options: FamilyFields;
 };
 
 
-export type MutationIsFamilyNameExistArgs = {
-  cf_number: Scalars['Float'];
-  cf_category: Scalars['Float'];
-};
-
-
-export type MutationUpdateFamilyArgs = {
-  cf_number: Scalars['Float'];
-  cf_color: Scalars['String'];
-  cf_name: Scalars['String'];
-  cf_category: Scalars['Float'];
-};
-
-
 export type MutationGameArgs = {
   options: CategoryGameFields;
-};
-
-
-export type MutationIsGameExistArgs = {
-  cg_category: Scalars['Float'];
-};
-
-
-export type MutationUpdateGameArgs = {
-  cg_reponse: Scalars['String'];
-  cg_question: Scalars['String'];
-  cg_number: Scalars['Float'];
-  cg_family: Scalars['Float'];
-  cg_category: Scalars['Float'];
 };
 
 
@@ -162,25 +110,77 @@ export type MutationGetCurrentGameArgs = {
 
 
 export type MutationGetImagesByTagsArgs = {
-  img_tag2?: Maybe<Scalars['Float']>;
   img_tag1: Scalars['Float'];
+  img_tag2?: Maybe<Scalars['Float']>;
+};
+
+
+export type MutationIsFamilyNameExistArgs = {
+  cf_category: Scalars['Float'];
+  cf_number: Scalars['Float'];
+};
+
+
+export type MutationIsGameExistArgs = {
+  cg_category: Scalars['Float'];
+};
+
+
+export type MutationIsPackNameExistingArgs = {
+  cd_name: Scalars['String'];
+};
+
+
+export type MutationLoginArgs = {
+  password: Scalars['String'];
+  usernameOrEmail: Scalars['String'];
+};
+
+
+export type MutationRegisterArgs = {
+  options: UsernamePasswordinput;
+};
+
+
+export type MutationUpdateCategoryArgs = {
+  cd_id: Scalars['Float'];
+  cd_link: Scalars['String'];
+  cd_name: Scalars['String'];
+  cd_resume: Scalars['String'];
+};
+
+
+export type MutationUpdateFamilyArgs = {
+  cf_category: Scalars['Float'];
+  cf_color: Scalars['String'];
+  cf_name: Scalars['String'];
+  cf_number: Scalars['Float'];
+};
+
+
+export type MutationUpdateGameArgs = {
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_question: Scalars['String'];
+  cg_reponse: Scalars['String'];
 };
 
 
 export type MutationUpdateImageArgs = {
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
   cg_image: Scalars['String'];
   cg_number: Scalars['Float'];
-  cg_family: Scalars['Float'];
-  cg_category: Scalars['Float'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<User>;
-  getInfoPack?: Maybe<Cards_Category>;
   getAllPack: AllPack;
   getImages: AllImages;
+  getInfoPack?: Maybe<Cards_Category>;
   getTags: AllTags;
+  me?: Maybe<User>;
 };
 
 
@@ -190,11 +190,11 @@ export type QueryGetInfoPackArgs = {
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['Float'];
   createdAt: Scalars['String'];
+  email: Scalars['String'];
+  id: Scalars['Float'];
   updatedAt: Scalars['String'];
   username: Scalars['String'];
-  email: Scalars['String'];
 };
 
 export type UserResponse = {
@@ -205,8 +205,8 @@ export type UserResponse = {
 
 export type UsernamePasswordinput = {
   email: Scalars['String'];
-  username: Scalars['String'];
   password: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type AllImages = {
@@ -225,8 +225,8 @@ export type AllTags = {
 };
 
 export type CategoryFields = {
-  cd_name: Scalars['String'];
   cd_link: Scalars['String'];
+  cd_name: Scalars['String'];
   cd_resume: Scalars['String'];
 };
 
@@ -247,9 +247,9 @@ export type CurrentGame = {
 
 export type FamilyFields = {
   cf_category: Scalars['Float'];
-  cf_number: Scalars['Float'];
-  cf_name: Scalars['String'];
   cf_color: Scalars['String'];
+  cf_name: Scalars['String'];
+  cf_number: Scalars['Float'];
 };
 
 export type RegularErrorFragment = (
@@ -438,7 +438,7 @@ export type GetAllPackQuery = (
     { __typename?: 'allPack' }
     & { pack: Array<(
       { __typename?: 'Cards_category' }
-      & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume'>
+      & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume' | 'cd_userid'>
     )> }
   ) }
 );
@@ -984,6 +984,7 @@ export const GetAllPackDocument = gql`
       cd_id
       cd_name
       cd_resume
+      cd_userid
     }
   }
 }

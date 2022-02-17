@@ -6,9 +6,9 @@ import { StepProps } from "../../../utils/Types/interface";
 import { EditFields } from "./EditFields";
 import { Step4 } from "../step4/Step4";
 import { Navigation } from "./Navigation";
-import { useGameMutation, useIsGameExistMutation, useUpdateGameMutation } from "../../../generated/graphql";
+import { useFamilyMutation, useGameMutation, useIsFamilyNameExistMutation, useIsGameExistMutation, useUpdateGameMutation } from "../../../generated/graphql";
 import { Formik, Form } from "formik";
-import useInsertCardGame from "../../../utils/CustomHooks/useInsertCardGame";
+import {useInsertCardGame, useInsertFamily} from "../../../utils/CustomHooks/useInsertCardGame";
 
 export const Step3: React.FC<StepProps> = (props) => {
     
@@ -23,14 +23,17 @@ export const Step3: React.FC<StepProps> = (props) => {
     const [isGameExist] = useIsGameExistMutation();
     const [updateGame] = useUpdateGameMutation();
 
-    useEffect(() => { //Save auto
-        const interval = setInterval(() => {
-            if(step == 2){
-                useInsertCardGame(props.family, props.group, props.idCard, props.settings, game, isGameExist, updateGame);
-            }
-        }, 10000); //10s        
-        return () => clearInterval(interval);
-    }, [step])
+    const [family] = useFamilyMutation();
+    const [isFamilyNameExist] = useIsFamilyNameExistMutation();
+
+    // useEffect(() => { //Save auto
+    //     const interval = setInterval(() => {
+    //         if(step == 2){
+    //             useInsertCardGame(props.family, props.group, props.idCard, props.settings, game, isGameExist, updateGame);
+    //         }
+    //     }, 30000); //30s        
+    //     return () => clearInterval(interval);
+    // }, [step])
     
     return(
         <>  
@@ -52,7 +55,8 @@ export const Step3: React.FC<StepProps> = (props) => {
                         <Formik
                             initialValues={{cg_category: "", cg_family: "", cg_number: "", cg_question: "", cg_reponse: ""}}
                             onSubmit={async () => {
-                                useInsertCardGame(props.family, props.group, props.idCard, props.settings, game, isGameExist, updateGame);
+                                useInsertCardGame(props.family, props.group, props.idCard, props.settings, game, isGameExist, updateGame, props.isCurrentGame);
+                                useInsertFamily(props.group, props.idCard, family, isFamilyNameExist, props.settings);
                                 Next()
                             }}
                         >
