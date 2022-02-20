@@ -1,16 +1,20 @@
-import React, {useContext, useEffect } from "react";
+import React, {useContext, useEffect, useState } from "react";
 import Image from 'next/image';
 import { Button } from "../../Button";
 import { Step2 } from "../step2/Step2";
 import {PrevNextContext} from '../../../utils/CustomHooks/usePrevNextContext'
 import {StepProps} from '../../../utils/Types/interface'
-import { useGetAllPackQuery } from "../../../generated/graphql";
+import { useGetAllPackQuery, useGetCurrentGameMutation,   } from "../../../generated/graphql";
 import { useApolloClient } from "@apollo/client";
+import { EditModeContext } from "../../../utils/CustomHooks/useEditModeContext";
 
 export const Step1: React.FC<StepProps> = (props) => {
 
     const context = useContext(PrevNextContext);
-    const {step, Next} = context;
+    const {step, Next, Next2} = context;
+
+    const contextEditMode = useContext(EditModeContext);
+    const {isEditmode, noEditMode} = contextEditMode;
 
     const {data: allPackData, loading} = useGetAllPackQuery();
     const datapack = allPackData?.getAllPack?.pack;   
@@ -19,6 +23,63 @@ export const Step1: React.FC<StepProps> = (props) => {
 
     const apolloClient = useApolloClient();
     const cacheReset = () => apolloClient.cache.reset();
+
+
+    const [getCurrntGame] = useGetCurrentGameMutation()
+    const [cards] = useState<any>([])
+    const [isCurrentGame, setIsCurrentGame] = useState(false)
+    const [idCreator, setIdCreator] = useState<number>()
+    const [idCard, setIdCard] = useState<number>()
+    const [familyGroupNum, setFamilyGroupNum] = useState<any>({group: null, family: null})
+
+
+    function openGame(id:number, userid:number) {
+        isEditmode()//Blocage step2 au retour du mode edition 
+        setIsCurrentGame(true)
+        setIdCreator(userid)
+        setIdCard(id)
+        const currentGame = getCurrntGame({variables:{cd_id: id}})
+        currentGame.then(function(result) {
+            result.data?.getCurrentGame?.family.map((v,i) => {
+                cards.push(new Array(
+                    {
+                        ["familyName-"+(i+1)] : v.cf_name,
+                        ["color-"+(i+1)] : v.cf_color,
+                        ["family"] : v.cf_number,
+                    }
+                ))
+                result.data?.getCurrentGame?.game.map((v2,i2) => {
+                    v2.cg_family == v.cf_number && //On set les Q/R aux bons id de famille
+                    cards[i].push({
+                            id: v2.cg_number,
+                            ["question-"+(v2.cg_number)] : v2.cg_question,
+                            ["reponse-"+(v2.cg_number)] : v2.cg_reponse,
+                            ["image-"+(v2.cg_number)] : v2.cg_image,
+                        }
+                    )
+                })
+            })
+            
+            props.setSettings(
+                {...props.settings, 
+                    cards,
+                    others:{
+                        cd_name: result.data?.getCurrentGame?.category[0].cd_name,
+                        cd_resume: result.data?.getCurrentGame?.category[0].cd_resume,
+                    }
+                },
+            1)       
+
+            setFamilyGroupNum({...familyGroupNum, group: result.data?.getCurrentGame?.game.length, family: result.data?.getCurrentGame?.family.length})
+            Next2()
+        })
+    }
+
+    // useEffect(() => {
+    //     // console.log(props.settings)
+    // }, [props.settings])
+
+
 
     useEffect(() => {
         if(step == 0){
@@ -30,14 +91,17 @@ export const Step1: React.FC<StepProps> = (props) => {
         <>  
              {step == 1 || step != 0 ? 
                 <Step2 
-                    group={props.group}
+                    group={props.group || familyGroupNum.family}
                     setGroup={props.setGroup}
                     handleChange={props.handleChange}
                     settings={props.settings}
                     setSettings={props.setSettings}
                     handleChangeButtons={props.handleChangeButtons}
-                    family={props.family}
+                    family={props.family || (familyGroupNum.group/familyGroupNum.family)}
                     setFamily={props.setFamily}
+                    isCurrentGame={isCurrentGame}
+                    idCreator={idCreator}
+                    idCard={idCard}
                 />
             : 
                 
@@ -60,8 +124,9 @@ export const Step1: React.FC<StepProps> = (props) => {
                                                     width="160"
                                                     height="90"
                                                     className="logoico"
+                                                    onClick={() => openGame(e.cd_id, e.cd_userid)}
                                                 />
-                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">{countCards} cartes</span></p>
+                                                <p><span className="name">{e.cd_name}</span><br /><span className="number">{e.cd_count} cartes</span></p>
                                             </span>
                                         </>
                                     )
@@ -76,7 +141,7 @@ export const Step1: React.FC<StepProps> = (props) => {
                         isImage={false}
                         link=""
                         isClick={true}
-                        click={Next}
+                        click={() => {Next(); noEditMode();}}
                     />
                 </span>                
             } 

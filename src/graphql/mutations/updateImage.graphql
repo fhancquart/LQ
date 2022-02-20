@@ -1,0 +1,10 @@
+mutation updateImage(
+  $cg_category: Float!
+  $cg_family: Float!
+  $cg_number: Float!
+  $cg_image: String!
+){
+  updateImage(cg_category: $cg_category, cg_family: $cg_family, cg_number: $cg_number, cg_image: $cg_image) {
+    cg_image
+  }
+}

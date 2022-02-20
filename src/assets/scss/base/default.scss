@@ -425,7 +425,6 @@ img {
 }
 
 .card {
-    background-image: url("http://learnerquiz.info/img/back-family.png");
     background-repeat: no-repeat;
     width: 14em;
     height: 20em;
@@ -482,6 +481,10 @@ img {
             opacity: .35;
             position: relative;
             top: 1em;
+            cursor: $cursor;
+        }
+        .pictoCard{
+            cursor: $cursor;
         }
     }
     .back-family {

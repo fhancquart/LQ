@@ -29,7 +29,8 @@ export const Step2: React.FC<StepProps> = (props) => {
         cd_name: props.settings.others.cd_name,
         cd_link: props.settings.others.cd_name,
         cd_resume: props.settings.others.cd_resume,
-        cd_id: idCard!
+        cd_id: idCard! || props.idCard,
+        cd_count: props.group * props.family
     };
 
 
@@ -46,8 +47,9 @@ export const Step2: React.FC<StepProps> = (props) => {
                     handleChangeButtons={props.handleChangeButtons}
                     family={props.family}
                     group={props.group}
-                    idCard={idCard}
+                    idCard={idCard || props.idCard}
                     idCreator={idCreator}
+                    isCurrentGame={props.isCurrentGame}
                 />
             :                 
                 <span className="step2">
@@ -57,20 +59,22 @@ export const Step2: React.FC<StepProps> = (props) => {
                     <Formik
                         initialValues={{cd_name: "", cd_link: "", cd_resume: ""}}
                         onSubmit={async () => {
-                            if (meData?.me?.id == idCreator){
+                            if (meData?.me?.id == idCreator || meData?.me?.id == props.idCreator){
                                 await updateCategory({variables: datas});
                                 Next();
                             } else{
                                 const test = await isPackNameExisting({variables: {cd_name: props.settings.others.cd_name}})
-                                if(test.data?.isPackNameExisting?.message == "existe"){
+                                if(test.data?.isPackNameExisting?.message == "existe" && props.isCurrentGame == false){
                                     setActive();
                                     setTimeout(() => {
                                         setDesactive()
                                     }, 3000);
                                 } else{
-                                    const response = await category({variables: {input: datas}}) 
-                                    setIdCard(response.data?.category.cd_id)
-                                    setIdCreator(response.data?.category.cd_userid)
+                                    if(props.isCurrentGame == false){
+                                        const response = await category({variables: {input: datas}}) 
+                                        setIdCard(response.data?.category.cd_id)
+                                        setIdCreator(response.data?.category.cd_userid)
+                                    }
                                     Next();
                                 }
                             }                                                               

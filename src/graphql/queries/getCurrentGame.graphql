@@ -1,0 +1,21 @@
+mutation getCurrentGame($cd_id: Float!){
+  getCurrentGame(cd_id: $cd_id) {
+     category {
+      cd_name
+      cd_resume
+    }
+    family {
+      cf_category
+      cf_number
+      cf_name
+      cf_color
+    }
+    game {
+      cg_family
+      cg_number
+      cg_question
+      cg_reponse
+      cg_image
+    }
+  }
+}

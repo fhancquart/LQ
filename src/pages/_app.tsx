@@ -27,20 +27,20 @@ function MyApp({ Component, pageProps } : any) {
               setDesactive: () => setBackground({type: "desactive"}),
           }}>
           <Pyro />
-          <Conteneur isDark={isDark} setIsDark={setIsDark}>
-              <ModalContext.Provider value={{
+          <ModalContext.Provider value={{
                   active: modal.active,
                   setActive: () => setModal({type: "active"}),
                   setDesactive: () => setModal({type: "desactive"}),
-              }}>                
-                  <Modal 
-                      toggle={toggle} 
-                      title={json.NameCard.Title}
-                      text={json.NameCard.Text}
-                  />
-                  <Component {...pageProps} />
-              </ModalContext.Provider>
-          </Conteneur>
+              }}>
+                <Conteneur isDark={isDark} setIsDark={setIsDark}>                
+                    <Modal 
+                        toggle={toggle} 
+                        title={json.NameCard.Title}
+                        text={json.NameCard.Text}
+                    />
+                    <Component {...pageProps} />
+                </Conteneur>
+          </ModalContext.Provider>
         </BackgroundContext.Provider>
     </>
   )

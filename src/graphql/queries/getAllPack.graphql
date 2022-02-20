@@ -4,6 +4,8 @@ query getAllPack{
             cd_id
             cd_name
             cd_resume
+            cd_userid
+            cd_count
         }
     }
 }

@@ -1,18 +1,18 @@
 import React from "react";
 import Image from 'next/image';
-import { spawn } from "child_process";
 
 
 interface CardProps {
     color: any
     family: string
-    visual?: string | undefined
     number: number
     image?: number | string
     question: string
     reponse: string
     cardColorRef?: any
     hasEmptyVisual?: boolean
+    setOpen?: any
+    open?: any
 }
 
 export const Card: React.FC<CardProps> = (props) => {
@@ -28,7 +28,7 @@ export const Card: React.FC<CardProps> = (props) => {
                 <span className="back-cardnum fun-font">{props.number}</span>             
                 <span className="your-visual fun-font">
                     {props.image == undefined || props.image == "" ?  
-                        <span className="empty">Votre visuel</span> 
+                        <span className="empty" onClick={() => props.setOpen(props.open == false ? true : false)}>Votre visuel</span> 
                     :
                         <Image 
                             loader={myLoader}
@@ -37,6 +37,7 @@ export const Card: React.FC<CardProps> = (props) => {
                             width="120"
                             height="120"
                             className="pictoCard"
+                            onClick={() => props.setOpen(props.open == false ? true : false)}
                         />
                     }
                 </span>

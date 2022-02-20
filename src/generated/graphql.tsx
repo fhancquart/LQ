@@ -16,27 +16,29 @@ export type Scalars = {
 
 export type Cards_Category = {
   __typename?: 'Cards_category';
+  cd_count: Scalars['Float'];
   cd_id: Scalars['Float'];
-  cd_userid: Scalars['Float'];
-  cd_name: Scalars['String'];
   cd_link: Scalars['String'];
+  cd_name: Scalars['String'];
   cd_resume: Scalars['String'];
+  cd_userid: Scalars['Float'];
 };
 
 export type Cards_Family = {
   __typename?: 'Cards_family';
-  cf_id: Scalars['Float'];
   cf_category: Scalars['Float'];
-  cf_number: Scalars['Float'];
-  cf_name: Scalars['String'];
   cf_color: Scalars['String'];
+  cf_id: Scalars['Float'];
+  cf_name: Scalars['String'];
+  cf_number: Scalars['Float'];
 };
 
 export type Cards_Game = {
   __typename?: 'Cards_game';
-  cg_id: Scalars['Float'];
   cg_category: Scalars['Float'];
   cg_family: Scalars['Float'];
+  cg_id: Scalars['Float'];
+  cg_image?: Maybe<Scalars['String']>;
   cg_number: Scalars['Float'];
   cg_question: Scalars['String'];
   cg_reponse: Scalars['String'];
@@ -53,8 +55,8 @@ export type Cards_Image = {
 export type Cards_Tags = {
   __typename?: 'Cards_tags';
   tag_id: Scalars['Float'];
-  tag_num: Scalars['Float'];
   tag_name: Scalars['String'];
+  tag_num: Scalars['Float'];
 };
 
 export type FieldError = {
@@ -70,24 +72,63 @@ export type FieldName = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  register: UserResponse;
+  category: Cards_Category;
+  family: Cards_Family;
+  game: FieldName;
+  getCurrentGame?: Maybe<CurrentGame>;
+  getImagesByTags: AllImages;
+  isFamilyNameExist?: Maybe<FieldName>;
+  isGameExist?: Maybe<FieldName>;
+  isPackNameExisting?: Maybe<FieldName>;
   login: UserResponse;
   logout: Scalars['Boolean'];
-  category: Cards_Category;
+  register: UserResponse;
   updateCategory?: Maybe<Cards_Category>;
-  isPackNameExisting?: Maybe<FieldName>;
-  family: Cards_Family;
-  isFamilyNameExist?: Maybe<FieldName>;
   updateFamily?: Maybe<Cards_Family>;
-  game: FieldName;
-  isGameExist?: Maybe<FieldName>;
   updateGame?: Maybe<Cards_Game>;
-  getImagesByTags: AllImages;
+  updateImage?: Maybe<Cards_Game>;
 };
 
 
-export type MutationRegisterArgs = {
-  options: UsernamePasswordinput;
+export type MutationCategoryArgs = {
+  options: CategoryFields;
+};
+
+
+export type MutationFamilyArgs = {
+  options: FamilyFields;
+};
+
+
+export type MutationGameArgs = {
+  options: CategoryGameFields;
+};
+
+
+export type MutationGetCurrentGameArgs = {
+  cd_id: Scalars['Float'];
+};
+
+
+export type MutationGetImagesByTagsArgs = {
+  img_tag1: Scalars['Float'];
+  img_tag2?: Maybe<Scalars['Float']>;
+};
+
+
+export type MutationIsFamilyNameExistArgs = {
+  cf_category: Scalars['Float'];
+  cf_number: Scalars['Float'];
+};
+
+
+export type MutationIsGameExistArgs = {
+  cg_category: Scalars['Float'];
+};
+
+
+export type MutationIsPackNameExistingArgs = {
+  cd_name: Scalars['String'];
 };
 
 
@@ -97,74 +138,51 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationCategoryArgs = {
-  options: CategoryFields;
+export type MutationRegisterArgs = {
+  options: UsernamePasswordinput;
 };
 
 
 export type MutationUpdateCategoryArgs = {
+  cd_count: Scalars['Float'];
   cd_id: Scalars['Float'];
-  cd_resume: Scalars['String'];
   cd_link: Scalars['String'];
   cd_name: Scalars['String'];
-};
-
-
-export type MutationIsPackNameExistingArgs = {
-  cd_name: Scalars['String'];
-};
-
-
-export type MutationFamilyArgs = {
-  options: FamilyFields;
-};
-
-
-export type MutationIsFamilyNameExistArgs = {
-  cf_number: Scalars['Float'];
-  cf_category: Scalars['Float'];
+  cd_resume: Scalars['String'];
 };
 
 
 export type MutationUpdateFamilyArgs = {
-  cf_number: Scalars['Float'];
+  cf_category: Scalars['Float'];
   cf_color: Scalars['String'];
   cf_name: Scalars['String'];
-  cf_category: Scalars['Float'];
-};
-
-
-export type MutationGameArgs = {
-  options: CategoryGameFields;
-};
-
-
-export type MutationIsGameExistArgs = {
-  cg_category: Scalars['Float'];
+  cf_number: Scalars['Float'];
 };
 
 
 export type MutationUpdateGameArgs = {
-  cg_reponse: Scalars['String'];
-  cg_question: Scalars['String'];
-  cg_number: Scalars['Float'];
-  cg_family: Scalars['Float'];
   cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_question: Scalars['String'];
+  cg_reponse: Scalars['String'];
 };
 
 
-export type MutationGetImagesByTagsArgs = {
-  img_tag2?: Maybe<Scalars['Float']>;
-  img_tag1: Scalars['Float'];
+export type MutationUpdateImageArgs = {
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_image: Scalars['String'];
+  cg_number: Scalars['Float'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<User>;
-  getInfoPack?: Maybe<Cards_Category>;
   getAllPack: AllPack;
   getImages: AllImages;
+  getInfoPack?: Maybe<Cards_Category>;
   getTags: AllTags;
+  me?: Maybe<User>;
 };
 
 
@@ -174,11 +192,11 @@ export type QueryGetInfoPackArgs = {
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['Float'];
   createdAt: Scalars['String'];
+  email: Scalars['String'];
+  id: Scalars['Float'];
   updatedAt: Scalars['String'];
   username: Scalars['String'];
-  email: Scalars['String'];
 };
 
 export type UserResponse = {
@@ -189,8 +207,8 @@ export type UserResponse = {
 
 export type UsernamePasswordinput = {
   email: Scalars['String'];
-  username: Scalars['String'];
   password: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type AllImages = {
@@ -209,8 +227,9 @@ export type AllTags = {
 };
 
 export type CategoryFields = {
-  cd_name: Scalars['String'];
+  cd_count: Scalars['Float'];
   cd_link: Scalars['String'];
+  cd_name: Scalars['String'];
   cd_resume: Scalars['String'];
 };
 
@@ -222,11 +241,18 @@ export type CategoryGameFields = {
   cg_reponse: Scalars['String'];
 };
 
+export type CurrentGame = {
+  __typename?: 'currentGame';
+  category: Array<Cards_Category>;
+  family: Array<Cards_Family>;
+  game: Array<Cards_Game>;
+};
+
 export type FamilyFields = {
   cf_category: Scalars['Float'];
-  cf_number: Scalars['Float'];
-  cf_name: Scalars['String'];
   cf_color: Scalars['String'];
+  cf_name: Scalars['String'];
+  cf_number: Scalars['Float'];
 };
 
 export type RegularErrorFragment = (
@@ -259,7 +285,7 @@ export type CategoryMutation = (
   { __typename?: 'Mutation' }
   & { category: (
     { __typename?: 'Cards_category' }
-    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume'>
+    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume' | 'cd_count'>
   ) }
 );
 
@@ -346,6 +372,7 @@ export type UpdateCategoryMutationVariables = Exact<{
   cd_link: Scalars['String'];
   cd_resume: Scalars['String'];
   cd_id: Scalars['Float'];
+  cd_count: Scalars['Float'];
 }>;
 
 
@@ -353,7 +380,7 @@ export type UpdateCategoryMutation = (
   { __typename?: 'Mutation' }
   & { updateCategory?: Maybe<(
     { __typename?: 'Cards_category' }
-    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume'>
+    & Pick<Cards_Category, 'cd_id' | 'cd_userid' | 'cd_name' | 'cd_link' | 'cd_resume' | 'cd_count'>
   )> }
 );
 
@@ -390,6 +417,22 @@ export type UpdateGameMutation = (
   )> }
 );
 
+export type UpdateImageMutationVariables = Exact<{
+  cg_category: Scalars['Float'];
+  cg_family: Scalars['Float'];
+  cg_number: Scalars['Float'];
+  cg_image: Scalars['String'];
+}>;
+
+
+export type UpdateImageMutation = (
+  { __typename?: 'Mutation' }
+  & { updateImage?: Maybe<(
+    { __typename?: 'Cards_game' }
+    & Pick<Cards_Game, 'cg_image'>
+  )> }
+);
+
 export type GetAllPackQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -399,9 +442,31 @@ export type GetAllPackQuery = (
     { __typename?: 'allPack' }
     & { pack: Array<(
       { __typename?: 'Cards_category' }
-      & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume'>
+      & Pick<Cards_Category, 'cd_id' | 'cd_name' | 'cd_resume' | 'cd_userid' | 'cd_count'>
     )> }
   ) }
+);
+
+export type GetCurrentGameMutationVariables = Exact<{
+  cd_id: Scalars['Float'];
+}>;
+
+
+export type GetCurrentGameMutation = (
+  { __typename?: 'Mutation' }
+  & { getCurrentGame?: Maybe<(
+    { __typename?: 'currentGame' }
+    & { category: Array<(
+      { __typename?: 'Cards_category' }
+      & Pick<Cards_Category, 'cd_name' | 'cd_resume'>
+    )>, family: Array<(
+      { __typename?: 'Cards_family' }
+      & Pick<Cards_Family, 'cf_category' | 'cf_number' | 'cf_name' | 'cf_color'>
+    )>, game: Array<(
+      { __typename?: 'Cards_game' }
+      & Pick<Cards_Game, 'cg_family' | 'cg_number' | 'cg_question' | 'cg_reponse' | 'cg_image'>
+    )> }
+  )> }
 );
 
 export type GetInfoPackQueryVariables = Exact<{
@@ -513,6 +578,7 @@ export const CategoryDocument = gql`
     cd_name
     cd_link
     cd_resume
+    cd_count
   }
 }
     `;
@@ -746,18 +812,20 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UpdateCategoryDocument = gql`
-    mutation updateCategory($cd_name: String!, $cd_link: String!, $cd_resume: String!, $cd_id: Float!) {
+    mutation updateCategory($cd_name: String!, $cd_link: String!, $cd_resume: String!, $cd_id: Float!, $cd_count: Float!) {
   updateCategory(
     cd_name: $cd_name
     cd_link: $cd_link
     cd_resume: $cd_resume
     cd_id: $cd_id
+    cd_count: $cd_count
   ) {
     cd_id
     cd_userid
     cd_name
     cd_link
     cd_resume
+    cd_count
   }
 }
     `;
@@ -780,6 +848,7 @@ export type UpdateCategoryMutationFn = Apollo.MutationFunction<UpdateCategoryMut
  *      cd_link: // value for 'cd_link'
  *      cd_resume: // value for 'cd_resume'
  *      cd_id: // value for 'cd_id'
+ *      cd_count: // value for 'cd_count'
  *   },
  * });
  */
@@ -875,6 +944,47 @@ export function useUpdateGameMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateGameMutationHookResult = ReturnType<typeof useUpdateGameMutation>;
 export type UpdateGameMutationResult = Apollo.MutationResult<UpdateGameMutation>;
 export type UpdateGameMutationOptions = Apollo.BaseMutationOptions<UpdateGameMutation, UpdateGameMutationVariables>;
+export const UpdateImageDocument = gql`
+    mutation updateImage($cg_category: Float!, $cg_family: Float!, $cg_number: Float!, $cg_image: String!) {
+  updateImage(
+    cg_category: $cg_category
+    cg_family: $cg_family
+    cg_number: $cg_number
+    cg_image: $cg_image
+  ) {
+    cg_image
+  }
+}
+    `;
+export type UpdateImageMutationFn = Apollo.MutationFunction<UpdateImageMutation, UpdateImageMutationVariables>;
+
+/**
+ * __useUpdateImageMutation__
+ *
+ * To run a mutation, you first call `useUpdateImageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateImageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateImageMutation, { data, loading, error }] = useUpdateImageMutation({
+ *   variables: {
+ *      cg_category: // value for 'cg_category'
+ *      cg_family: // value for 'cg_family'
+ *      cg_number: // value for 'cg_number'
+ *      cg_image: // value for 'cg_image'
+ *   },
+ * });
+ */
+export function useUpdateImageMutation(baseOptions?: Apollo.MutationHookOptions<UpdateImageMutation, UpdateImageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateImageMutation, UpdateImageMutationVariables>(UpdateImageDocument, options);
+      }
+export type UpdateImageMutationHookResult = ReturnType<typeof useUpdateImageMutation>;
+export type UpdateImageMutationResult = Apollo.MutationResult<UpdateImageMutation>;
+export type UpdateImageMutationOptions = Apollo.BaseMutationOptions<UpdateImageMutation, UpdateImageMutationVariables>;
 export const GetAllPackDocument = gql`
     query getAllPack {
   getAllPack {
@@ -882,6 +992,8 @@ export const GetAllPackDocument = gql`
       cd_id
       cd_name
       cd_resume
+      cd_userid
+      cd_count
     }
   }
 }
@@ -913,6 +1025,55 @@ export function useGetAllPackLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetAllPackQueryHookResult = ReturnType<typeof useGetAllPackQuery>;
 export type GetAllPackLazyQueryHookResult = ReturnType<typeof useGetAllPackLazyQuery>;
 export type GetAllPackQueryResult = Apollo.QueryResult<GetAllPackQuery, GetAllPackQueryVariables>;
+export const GetCurrentGameDocument = gql`
+    mutation getCurrentGame($cd_id: Float!) {
+  getCurrentGame(cd_id: $cd_id) {
+    category {
+      cd_name
+      cd_resume
+    }
+    family {
+      cf_category
+      cf_number
+      cf_name
+      cf_color
+    }
+    game {
+      cg_family
+      cg_number
+      cg_question
+      cg_reponse
+      cg_image
+    }
+  }
+}
+    `;
+export type GetCurrentGameMutationFn = Apollo.MutationFunction<GetCurrentGameMutation, GetCurrentGameMutationVariables>;
+
+/**
+ * __useGetCurrentGameMutation__
+ *
+ * To run a mutation, you first call `useGetCurrentGameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentGameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [getCurrentGameMutation, { data, loading, error }] = useGetCurrentGameMutation({
+ *   variables: {
+ *      cd_id: // value for 'cd_id'
+ *   },
+ * });
+ */
+export function useGetCurrentGameMutation(baseOptions?: Apollo.MutationHookOptions<GetCurrentGameMutation, GetCurrentGameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GetCurrentGameMutation, GetCurrentGameMutationVariables>(GetCurrentGameDocument, options);
+      }
+export type GetCurrentGameMutationHookResult = ReturnType<typeof useGetCurrentGameMutation>;
+export type GetCurrentGameMutationResult = Apollo.MutationResult<GetCurrentGameMutation>;
+export type GetCurrentGameMutationOptions = Apollo.BaseMutationOptions<GetCurrentGameMutation, GetCurrentGameMutationVariables>;
 export const GetInfoPackDocument = gql`
     query getInfoPack($cd_id: Float!) {
   getInfoPack(cd_id: $cd_id) {

@@ -3,17 +3,20 @@ mutation updateCategory(
   $cd_link: String!
   $cd_resume: String!
   $cd_id: Float!
+  $cd_count: Float!
 ) {
   updateCategory(
     cd_name: $cd_name
     cd_link: $cd_link
     cd_resume: $cd_resume
     cd_id: $cd_id
+    cd_count: $cd_count
   ) {
     cd_id
     cd_userid
     cd_name
     cd_link
     cd_resume
+    cd_count
   }
 }

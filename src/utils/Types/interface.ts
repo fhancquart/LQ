@@ -9,6 +9,7 @@ export interface StepProps {
     setGroup?: any
     idCard?: any
     idCreator?: any
+    isCurrentGame?: boolean
 }
 
 export interface EditFieldsProps {

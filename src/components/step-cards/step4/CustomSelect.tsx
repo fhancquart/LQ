@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from 'next/image';
-import { useGetImagesByTagsMutation, useGetTagsQuery } from "../../../generated/graphql";
+import { useGetImagesByTagsMutation, useGetTagsQuery, useUpdateImageMutation } from "../../../generated/graphql";
 import { NavCategory } from "./NavCategory";
 import useOnClick from "../../../utils/CustomHooks/useOnClick";
 
@@ -10,15 +10,18 @@ interface CustomSelectProps{
     nameSelect: string
     carte: number
     color: any
-    setVisual: any
-    visual: any
+    idCard: any
+    group: any
+    family: any
+    setOpen: any
+    open: any
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
-    const [open, setOpen] = useState(false);
     const [menuImages, setMenuImages] = useState(false);
     const [go, setGo] = useState(false);
+    const [selected, setSelected] = useState(0);
 
     const [first, setFirst] = useState(true);
     const [category, setCategory] = useState("");
@@ -35,37 +38,42 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     const {data: data} = useGetTagsQuery();
     const [images] = useGetImagesByTagsMutation();
+    const [updateImage] = useUpdateImageMutation();
 
     const ref = useRef<HTMLDivElement>(null); // .listing
     const ref2 = useRef<HTMLDivElement>(null); // .listing
-    useOnClick(ref, () => setOpen(false));
+    useOnClick(ref, () => props.setOpen(false));
     useOnClick(ref2, () => setMenuImages(false));
-
-    let event = {
+    
+    const [event, setEvent] = useState({
         target : {
-            name : `image-${props.carte}`,
-            value: props.visual //remplacer par props.image, doit etre un context avec Card et step4
+            name : "", 
+            value: ""
         }
-    }
+    });
+
+    useEffect(() => {
+        props.handleChange(event,2, props.carte, props.famille-1)
+        updateImage({variables:{cg_category: props.idCard, cg_family: props.famille, cg_number: props.carte, cg_image: event.target.value}})
+    }, [event])
 
     return(
         <>
             <span className="select">
 
-                <span className="customSelect" onClick={() => setOpen(open == false ? true : false)}>
+                <span className="customSelect" onClick={() => props.setOpen(props.open == false ? true : false)}>
                     <span className="choose">Choisissez une catégorie</span>
                 </span>
 
                 {/* Ecran 1 */}
-                {open && !menuImages &&
+                {props.open && !menuImages &&
                     <span className="listing" ref={ref}>
                         {data?.getTags.tags.map((v:any,i:number) => {
 
                             return(
                                 <p data-value={v.tag_num} onClick={async () => {
-                                    setOpen(false);
+                                    props.setOpen(false);
                                     setMenuImages(true);
-                                    //await props.handleChange(event,2, props.carte, props.famille-1); //gère le visu front
                                     if (!first || !deleteCategory && !deleteSecondCategory){  
                                         const getImages = await images({variables: {img_tag1: idCategory, img_tag2: i+1}}); 
                                         setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
@@ -77,7 +85,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                         setAllImages({...allImages, img_name : getImages.data?.getImagesByTags.images});
                                         setCategory(v.tag_name);
                                         setDeleteCategory(false); 
-                                        // setDeleteSecondCategory(true); 
                                     }
 
                                 }}>{i+1} - {v.tag_name}</p>
@@ -93,7 +100,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                             <div className="navCat">
 
                                 <NavCategory 
-                                    setOpen={setOpen}
+                                    setOpen={props.setOpen}
                                     first={first}
                                     setFirst={setFirst}
                                     setDeleteCategory={setDeleteCategory}
@@ -108,14 +115,24 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                             </div>
                             <div className="allPictos">
                                 {go && 
-                                    allImages.img_name.map((i:any) => {
+                                    allImages.img_name.map((v:any, i:any) => {
                                         
-                                        let visu = `http://learnerquiz.info/img/pictos/${i.img_name}`;
-                                        const myLoader = () => {return visu}
+                                        const myLoader = () => {
+                                            return `/SVG/visus/${v.img_name}`
+                                        }
 
                                         return (
                                             <>  
-                                                <span className="globPicto" onClick={() => {props.setVisual(visu); props.handleChange(event,2, props.carte, props.famille-1); }}>
+                                                <span key={i} className={`${selected == i ? "selected" : ""} globPicto`} onClick={async (e: any) => {
+                                                    setEvent({
+                                                        ...event as any, 
+                                                        target:{
+                                                                ...event.target as any, 
+                                                                value: `/SVG/visus/${v.img_name}`, 
+                                                                name: `image-${props.carte}`
+                                                            }
+                                                        });
+                                                }}>
                                                     <Image 
                                                         loader={myLoader}
                                                         src="me.png"
@@ -123,13 +140,13 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props) => {
                                                         width="50"
                                                         height="50"
                                                         className="pictoCard"
-                                                        onClick={() => {
+                                                        onClick={(e: any) => {
                                                             setMenuImages(false);
-                                                            console.log(props.visual)
+                                                            setSelected(i)
                                                         }}
                                                     />
                                                     <style jsx global>{`
-                                                        .globPicto:hover{
+                                                        .globPicto:hover, .selected{
                                                             background-color: ${props.color} !important;
                                                             border-color: ${props.color};
                                                         }
